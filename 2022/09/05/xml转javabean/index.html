@@ -18,22 +18,22 @@
   <link 
     rel="icon" 
     href="/">
-  <title>Hello World</title>
+  <title>Chun's Blog</title>
   
     
       <meta 
         property="og:title" 
-        content="Hello World">
+        content="Chun&#39;s Blog">
     
     
       <meta 
         property="og:url" 
-        content="http://example.com/2022/09/05/hello-world/index.html">
+        content="http://example.com/2022/09/05/xml%E8%BD%ACjavabean/index.html">
     
     
       <meta 
         property="og:img" 
-        content="http://img.chunge666.top/20220613190320.png">
+        content="http://img.chunge666.top/QQ图片20220905150341.jpg">
     
     
     
@@ -45,7 +45,7 @@
         content="2022-09-05">
       <meta 
         property="og:article:modified_time" 
-        content="2022-09-05">
+        content="2022-04-08">
       <meta 
         property="og:article:author" 
         content="Chun">
@@ -314,7 +314,7 @@
     style="padding-right: 2px;">
   </i>目录
 </div>
-<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B9%E6%8D%AE-xml-%E7%94%9F%E6%88%90-xsd-%E6%96%87%E4%BB%B6"><span class="toc-text">根据 xml 生成 xsd 文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B9%E6%8D%AE-xsd-%E7%94%9F%E6%88%90%E5%B8%A6%E6%9C%89-jaxb-%E6%B3%A8%E8%A7%A3%E7%9A%84-javabean"><span class="toc-text">根据 xsd 生成带有 jaxb 注解的 javabean</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#jaxb-%E5%B7%A5%E5%85%B7%E7%B1%BB"><span class="toc-text">jaxb 工具类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95"><span class="toc-text">测试</span></a></li></ol>
       </div>
     </article>
   
@@ -365,23 +365,14 @@
             </aside>
             <main class="main-column">
               
-  <div class="image-wrapper">
-    <img 
-      src="http://img.chunge666.top/20220613190320.png" 
-      data-src="http://img.chunge666.top/20220613190320.png"
-      srcset="data:image/svg+xml,%3Csvg%20xmlns=&#39;http://www.w3.org/2000/svg&#39;%20viewBox=&#39;0%200%20300%20300&#39;%3E%3C/svg%3E"
-      class="image lozad"
-      alt="Hello World thumbnail">
-  </div>
-
 <article class="card card-content">
   <header>
     <h1 class="post-title">
-      Hello World
+      
     </h1>
   </header>
   <div class="post-meta post-show-meta">
-    <time datetime="2022-09-05T05:10:33.810Z">
+    <time datetime="2022-09-05T07:40:16.775Z">
       <i 
         class="iconfont icon-calendar" 
         style="margin-right: 2px;">
@@ -391,7 +382,7 @@
     
     
       <span class="dot"></span>
-      <span>75 字</span>
+      <span>605 字</span>
     
   </div>
   
@@ -399,19 +390,34 @@
   <div 
     id="section" 
     class="post-content">
-    <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre class="highlight"><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre>
+    <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre class="highlight"><span class="line">$ hexo server</span><br></pre>
+<!-- code_chunk_output -->
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre class="highlight"><span class="line">$ hexo generate</span><br></pre>
+<ul>
+<li><a href="#%E6%A0%B9%E6%8D%AE-xml-%E7%94%9F%E6%88%90-xsd-%E6%96%87%E4%BB%B6">根据 xml 生成 xsd 文件</a></li>
+<li><a href="#%E6%A0%B9%E6%8D%AE-xsd-%E7%94%9F%E6%88%90%E5%B8%A6%E6%9C%89-jaxb-%E6%B3%A8%E8%A7%A3%E7%9A%84-javabean">根据 xsd 生成带有 jaxb 注解的 javabean</a></li>
+<li><a href="#jaxb-%E5%B7%A5%E5%85%B7%E7%B1%BB">jaxb 工具类</a></li>
+<li><a href="#%E6%B5%8B%E8%AF%95">测试</a></li>
+</ul>
+<!-- /code_chunk_output -->
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre class="highlight"><span class="line">$ hexo deploy</span><br></pre>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<h3 id="根据-xml-生成-xsd-文件"><a href="#根据-xml-生成-xsd-文件" class="headerlink" title="根据 xml 生成 xsd 文件"></a>根据 xml 生成 xsd 文件</h3><p>使用 idea 打开 xml 文件, 鼠标右键点击, 然后点击如下图位置生成 xsd 文件, 注意要选择 <code>local elements/types</code></p>
+<p><img src="http://img.chunge666.top/QQ%E5%9B%BE%E7%89%8720190812113605.png" alt="image" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="http://img.chunge666.top/QQ%E5%9B%BE%E7%89%8720190812113605.png" class="lozad post-image"></p>
+<p><img src="http://img.chunge666.top/xml02.png" alt="image" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="http://img.chunge666.top/xml02.png" class="lozad post-image"></p>
+<h3 id="根据-xsd-生成带有-jaxb-注解的-javabean"><a href="#根据-xsd-生成带有-jaxb-注解的-javabean" class="headerlink" title="根据 xsd 生成带有 jaxb 注解的 javabean"></a>根据 xsd 生成带有 jaxb 注解的 javabean</h3><p><img src="http://img.chunge666.top/xml03.png" alt="image" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="http://img.chunge666.top/xml03.png" class="lozad post-image"></p>
+<p><img src="http://img.chunge666.top/xml04.png" alt="image" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="http://img.chunge666.top/xml04.png" class="lozad post-image"></p>
+<h3 id="jaxb-工具类"><a href="#jaxb-工具类" class="headerlink" title="jaxb 工具类"></a>jaxb 工具类</h3><pre class="highlight"><span class="line"><span class="keyword">import</span> javax.xml.bind.JAXBContext;</span><br><span class="line"><span class="keyword">import</span> javax.xml.bind.Marshaller;</span><br><span class="line"><span class="keyword">import</span> javax.xml.bind.Unmarshaller;</span><br><span class="line"><span class="keyword">import</span> java.io.StringReader;</span><br><span class="line"><span class="keyword">import</span> java.io.StringWriter;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Jaxb2工具类</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>   zhuc</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@create</span>   2013-3-29 下午2:40:14</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JaxbUtil</span> &#123;</span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * JavaBean转换成xml</span></span><br><span class="line"><span class="comment">   * 默认编码UTF-8</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@param</span> obj</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@param</span> writer</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">convertToXml</span><span class="params">(Object obj)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> convertToXml(obj, <span class="string">&quot;UTF-8&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * JavaBean转换成xml</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@param</span> obj</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@param</span> encoding</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">convertToXml</span><span class="params">(Object obj, String encoding)</span> &#123;</span><br><span class="line">    <span class="type">String</span> <span class="variable">result</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="type">JAXBContext</span> <span class="variable">context</span> <span class="operator">=</span> JAXBContext.newInstance(obj.getClass());</span><br><span class="line">      <span class="type">Marshaller</span> <span class="variable">marshaller</span> <span class="operator">=</span> context.createMarshaller();</span><br><span class="line">      marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, <span class="literal">true</span>);</span><br><span class="line">      marshaller.setProperty(Marshaller.JAXB_ENCODING, encoding);</span><br><span class="line">      <span class="type">StringWriter</span> <span class="variable">writer</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringWriter</span>();</span><br><span class="line">      marshaller.marshal(obj, writer);</span><br><span class="line">      result = writer.toString();</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">      e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * xml转换成JavaBean</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@param</span> xml</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@param</span> c</span></span><br><span class="line"><span class="comment">   * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="meta">@SuppressWarnings(&quot;unchecked&quot;)</span></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> &lt;T&gt; T <span class="title function_">converyToJavaBean</span><span class="params">(String xml, Class&lt;T&gt; c)</span> &#123;</span><br><span class="line">    <span class="type">T</span> <span class="variable">t</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="type">JAXBContext</span> <span class="variable">context</span> <span class="operator">=</span> JAXBContext.newInstance(c);</span><br><span class="line">      <span class="type">Unmarshaller</span> <span class="variable">unmarshaller</span> <span class="operator">=</span> context.createUnmarshaller();</span><br><span class="line">      t = (T) unmarshaller.unmarshal(<span class="keyword">new</span> <span class="title class_">StringReader</span>(xml));</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">      e.printStackTrace();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> t;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre>
+
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><pre class="highlight"><span class="line"><span class="keyword">import</span> com.caac.imf.api.IMFClient;</span><br><span class="line"><span class="keyword">import</span> com.caac.imf.api.IMFClientFactory;</span><br><span class="line"><span class="keyword">import</span> com.chun.test.xml.JaxbUtil;</span><br><span class="line"><span class="keyword">import</span> com.chun.test.xml.MSG;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Author</span> chun</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Date</span> 2019/7/26 10:58</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">test</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">xml</span> <span class="operator">=</span> <span class="string">&quot;&lt;?xml version=\&quot;1.0\&quot; encoding=\&quot;UTF-8\&quot;?&gt;&quot;</span> +</span><br><span class="line">                <span class="string">&quot;&lt;MSG&gt;&quot;</span> +</span><br><span class="line">                <span class="string">&quot;    &lt;META&gt;&quot;</span> +</span><br><span class="line">                <span class="string">&quot;        &lt;SNDR&gt;FIMS&lt;/SNDR&gt;&quot;</span> +</span><br><span class="line">                <span class="string">&quot;        &lt;RCVR&gt;&lt;/RCVR&gt;&quot;</span> +</span><br><span class="line">                <span class="string">&quot;        &lt;SEQN&gt;1&lt;/SEQN&gt;&quot;</span> +</span><br><span class="line">                <span class="string">&quot;        &lt;DDTM&gt;2010010223000&lt;/DDTM&gt;&quot;</span> +</span><br><span class="line">                <span class="string">&quot;        &lt;TYPE&gt;DFOE&lt;/TYPE&gt;&quot;</span> +</span><br><span class="line">                <span class="string">&quot;        &lt;STYP&gt;DFDE&lt;/STYP&gt;&quot;</span> +</span><br><span class="line">                <span class="string">&quot;    &lt;/META&gt;&quot;</span> +</span><br><span class="line">                <span class="string">&quot;    &lt;DFLT&gt;&quot;</span> +</span><br><span class="line">                <span class="string">&quot;        &lt;FLID&gt;657423&lt;/FLID&gt;&quot;</span> +</span><br><span class="line">                <span class="string">&quot;        &lt;FFID&gt;3U-8898-20100103081030-A&lt;/FFID&gt;&quot;</span> +</span><br><span class="line">                <span class="string">&quot;        &lt;FLTK&gt;W/Z&lt;/FLTK&gt;&quot;</span> +</span><br><span class="line">                <span class="string">&quot;    &lt;/DFLT&gt;&quot;</span> +</span><br><span class="line">                <span class="string">&quot;&lt;/MSG&gt;&quot;</span>;</span><br><span class="line">        <span class="type">MSG</span> <span class="variable">msg</span> <span class="operator">=</span> JaxbUtil.converyToJavaBean(xml, MSG.class);</span><br><span class="line">        System.out.println(msg.getDFLT().getFFID());</span><br><span class="line"></span><br><span class="line">        <span class="type">String</span> <span class="variable">res</span> <span class="operator">=</span> JaxbUtil.convertToXml(msg);</span><br><span class="line">        System.out.println(res);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre>
+
+<p>输出结果</p>
+<pre class="highlight"><span class="line">3U-8898-20100103081030-A</span><br><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;</span><br><span class="line">&lt;MSG&gt;</span><br><span class="line">    &lt;META&gt;</span><br><span class="line">        &lt;SNDR&gt;FIMS&lt;/SNDR&gt;</span><br><span class="line">        &lt;RCVR&gt;&lt;/RCVR&gt;</span><br><span class="line">        &lt;SEQN&gt;1&lt;/SEQN&gt;</span><br><span class="line">        &lt;DDTM&gt;2010010223000&lt;/DDTM&gt;</span><br><span class="line">        &lt;TYPE&gt;DFOE&lt;/TYPE&gt;</span><br><span class="line">        &lt;STYP&gt;DFDE&lt;/STYP&gt;</span><br><span class="line">    &lt;/META&gt;</span><br><span class="line">    &lt;DFLT&gt;</span><br><span class="line">        &lt;FLID&gt;657423&lt;/FLID&gt;</span><br><span class="line">        &lt;FFID&gt;3U-8898-20100103081030-A&lt;/FFID&gt;</span><br><span class="line">        &lt;FLTK&gt;W/Z&lt;/FLTK&gt;</span><br><span class="line">    &lt;/DFLT&gt;</span><br><span class="line">&lt;/MSG&gt;</span><br></pre>
+
+
+
+<p>参考链接：<br><a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_36874292/article/details/88687945">https://blog.csdn.net/qq_36874292/article/details/88687945</a></p>
 
   </div>
   <div>
@@ -431,8 +437,8 @@
           <span style="font-weight: bold;">文章链接：</span><a 
             target="_blank" 
             rel="nofollow noopener noreferrer" 
-            href="http://example.com/2022/09/05/hello-world/">
-            http://example.com/2022/09/05/hello-world/
+            href="http://example.com/2022/09/05/xml%E8%BD%ACjavabean/">
+            http://example.com/2022/09/05/xml%E8%BD%ACjavabean/
           </a>
         </p>
         <p><span style="font-weight: bold;">版权声明：</span>本博客所有文章除特别声明外，均采用<a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0 协议</a>。转载请注明出处！</p>
@@ -444,16 +450,30 @@
   
     <div class="nav-item-prev">
       <a 
-        href="/2022/09/05/centos7.9%E9%99%8D%E7%BA%A77.5/" 
+        href="/2022/09/05/%E8%A1%A8%E5%8D%95%E6%A0%A1%E9%AA%8C/" 
         class="nav-link">
         <i class="iconfont icon-left nav-prev-icon"></i>
         <div>
           <div class="nav-label">上一篇</div>
           
+            <div class="nav-title">表单校验 </div>
+          
         </div>
       </a>
     </div>
   
+  
+    <div class="nav-item-next">
+      <a 
+        href="/2022/09/05/redis%E4%BD%BF%E7%94%A8%E6%96%87%E6%A1%A3/" 
+        class="nav-link">
+        <div>
+          <div class="nav-label">下一篇</div>
+          
+        </div>
+        <i class="iconfont icon-right nav-next-icon"></i>
+      </a>
+    </div>
   
 </div>
 
@@ -502,7 +522,7 @@
     style="padding-right: 2px;">
   </i>目录
 </div>
-<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B9%E6%8D%AE-xml-%E7%94%9F%E6%88%90-xsd-%E6%96%87%E4%BB%B6"><span class="toc-text">根据 xml 生成 xsd 文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B9%E6%8D%AE-xsd-%E7%94%9F%E6%88%90%E5%B8%A6%E6%9C%89-jaxb-%E6%B3%A8%E8%A7%A3%E7%9A%84-javabean"><span class="toc-text">根据 xsd 生成带有 jaxb 注解的 javabean</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#jaxb-%E5%B7%A5%E5%85%B7%E7%B1%BB"><span class="toc-text">jaxb 工具类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95"><span class="toc-text">测试</span></a></li></ol>
 </div>
             </main>
             <aside class="right-column">
@@ -516,7 +536,7 @@
     style="padding-right: 2px;">
   </i>目录
 </div>
-<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+<ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B9%E6%8D%AE-xml-%E7%94%9F%E6%88%90-xsd-%E6%96%87%E4%BB%B6"><span class="toc-text">根据 xml 生成 xsd 文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%B9%E6%8D%AE-xsd-%E7%94%9F%E6%88%90%E5%B8%A6%E6%9C%89-jaxb-%E6%B3%A8%E8%A7%A3%E7%9A%84-javabean"><span class="toc-text">根据 xsd 生成带有 jaxb 注解的 javabean</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#jaxb-%E5%B7%A5%E5%85%B7%E7%B1%BB"><span class="toc-text">jaxb 工具类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95"><span class="toc-text">测试</span></a></li></ol>
     </article>
   
   

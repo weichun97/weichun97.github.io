@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+  <meta charset="UTF-8">
+  <meta 
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <meta 
+    http-equiv="X-UA-Compatible" 
+    content="ie=edge">
+  <meta 
+    name="theme-color" 
+    content="#fff" 
+    id="theme-color">
+  <meta 
+    name="description" 
+    content="chunge&#39;s blog">
+  <link 
+    rel="icon" 
+    href="/">
+  <title>Chun's Blog</title>
+  
+    
+      <meta 
+        property="og:title" 
+        content="Chun&#39;s Blog">
+    
+    
+      <meta 
+        property="og:url" 
+        content="http://example.com/2022/09/05/proxy%E5%AE%89%E8%A3%85/index.html">
+    
+    
+      <meta 
+        property="og:img" 
+        content="http://img.chunge666.top/QQ图片20220905150341.jpg">
+    
+    
+    
+      <meta 
+        property="og:type" 
+        content="article">
+      <meta 
+        property="og:article:published_time" 
+        content="2022-09-05">
+      <meta 
+        property="og:article:modified_time" 
+        content="2022-03-09">
+      <meta 
+        property="og:article:author" 
+        content="Chun">
+      
+        
+      
+    
+  
+  
+  <link rel="preload" href="//at.alicdn.com/t/font_1946621_i1kgafibvw.css" as="style" >
+  <link rel="preload" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css" as="style" >
+  <link rel="preload" href="/css/main.css" as="style" >
+  
+  <link rel="modulepreload" href="//instant.page/5.1.0">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1946621_i1kgafibvw.css">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css">
+  
+  
+  
+    <link rel="stylesheet" href="/js/lib/lightbox/baguetteBox.min.css">
+  
+  <script>
+    function loadScript(url, cb) {
+      var script = document.createElement('script');
+      script.src = url;
+      if (cb) script.onload = cb;
+      script.async = true;
+      document.body.appendChild(script);
+    }
+    function loadCSS(href, data, attr) {
+      var sheet = document.createElement('link');
+      sheet.ref = 'stylesheet';
+      sheet.href = href;
+      sheet.dataset[data] = attr;
+      document.head.appendChild(sheet);
+    }
+    function changeCSS(cssFile, data, attr) {
+      var oldlink = document.querySelector(data);
+      var newlink = document.createElement("link");
+      newlink.setAttribute("rel", "stylesheet");
+      newlink.setAttribute("href", cssFile);
+      newlink.dataset.prism = attr;
+      document.head.replaceChild(newlink, oldlink);
+    }
+  </script>
+  
+    
+  
+  <script>
+    // control reverse button
+    var reverseDarkList = {
+      dark: 'light',
+      light: 'dark'
+    };
+    var themeColor = {
+      dark: '#1c1c1e',
+      light: '#fff'
+    }
+    // get the data of css prefers-color-scheme
+    var getCssMediaQuery = function() {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    };
+    // reverse current darkmode setting function
+    var reverseDarkModeSetting = function() {
+      var setting = localStorage.getItem('user-color-scheme');
+      if(reverseDarkList[setting]) {
+        setting = reverseDarkList[setting];
+      } else if(setting === null) {
+        setting = reverseDarkList[getCssMediaQuery()];
+      } else {
+        return;
+      }
+      localStorage.setItem('user-color-scheme', setting);
+      return setting;
+    };
+    // apply current darkmode setting
+  </script>
+  
+    <script>
+      var setDarkmode = function(mode) {
+      var setting = mode || localStorage.getItem('user-color-scheme');
+      if(setting === getCssMediaQuery()) {
+        document.documentElement.removeAttribute('data-user-color-scheme');
+        localStorage.removeItem('user-color-scheme');
+        document.getElementById('theme-color').content = themeColor[setting];
+        document.getElementById('theme-color').dataset.mode = setting;
+      } else if(reverseDarkList[setting]) {
+        document.documentElement.setAttribute('data-user-color-scheme', setting);
+        document.getElementById('theme-color').content = themeColor[setting];
+        document.getElementById('theme-color').dataset.mode = setting;
+      } else {
+        document.documentElement.removeAttribute('data-user-color-scheme');
+        localStorage.removeItem('user-color-scheme');
+        document.getElementById('theme-color').content = themeColor[getCssMediaQuery()];
+        document.getElementById('theme-color').dataset.mode = getCssMediaQuery();
+      }
+    };
+    setDarkmode();
+    </script>
+  
+  
+  
+    <link rel="preload" href="/js/lib/lightbox/baguetteBox.min.js" as="script">
+    <link rel="preload" href="/js/lib/lightbox/baguetteBox.min.css" as="style" >
+  
+  
+    <link rel="preload" href="/js/lib/lozad.min.js" as="script">
+  
+  
+  
+  
+  
+    
+    <link rel="prefetch" href="//unpkg.com/valine/dist/Valine.min.js" as="script">
+  
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+  <body>
+    <div class="wrapper">
+       
+      <nav class="navbar">
+  <div class="navbar-logo">
+    <a class="navbar-logo-main" href="/">
+      
+      <span class="navbar-logo-dsc">Chun's Blog</span>
+      </a>
+  </div>
+  <div class="navbar-menu">
+    
+      <a 
+        href="/" 
+        class="navbar-menu-item">
+        
+          首页
+        
+      </a>
+    
+      <a 
+        href="/archives" 
+        class="navbar-menu-item">
+        
+          归档
+        
+      </a>
+    
+      <a 
+        href="/tags" 
+        class="navbar-menu-item">
+        
+          标签
+        
+      </a>
+    
+      <a 
+        href="/categories" 
+        class="navbar-menu-item">
+        
+          分类
+        
+      </a>
+    
+      <a 
+        href="/about" 
+        class="navbar-menu-item">
+        
+          关于
+        
+      </a>
+    
+      <a 
+        href="/links" 
+        class="navbar-menu-item">
+        
+          友链
+        
+      </a>
+    
+    <button 
+      class="navbar-menu-item darknavbar navbar-menu-btn" 
+      aria-label="Toggle dark mode"
+      id="dark">
+      <i class="iconfont icon-weather"></i>
+    </button>
+    <button 
+      class="navbar-menu-item searchnavbar navbar-menu-btn" 
+      aria-label="Toggle search"
+      id="search">
+      <!-- <i 
+        class="iconfont icon-search" 
+        style="font-size: 1.2rem; font-weight: 400;">
+      </i> -->
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img"
+        class="iconify iconify--ion" width="28" height="28" preserveAspectRatio="xMidYMid meet" viewBox="0 0 512 512">
+        <path fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="28"
+          d="M256 80a176 176 0 1 0 176 176A176 176 0 0 0 256 80Z"></path>
+        <path fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="28"
+          d="M232 160a72 72 0 1 0 72 72a72 72 0 0 0-72-72Z"></path>
+        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="28"
+          d="M283.64 283.64L336 336"></path>
+      </svg>
+    </button>
+  </div>
+</nav> 
+      
+      <div 
+        id="local-search" 
+        style="display: none">
+        <input
+          class="navbar-menu-item"
+          id="search-input"
+          placeholder="请输入搜索内容..." />
+        <div id="search-content"></div>
+      </div>
+      
+      <div class="section-wrap">
+        <div class="container">
+          <div class="columns">
+            <aside class="left-column">
+              
+              <div class="card card-author">
+                
+  <img 
+    src="http://img.chunge666.top/QQ图片20220905150341.jpg" 
+    class="author-img"
+    width="88"
+    height="88"
+    alt="author avatar">
+
+<p class="author-name">Chun</p>
+<p class="author-description"></p>
+<div class="author-message">
+  <a 
+    class="author-posts-count" 
+    href="/archives">
+    <span>22</span>
+    <span>文章</span>
+  </a>
+  <a 
+    class="author-categories-count" 
+    href="/categories">
+    <span>1</span>
+    <span>分类</span>
+  </a>
+  <a 
+    class="author-tags-count" 
+    href="/tags">
+    <span>1</span>
+    <span>标签</span>
+  </a>
+</div>
+
+              </div>
+               <div class="sticky-tablet">
+  
+  
+    <article class="display-when-two-columns spacer">
+      <div class="card card-content toc-card">
+        <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>目录
+</div>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-text">安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#rpm-%E5%AE%89%E8%A3%85%E6%96%B9%E5%BC%8F"><span class="toc-text">rpm 安装方式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86"><span class="toc-text">服务管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8"><span class="toc-text">启动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%81%9C%E6%AD%A2"><span class="toc-text">停止</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8D%E5%90%AF"><span class="toc-text">重启</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E9%97%B4%E7%A7%BB%E5%8A%A8"><span class="toc-text">配置间移动</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE"><span class="toc-text">配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E8%B4%A6%E5%8F%B7%E5%AF%86%E7%A0%81"><span class="toc-text">设置账号密码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-text">添加后端服务器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%84%E5%A4%8D%E5%88%B6-MGR"><span class="toc-text">组复制 MGR</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mysql-%E7%94%A8%E6%88%B7"><span class="toc-text">mysql 用户</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sql%E7%BB%9F%E8%AE%A1"><span class="toc-text">sql统计</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%B9%E6%8D%AE%E6%80%BB%E6%89%A7%E8%A1%8C%E6%97%B6%E9%97%B4%E6%89%BE%E5%88%B0%E5%89%8D-5-%E4%B8%AA%E6%9F%A5%E8%AF%A2"><span class="toc-text">根据总执行时间找到前 5 个查询</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2%E6%AC%A1%E6%95%B0%E6%9C%80%E5%A4%9A%E7%9A%84-5-%E6%9D%A1sql"><span class="toc-text">查询次数最多的 5 条sql</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2%E6%9C%80%E8%80%97%E6%97%B6%E7%9A%84-5-%E6%9D%A1sql"><span class="toc-text">查询最耗时的 5 条sql</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E6%89%BE%E6%8C%89%E6%80%BB%E6%89%A7%E8%A1%8C%E6%97%B6%E9%97%B4%E5%89%8D-5%EF%BC%8C%E5%B9%B6%E4%B8%94%E6%9C%80%E7%9F%AD%E6%89%A7%E8%A1%8C%E6%97%B6%E9%97%B4%E8%87%B3%E5%B0%91%E4%B8%BA-1-%E6%AF%AB%E7%A7%92%EF%BC%9A"><span class="toc-text">查找按总执行时间前 5，并且最短执行时间至少为 1 毫秒：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E6%89%BE%E6%8C%89%E6%80%BB%E6%89%A7%E8%A1%8C%E6%97%B6%E9%97%B4%E6%8E%92%E5%BA%8F%E7%9A%84%E5%89%8D-5-%E4%B8%AA%E6%9F%A5%E8%AF%A2%EF%BC%8C%E5%B9%B3%E5%9D%87%E6%89%A7%E8%A1%8C%E6%97%B6%E9%97%B4%E8%87%B3%E5%B0%91%E4%B8%BA-1-%E7%A7%92%E3%80%82%E8%BF%98%E6%98%BE%E7%A4%BA%E6%80%BB%E6%89%A7%E8%A1%8C%E6%97%B6%E9%97%B4%E7%9A%84%E7%99%BE%E5%88%86%E6%AF%94%EF%BC%9A"><span class="toc-text">查找按总执行时间排序的前 5 个查询，平均执行时间至少为 1 秒。还显示总执行时间的百分比：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E6%89%BE%E6%8C%89%E6%80%BB%E6%89%A7%E8%A1%8C%E6%97%B6%E9%97%B4%E6%8E%92%E5%BA%8F%E7%9A%84%E5%89%8D-5-%E4%B8%AA%E6%9F%A5%E8%AF%A2%EF%BC%8C%E5%B9%B3%E5%9D%87%E6%89%A7%E8%A1%8C%E6%97%B6%E9%97%B4%E8%87%B3%E5%B0%91%E4%B8%BA-15-%E6%AF%AB%E7%A7%92%EF%BC%8C%E5%B9%B6%E6%98%BE%E7%A4%BA%E5%8D%A0%E6%80%BB%E6%89%A7%E8%A1%8C%E6%97%B6%E9%97%B4%E7%9A%84%E7%99%BE%E5%88%86%E6%AF%94%EF%BC%9A"><span class="toc-text">查找按总执行时间排序的前 5 个查询，平均执行时间至少为 15 毫秒，并显示占总执行时间的百分比：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%84%E5%88%99%E8%AE%BE%E7%BD%AE"><span class="toc-text">规则设置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9B%86%E7%BE%A4"><span class="toc-text">集群</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#proxy-%E9%9B%86%E7%BE%A4%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-text">proxy 集群服务器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE-proxy-%E7%9B%91%E6%8E%A7%E8%B4%A6%E5%8F%B7%E4%BF%A1%E6%81%AF"><span class="toc-text">设置 proxy 监控账号信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E5%90%8C%E6%AD%A5%E7%8A%B6%E6%80%81"><span class="toc-text">查看同步状态</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E5%9C%B0%E5%9D%80"><span class="toc-text">参考地址</span></a></li></ol>
+      </div>
+    </article>
+  
+  
+  <article class="card card-content categories-widget">
+    <div class="categories-card">
+  <div class="categories-header">
+    <i 
+      class="iconfont icon-fenlei" 
+      style="padding-right: 2px;">
+    </i>分类
+  </div>
+  <div class="categories-list">
+    
+      <a href="/categories/java/">
+        <div class="categories-list-item">
+          java
+          <span class="categories-list-item-badge">1</span>
+        </div>
+      </a>
+    
+  </div>
+</div>
+  </article>
+  
+  <article class="card card-content tags-widget">
+    <div class="tags-card">
+  <div class="tags-header">
+    <i 
+      class="iconfont icon-biaoqian" 
+      style="padding-right: 2px;">
+    </i>热门标签
+  </div>
+  <div class="tags-list">
+    
+      <a 
+        href="/tags/springboot/" 
+        title="springboot">
+        <div class="tags-list-item">springboot</div>
+      </a>
+    
+  </div>
+</div>
+  </article>
+  
+  
+</div>
+            </aside>
+            <main class="main-column">
+              
+<article class="card card-content">
+  <header>
+    <h1 class="post-title">
+      
+    </h1>
+  </header>
+  <div class="post-meta post-show-meta">
+    <time datetime="2022-09-05T07:40:16.765Z">
+      <i 
+        class="iconfont icon-calendar" 
+        style="margin-right: 2px;">
+      </i>
+      <span>2022-09-05</span>
+    </time>
+    
+    
+      <span class="dot"></span>
+      <span>2.3k 字</span>
+    
+  </div>
+  
+  </header>
+  <div 
+    id="section" 
+    class="post-content">
+    <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
+
+<!-- code_chunk_output -->
+
+<ul>
+<li><a href="#%E5%AE%89%E8%A3%85">安装</a><ul>
+<li><a href="#rpm-%E5%AE%89%E8%A3%85%E6%96%B9%E5%BC%8F">rpm 安装方式</a></li>
+</ul>
+</li>
+<li><a href="#%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86">服务管理</a><ul>
+<li><a href="#%E5%90%AF%E5%8A%A8">启动</a></li>
+<li><a href="#%E5%81%9C%E6%AD%A2">停止</a></li>
+<li><a href="#%E9%87%8D%E5%90%AF">重启</a></li>
+</ul>
+</li>
+<li><a href="#%E9%85%8D%E7%BD%AE%E9%97%B4%E7%A7%BB%E5%8A%A8">配置间移动</a></li>
+<li><a href="#%E9%85%8D%E7%BD%AE">配置</a><ul>
+<li><a href="#%E8%AE%BE%E7%BD%AE%E8%B4%A6%E5%8F%B7%E5%AF%86%E7%A0%81">设置账号密码</a></li>
+<li><a href="#%E6%B7%BB%E5%8A%A0%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1%E5%99%A8">添加后端服务器</a></li>
+<li><a href="#%E7%BB%84%E5%A4%8D%E5%88%B6-mgr">组复制 MGR</a></li>
+<li><a href="#mysql-%E7%94%A8%E6%88%B7">mysql 用户</a></li>
+<li><a href="#sql%E7%BB%9F%E8%AE%A1">sql统计</a><ul>
+<li><a href="#%E6%A0%B9%E6%8D%AE%E6%80%BB%E6%89%A7%E8%A1%8C%E6%97%B6%E9%97%B4%E6%89%BE%E5%88%B0%E5%89%8D-5-%E4%B8%AA%E6%9F%A5%E8%AF%A2">根据总执行时间找到前 5 个查询</a></li>
+<li><a href="#%E6%9F%A5%E8%AF%A2%E6%AC%A1%E6%95%B0%E6%9C%80%E5%A4%9A%E7%9A%84-5-%E6%9D%A1sql">查询次数最多的 5 条sql</a></li>
+<li><a href="#%E6%9F%A5%E8%AF%A2%E6%9C%80%E8%80%97%E6%97%B6%E7%9A%84-5-%E6%9D%A1sql">查询最耗时的 5 条sql</a></li>
+<li><a href="#%E6%9F%A5%E6%89%BE%E6%8C%89%E6%80%BB%E6%89%A7%E8%A1%8C%E6%97%B6%E9%97%B4%E5%89%8D-5%E5%B9%B6%E4%B8%94%E6%9C%80%E7%9F%AD%E6%89%A7%E8%A1%8C%E6%97%B6%E9%97%B4%E8%87%B3%E5%B0%91%E4%B8%BA-1-%E6%AF%AB%E7%A7%92">查找按总执行时间前 5，并且最短执行时间至少为 1 毫秒：</a></li>
+<li><a href="#%E6%9F%A5%E6%89%BE%E6%8C%89%E6%80%BB%E6%89%A7%E8%A1%8C%E6%97%B6%E9%97%B4%E6%8E%92%E5%BA%8F%E7%9A%84%E5%89%8D-5-%E4%B8%AA%E6%9F%A5%E8%AF%A2%E5%B9%B3%E5%9D%87%E6%89%A7%E8%A1%8C%E6%97%B6%E9%97%B4%E8%87%B3%E5%B0%91%E4%B8%BA-1-%E7%A7%92%E8%BF%98%E6%98%BE%E7%A4%BA%E6%80%BB%E6%89%A7%E8%A1%8C%E6%97%B6%E9%97%B4%E7%9A%84%E7%99%BE%E5%88%86%E6%AF%94">查找按总执行时间排序的前 5 个查询，平均执行时间至少为 1 秒。还显示总执行时间的百分比：</a></li>
+<li><a href="#%E6%9F%A5%E6%89%BE%E6%8C%89%E6%80%BB%E6%89%A7%E8%A1%8C%E6%97%B6%E9%97%B4%E6%8E%92%E5%BA%8F%E7%9A%84%E5%89%8D-5-%E4%B8%AA%E6%9F%A5%E8%AF%A2%E5%B9%B3%E5%9D%87%E6%89%A7%E8%A1%8C%E6%97%B6%E9%97%B4%E8%87%B3%E5%B0%91%E4%B8%BA-15-%E6%AF%AB%E7%A7%92%E5%B9%B6%E6%98%BE%E7%A4%BA%E5%8D%A0%E6%80%BB%E6%89%A7%E8%A1%8C%E6%97%B6%E9%97%B4%E7%9A%84%E7%99%BE%E5%88%86%E6%AF%94">查找按总执行时间排序的前 5 个查询，平均执行时间至少为 15 毫秒，并显示占总执行时间的百分比：</a></li>
+</ul>
+</li>
+<li><a href="#%E8%A7%84%E5%88%99%E8%AE%BE%E7%BD%AE">规则设置</a></li>
+</ul>
+</li>
+<li><a href="#%E9%9B%86%E7%BE%A4">集群</a><ul>
+<li><a href="#proxy-%E9%9B%86%E7%BE%A4%E6%9C%8D%E5%8A%A1%E5%99%A8">proxy 集群服务器</a></li>
+<li><a href="#%E8%AE%BE%E7%BD%AE-proxy-%E7%9B%91%E6%8E%A7%E8%B4%A6%E5%8F%B7%E4%BF%A1%E6%81%AF">设置 proxy 监控账号信息</a></li>
+<li><a href="#%E6%9F%A5%E7%9C%8B%E5%90%8C%E6%AD%A5%E7%8A%B6%E6%80%81">查看同步状态</a></li>
+</ul>
+</li>
+<li><a href="#%E5%8F%82%E8%80%83%E5%9C%B0%E5%9D%80">参考地址</a></li>
+</ul>
+<!-- /code_chunk_output -->
+
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><h3 id="rpm-安装方式"><a href="#rpm-安装方式" class="headerlink" title="rpm 安装方式"></a>rpm 安装方式</h3><p>依赖关系</p>
+<pre class="highlight"><span class="line">proxysql-2.2.0-1-centos7.x86_64.rpm</span><br><span class="line">    - gnutls-3.3.29-9.el7_6.x86_64.rpm</span><br><span class="line">        - nettle-2.7.1-8.el7.x86_64.rpm</span><br><span class="line">        - trousers-0.3.14-2.el7.x86_64.rpm</span><br><span class="line">    - perl-DBD-MySQL-4.023-6.el7.x86_64.rpm</span><br><span class="line">        - mysql-community-libs-compat-5.7.37-1.el7.x86_64.rpm</span><br><span class="line">        - perl-DBI-1.627-4.el7.x86_64.rpm</span><br><span class="line">            - perl-Data-Dumper-2.145-3.el7.x86_64.rpm</span><br><span class="line">            - perl-PlRPC-0.2020-14.el7.noarch.rpm</span><br><span class="line">                - perl-IO-Compress-2.061-2.el7.noarch.rpm</span><br><span class="line">                    - perl-Compress-Raw-Bzip2-2.061-3.el7.x86_64.rpm</span><br><span class="line">                    - perl-Compress-Raw-Zlib-2.061-4.el7.x86_64.rpm</span><br><span class="line">                - perl-Net-Daemon-0.48-5.el7.noarch.rpm</span><br></pre>
+
+<p>安装顺序(参考)</p>
+<pre class="highlight"><span class="line">rpm -ivh perl-Net-Daemon-0.48-5.el7.noarch.rpm</span><br><span class="line">rpm -ivh perl-Compress-Raw-Zlib-2.061-4.el7.x86_64.rpm</span><br><span class="line">rpm -ivh perl-Compress-Raw-Bzip2-2.061-3.el7.x86_64.rpm</span><br><span class="line">rpm -ivh perl-IO-Compress-2.061-2.el7.noarch.rpm</span><br><span class="line">rpm -ivh perl-PlRPC-0.2020-14.el7.noarch.rpm</span><br><span class="line">rpm -ivh perl-Data-Dumper-2.145-3.el7.x86_64.rpm</span><br><span class="line">rpm -ivh perl-DBI-1.627-4.el7.x86_64.rpm</span><br><span class="line">rpm -ivh mysql-community-libs-compat-5.7.37-1.el7.x86_64.rpm</span><br><span class="line">rpm -ivh perl-DBD-MySQL-4.023-6.el7.x86_64.rpm</span><br><span class="line">rpm -ivh trousers-0.3.14-2.el7.x86_64.rpm</span><br><span class="line">rpm -ivh nettle-2.7.1-8.el7.x86_64.rpm</span><br><span class="line">rpm -ivh gnutls-3.3.29-9.el7_6.x86_64.rpm</span><br><span class="line">rpm -ivh proxysql-2.2.0-1-centos7.x86_64.rpm</span><br></pre>
+
+<h2 id="服务管理"><a href="#服务管理" class="headerlink" title="服务管理"></a>服务管理</h2><h3 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h3><pre class="highlight"><span class="line">service proxysql start</span><br></pre>
+
+<h3 id="停止"><a href="#停止" class="headerlink" title="停止"></a>停止</h3><pre class="highlight"><span class="line">service proxysql stop</span><br></pre>
+<p>或者通过管理界面</p>
+<pre class="highlight"><span class="line"># 登录控制台</span><br><span class="line">mysql <span class="operator">-</span>u admin <span class="operator">-</span>padmin <span class="operator">-</span>h <span class="number">127.0</span><span class="number">.0</span><span class="number">.1</span> <span class="operator">-</span>P6032 <span class="comment">--prompt=&#x27;Admin&gt; &#x27;</span></span><br><span class="line"></span><br><span class="line"># 停止</span><br><span class="line">proxysql stop</span><br></pre>
+
+<h3 id="重启"><a href="#重启" class="headerlink" title="重启"></a>重启</h3><pre class="highlight"><span class="line">service proxysql restart</span><br></pre>
+<p>或者通过管理界面</p>
+<pre class="highlight"><span class="line"># 登录控制台</span><br><span class="line">mysql -u admin -padmin -h 127.0.0.1 -P6032 --prompt=&#x27;Admin&gt; &#x27;</span><br><span class="line"></span><br><span class="line"># 重启</span><br><span class="line">proxysql restart</span><br></pre>
+
+<h2 id="配置间移动"><a href="#配置间移动" class="headerlink" title="配置间移动"></a>配置间移动</h2><p><img  srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="http://img.chunge666.top/20220307225738.png" class="lozad post-image"src="http://img.chunge666.top/20220307225738.png"><br>整套配置系统分为三层：顶层为 RUNTIME ,中间层为 MEMORY , 底层也就是持久层 DISK 和 CONFIG FILE 。</p>
+<ul>
+<li>RUNTIME ： 代表 ProxySQL 当前生效的正在使用的配置，无法直接修改这里的配置，必须要从下一层 “load” 进来。 </li>
+<li>MEMORY： MEMORY 层上面连接 RUNTIME 层，下面连接持久层。这层可以正常操作 ProxySQL 配置，随便修改，不会影响生产环境。修改一个配置一般都是现在 MEMORY 层完成的，确认正常之后在加载达到 RUNTIME 和 持久化的磁盘上。</li>
+<li>DISK 和 CONFIG FILE：持久化配置信息，重启后内存中的配置信息会丢失，所需要将配置信息保留在磁盘中。重启时，可以从磁盘快速加载回来。</li>
+</ul>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><h3 id="设置账号密码"><a href="#设置账号密码" class="headerlink" title="设置账号密码"></a>设置账号密码</h3><pre class="highlight"><span class="line"># 需要在被代理的 mysql 创建监控账号，并分配权限</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">user</span> <span class="string">&#x27;monitor&#x27;</span>@<span class="string">&#x27;%&#x27;</span> identified <span class="keyword">with</span> mysql_native_password <span class="keyword">by</span> <span class="string">&#x27;asAS123456!&#x27;</span>;</span><br><span class="line"><span class="keyword">grant</span> usage,replication client <span class="keyword">on</span> <span class="operator">*</span>.<span class="operator">*</span> <span class="keyword">to</span> monitor@<span class="string">&#x27;%&#x27;</span>;</span><br><span class="line">flush privileges;</span><br><span class="line"></span><br><span class="line"># 查看参数</span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> global_variables <span class="keyword">WHERE</span> variable_name <span class="keyword">LIKE</span> <span class="string">&#x27;mysql-monitor_%&#x27;</span>;</span><br><span class="line"></span><br><span class="line"># 在 proxysql 数据库设置监控的账号密码</span><br><span class="line"><span class="keyword">UPDATE</span> global_variables <span class="keyword">SET</span> variable_value<span class="operator">=</span><span class="string">&#x27;monitor&#x27;</span> <span class="keyword">WHERE</span> variable_name<span class="operator">=</span><span class="string">&#x27;mysql-monitor_username&#x27;</span>;</span><br><span class="line"><span class="keyword">UPDATE</span> global_variables <span class="keyword">SET</span> variable_value<span class="operator">=</span><span class="string">&#x27;asAS123456!&#x27;</span> <span class="keyword">WHERE</span> variable_name<span class="operator">=</span><span class="string">&#x27;mysql-monitor_password&#x27;</span>;</span><br><span class="line"></span><br><span class="line"># 生效并保存</span><br><span class="line">LOAD MYSQL VARIABLES <span class="keyword">TO</span> RUNTIME;</span><br><span class="line">SAVE MYSQL VARIABLES <span class="keyword">TO</span> DISK;</span><br></pre>
+
+<h3 id="添加后端服务器"><a href="#添加后端服务器" class="headerlink" title="添加后端服务器"></a>添加后端服务器</h3><pre class="highlight"><span class="line"># 添加服务器</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> mysql_servers(hostgroup_id,hostname,port) <span class="keyword">VALUES</span> (<span class="number">1</span>,<span class="string">&#x27;192.168.31.200&#x27;</span>,<span class="number">3306</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> mysql_servers(hostgroup_id,hostname,port) <span class="keyword">VALUES</span> (<span class="number">1</span>,<span class="string">&#x27;192.168.31.201&#x27;</span>,<span class="number">3306</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> mysql_servers(hostgroup_id,hostname,port) <span class="keyword">VALUES</span> (<span class="number">1</span>,<span class="string">&#x27;192.168.31.202&#x27;</span>,<span class="number">3306</span>);</span><br><span class="line"></span><br><span class="line"># 查看服务器</span><br><span class="line">Admin<span class="operator">&gt;</span> <span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> mysql_servers;</span><br><span class="line"><span class="operator">+</span><span class="comment">--------------+----------------+------+-----------+--------+--------+-------------+-----------------+---------------------+---------+----------------+---------+</span></span><br><span class="line"><span class="operator">|</span> hostgroup_id <span class="operator">|</span> hostname       <span class="operator">|</span> port <span class="operator">|</span> gtid_port <span class="operator">|</span> status <span class="operator">|</span> weight <span class="operator">|</span> compression <span class="operator">|</span> max_connections <span class="operator">|</span> max_replication_lag <span class="operator">|</span> use_ssl <span class="operator">|</span> max_latency_ms <span class="operator">|</span> comment <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">--------------+----------------+------+-----------+--------+--------+-------------+-----------------+---------------------+---------+----------------+---------+</span></span><br><span class="line"><span class="operator">|</span> <span class="number">1</span>            <span class="operator">|</span> <span class="number">192.168</span><span class="number">.31</span><span class="number">.200</span> <span class="operator">|</span> <span class="number">3306</span> <span class="operator">|</span> <span class="number">0</span>         <span class="operator">|</span> ONLINE <span class="operator">|</span> <span class="number">1</span>      <span class="operator">|</span> <span class="number">0</span>           <span class="operator">|</span> <span class="number">1000</span>            <span class="operator">|</span> <span class="number">0</span>                   <span class="operator">|</span> <span class="number">0</span>       <span class="operator">|</span> <span class="number">0</span>              <span class="operator">|</span>         <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> <span class="number">2</span>            <span class="operator">|</span> <span class="number">192.168</span><span class="number">.31</span><span class="number">.202</span> <span class="operator">|</span> <span class="number">3306</span> <span class="operator">|</span> <span class="number">0</span>         <span class="operator">|</span> ONLINE <span class="operator">|</span> <span class="number">1</span>      <span class="operator">|</span> <span class="number">0</span>           <span class="operator">|</span> <span class="number">1000</span>            <span class="operator">|</span> <span class="number">0</span>                   <span class="operator">|</span> <span class="number">0</span>       <span class="operator">|</span> <span class="number">0</span>              <span class="operator">|</span>         <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> <span class="number">2</span>            <span class="operator">|</span> <span class="number">192.168</span><span class="number">.31</span><span class="number">.201</span> <span class="operator">|</span> <span class="number">3306</span> <span class="operator">|</span> <span class="number">0</span>         <span class="operator">|</span> ONLINE <span class="operator">|</span> <span class="number">1</span>      <span class="operator">|</span> <span class="number">0</span>           <span class="operator">|</span> <span class="number">1000</span>            <span class="operator">|</span> <span class="number">0</span>                   <span class="operator">|</span> <span class="number">0</span>       <span class="operator">|</span> <span class="number">0</span>              <span class="operator">|</span>         <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> <span class="number">2</span>            <span class="operator">|</span> <span class="number">192.168</span><span class="number">.31</span><span class="number">.200</span> <span class="operator">|</span> <span class="number">3306</span> <span class="operator">|</span> <span class="number">0</span>         <span class="operator">|</span> ONLINE <span class="operator">|</span> <span class="number">1</span>      <span class="operator">|</span> <span class="number">0</span>           <span class="operator">|</span> <span class="number">1000</span>            <span class="operator">|</span> <span class="number">0</span>                   <span class="operator">|</span> <span class="number">0</span>       <span class="operator">|</span> <span class="number">0</span>              <span class="operator">|</span>         <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">--------------+----------------+------+-----------+--------+--------+-------------+-----------------+---------------------+---------+----------------+---------+</span></span><br><span class="line"><span class="number">4</span> <span class="keyword">rows</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line"># 生效并保存</span><br><span class="line">LOAD MYSQL SERVERS <span class="keyword">TO</span> RUNTIME;</span><br><span class="line">SAVE MYSQL SERVERS <span class="keyword">TO</span> DISK;</span><br></pre>
+
+<h3 id="组复制-MGR"><a href="#组复制-MGR" class="headerlink" title="组复制 MGR"></a>组复制 MGR</h3><pre class="highlight"><span class="line"># 如果 read_only<span class="operator">=</span><span class="number">0</span> ,  hostgroup 会被设置为 <span class="number">1</span></span><br><span class="line"># 如果 read_only<span class="operator">=</span><span class="number">1</span> ,  hostgroup 会被设置为 <span class="number">2</span></span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> mysql_replication_hostgroups (writer_hostgroup,reader_hostgroup,comment) <span class="keyword">VALUES</span> (<span class="number">1</span>,<span class="number">2</span>,<span class="string">&#x27;cluster1&#x27;</span>);</span><br><span class="line"></span><br><span class="line"># 生效并保存</span><br><span class="line">LOAD MYSQL SERVERS <span class="keyword">TO</span> RUNTIME;</span><br><span class="line">SAVE MYSQL SERVERS <span class="keyword">TO</span> DISK;</span><br><span class="line"></span><br><span class="line"># 查看记录</span><br><span class="line">Admin<span class="operator">&gt;</span> <span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> monitor.mysql_server_read_only_log <span class="keyword">ORDER</span> <span class="keyword">BY</span> time_start_us <span class="keyword">DESC</span> LIMIT <span class="number">3</span>;</span><br><span class="line"><span class="operator">+</span><span class="comment">----------------+------+------------------+-----------------+-----------+-------+</span></span><br><span class="line"><span class="operator">|</span> hostname       <span class="operator">|</span> port <span class="operator">|</span> time_start_us    <span class="operator">|</span> success_time_us <span class="operator">|</span> read_only <span class="operator">|</span> error <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">----------------+------+------------------+-----------------+-----------+-------+</span></span><br><span class="line"><span class="operator">|</span> <span class="number">192.168</span><span class="number">.31</span><span class="number">.202</span> <span class="operator">|</span> <span class="number">3306</span> <span class="operator">|</span> <span class="number">1646721733774003</span> <span class="operator">|</span> <span class="number">563</span>             <span class="operator">|</span> <span class="number">1</span>         <span class="operator">|</span> <span class="keyword">NULL</span>  <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> <span class="number">192.168</span><span class="number">.31</span><span class="number">.200</span> <span class="operator">|</span> <span class="number">3306</span> <span class="operator">|</span> <span class="number">1646721733755560</span> <span class="operator">|</span> <span class="number">148</span>             <span class="operator">|</span> <span class="number">0</span>         <span class="operator">|</span> <span class="keyword">NULL</span>  <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> <span class="number">192.168</span><span class="number">.31</span><span class="number">.201</span> <span class="operator">|</span> <span class="number">3306</span> <span class="operator">|</span> <span class="number">1646721733738055</span> <span class="operator">|</span> <span class="number">588</span>             <span class="operator">|</span> <span class="number">1</span>         <span class="operator">|</span> <span class="keyword">NULL</span>  <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">----------------+------+------------------+-----------------+-----------+-------+</span></span><br><span class="line"><span class="number">3</span> <span class="keyword">rows</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre>
+
+<h3 id="mysql-用户"><a href="#mysql-用户" class="headerlink" title="mysql 用户"></a>mysql 用户</h3><p>通过定义 <code>default_hostgroup</code>，我们指定用户应该默认连接到哪些后端服务器（即，这将是来自特定用户的流量的默认路由，可以配置其他规则以重新路由，但是在它们不存在的情况下，所有查询都会去到特定的主机组）</p>
+<pre class="highlight"><span class="line"># 查询</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> mysql_users;</span><br><span class="line"></span><br><span class="line"># 添加</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> mysql_users(username,password,default_hostgroup) <span class="keyword">VALUES</span> (<span class="string">&#x27;remote&#x27;</span>,<span class="string">&#x27;asAS123456!&#x27;</span>,<span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"># 生效并保存</span><br><span class="line">LOAD MYSQL USERS <span class="keyword">TO</span> RUNTIME;</span><br><span class="line">SAVE MYSQL USERS <span class="keyword">TO</span> DISK;</span><br></pre>
+
+<h3 id="sql统计"><a href="#sql统计" class="headerlink" title="sql统计"></a>sql统计</h3><h4 id="根据总执行时间找到前-5-个查询"><a href="#根据总执行时间找到前-5-个查询" class="headerlink" title="根据总执行时间找到前 5 个查询"></a>根据总执行时间找到前 5 个查询</h4><pre class="highlight"><span class="line">Admin<span class="operator">&gt;</span> <span class="keyword">SELECT</span> digest,SUBSTR(digest_text,<span class="number">0</span>,<span class="number">25</span>),count_star,sum_time <span class="keyword">FROM</span> stats_mysql_query_digest <span class="keyword">WHERE</span> digest_text <span class="keyword">LIKE</span> <span class="string">&#x27;SELECT%&#x27;</span> <span class="keyword">ORDER</span> <span class="keyword">BY</span> sum_time <span class="keyword">DESC</span> LIMIT <span class="number">5</span>;</span><br><span class="line"><span class="operator">+</span><span class="comment">--------------------+--------------------------+------------+---------------+</span></span><br><span class="line"><span class="operator">|</span> digest             <span class="operator">|</span> SUBSTR(digest_text,<span class="number">0</span>,<span class="number">25</span>) <span class="operator">|</span> count_star <span class="operator">|</span> sum_time      <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">--------------------+--------------------------+------------+---------------+</span></span><br><span class="line"><span class="operator">|</span> <span class="number">0x037C3E6D996DAFE2</span> <span class="operator">|</span> <span class="keyword">SELECT</span> a.ip_id <span class="keyword">as</span> ip_id, <span class="operator">|</span> <span class="number">2030026798</span> <span class="operator">|</span> <span class="number">1479082636017</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> <span class="number">0xB081A85245DEA5B7</span> <span class="operator">|</span> <span class="keyword">SELECT</span> a.ip_id <span class="keyword">as</span> ip_id, <span class="operator">|</span> <span class="number">2025902778</span> <span class="operator">|</span> <span class="number">1206116187539</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> <span class="number">0x38BE36BDFFDBE638</span> <span class="operator">|</span> <span class="keyword">SELECT</span> instance.name <span class="keyword">as</span>  <span class="operator">|</span> <span class="number">59343662</span>   <span class="operator">|</span> <span class="number">1096236803754</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> <span class="number">0xB4233552504E43B8</span> <span class="operator">|</span> <span class="keyword">SELECT</span> ir.type <span class="keyword">as</span> type,  <span class="operator">|</span> <span class="number">1362897166</span> <span class="operator">|</span> <span class="number">488971769571</span>  <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> <span class="number">0x4A131A16DCFFD6C6</span> <span class="operator">|</span> <span class="keyword">SELECT</span> i.id <span class="keyword">as</span> id, i.sta <span class="operator">|</span> <span class="number">934402293</span>  <span class="operator">|</span> <span class="number">475253770301</span>  <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">--------------------+--------------------------+------------+---------------+</span></span><br><span class="line"><span class="number">5</span> <span class="keyword">rows</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.01</span> sec)</span><br></pre>
+
+<h4 id="查询次数最多的-5-条sql"><a href="#查询次数最多的-5-条sql" class="headerlink" title="查询次数最多的 5 条sql"></a>查询次数最多的 5 条sql</h4><pre class="highlight"><span class="line">Admin<span class="operator">&gt;</span> <span class="keyword">SELECT</span> digest,SUBSTR(digest_text,<span class="number">0</span>,<span class="number">25</span>),count_star,sum_time <span class="keyword">FROM</span> stats_mysql_query_digest <span class="keyword">WHERE</span> digest_text <span class="keyword">LIKE</span> <span class="string">&#x27;SELECT%&#x27;</span> <span class="keyword">ORDER</span> <span class="keyword">BY</span> count_star <span class="keyword">DESC</span> LIMIT <span class="number">5</span>;</span><br><span class="line"><span class="operator">+</span><span class="comment">--------------------+--------------------------+------------+---------------+</span></span><br><span class="line"><span class="operator">|</span> digest             <span class="operator">|</span> SUBSTR(digest_text,<span class="number">0</span>,<span class="number">25</span>) <span class="operator">|</span> count_star <span class="operator">|</span> sum_time      <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">--------------------+--------------------------+------------+---------------+</span></span><br><span class="line"><span class="operator">|</span> <span class="number">0x037C3E6D996DAFE2</span> <span class="operator">|</span> <span class="keyword">SELECT</span> a.ip_id <span class="keyword">as</span> ip_id, <span class="operator">|</span> <span class="number">2030040688</span> <span class="operator">|</span> <span class="number">1479092529369</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> <span class="number">0xB081A85245DEA5B7</span> <span class="operator">|</span> <span class="keyword">SELECT</span> a.ip_id <span class="keyword">as</span> ip_id, <span class="operator">|</span> <span class="number">2025916528</span> <span class="operator">|</span> <span class="number">1206123010791</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> <span class="number">0x22E0A5C585C53EAD</span> <span class="operator">|</span> <span class="keyword">SELECT</span> id <span class="keyword">as</span> instanceid, <span class="operator">|</span> <span class="number">1551361254</span> <span class="operator">|</span> <span class="number">426419508609</span>  <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> <span class="number">0x3DB4B9FA4B2CB36F</span> <span class="operator">|</span> <span class="keyword">SELECT</span> i.id <span class="keyword">as</span> instancei <span class="operator">|</span> <span class="number">1465274289</span> <span class="operator">|</span> <span class="number">415565419867</span>  <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> <span class="number">0xB4233552504E43B8</span> <span class="operator">|</span> <span class="keyword">SELECT</span> ir.type <span class="keyword">as</span> type,  <span class="operator">|</span> <span class="number">1362906755</span> <span class="operator">|</span> <span class="number">488974931108</span>  <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">--------------------+--------------------------+------------+---------------+</span></span><br><span class="line"><span class="number">5</span> <span class="keyword">rows</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre>
+
+<h4 id="查询最耗时的-5-条sql"><a href="#查询最耗时的-5-条sql" class="headerlink" title="查询最耗时的 5 条sql"></a>查询最耗时的 5 条sql</h4><pre class="highlight"><span class="line">Admin<span class="operator">&gt;</span> <span class="keyword">SELECT</span> digest,SUBSTR(digest_text,<span class="number">0</span>,<span class="number">25</span>),count_star,sum_time,sum_time<span class="operator">/</span>count_star avg_time, min_time, max_time <span class="keyword">FROM</span> stats_mysql_query_digest <span class="keyword">WHERE</span> digest_text <span class="keyword">LIKE</span> <span class="string">&#x27;SELECT%&#x27;</span> <span class="keyword">ORDER</span> <span class="keyword">BY</span> max_time <span class="keyword">DESC</span> LIMIT <span class="number">5</span>;</span><br><span class="line"><span class="operator">+</span><span class="comment">--------------------+--------------------------+------------+--------------+----------+----------+-----------+</span></span><br><span class="line"><span class="operator">|</span> digest             <span class="operator">|</span> SUBSTR(digest_text,<span class="number">0</span>,<span class="number">25</span>) <span class="operator">|</span> count_star <span class="operator">|</span> sum_time     <span class="operator">|</span> avg_time <span class="operator">|</span> min_time <span class="operator">|</span> max_time  <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">--------------------+--------------------------+------------+--------------+----------+----------+-----------+</span></span><br><span class="line"><span class="operator">|</span> <span class="number">0x36CE5295726DB5B4</span> <span class="operator">|</span> <span class="keyword">SELECT</span> <span class="built_in">COUNT</span>(<span class="operator">*</span>) <span class="keyword">as</span> total <span class="operator">|</span> <span class="number">146390</span>     <span class="operator">|</span> <span class="number">185951894994</span> <span class="operator">|</span> <span class="number">1270249</span>  <span class="operator">|</span> <span class="number">445</span>      <span class="operator">|</span> <span class="number">237344243</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> <span class="number">0xDA8C56B5644C0822</span> <span class="operator">|</span> <span class="keyword">SELECT</span> <span class="built_in">COUNT</span>(<span class="operator">*</span>) <span class="keyword">as</span> total <span class="operator">|</span> <span class="number">44130</span>      <span class="operator">|</span> <span class="number">24842335265</span>  <span class="operator">|</span> <span class="number">562935</span>   <span class="operator">|</span> <span class="number">494</span>      <span class="operator">|</span> <span class="number">231395575</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> <span class="number">0x8C1B0405E1AAB9DB</span> <span class="operator">|</span> <span class="keyword">SELECT</span> <span class="built_in">COUNT</span>(<span class="operator">*</span>) <span class="keyword">as</span> total <span class="operator">|</span> <span class="number">1194</span>       <span class="operator">|</span> <span class="number">1356742749</span>   <span class="operator">|</span> <span class="number">1136300</span>  <span class="operator">|</span> <span class="number">624</span>      <span class="operator">|</span> <span class="number">216677507</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> <span class="number">0x6C03197B4A2C34BE</span> <span class="operator">|</span> <span class="keyword">Select</span> <span class="operator">*</span>, DateDiff(Date_ <span class="operator">|</span> <span class="number">4796</span>       <span class="operator">|</span> <span class="number">748804483</span>    <span class="operator">|</span> <span class="number">156131</span>   <span class="operator">|</span> <span class="number">607</span>      <span class="operator">|</span> <span class="number">197881845</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> <span class="number">0x1DEFCE9DEF3BDF87</span> <span class="operator">|</span> <span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> i.extid  <span class="operator">|</span> <span class="number">592196</span>     <span class="operator">|</span> <span class="number">40209254260</span>  <span class="operator">|</span> <span class="number">67898</span>    <span class="operator">|</span> <span class="number">416</span>      <span class="operator">|</span> <span class="number">118055372</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">--------------------+--------------------------+------------+--------------+----------+----------+-----------+</span></span><br><span class="line"><span class="number">5</span> <span class="keyword">rows</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.01</span> sec)</span><br></pre>
+
+<h4 id="查找按总执行时间前-5，并且最短执行时间至少为-1-毫秒："><a href="#查找按总执行时间前-5，并且最短执行时间至少为-1-毫秒：" class="headerlink" title="查找按总执行时间前 5，并且最短执行时间至少为 1 毫秒："></a>查找按总执行时间前 5，并且最短执行时间至少为 1 毫秒：</h4><pre class="highlight"><span class="line">Admin<span class="operator">&gt;</span> <span class="keyword">SELECT</span> digest,SUBSTR(digest_text,<span class="number">0</span>,<span class="number">20</span>),count_star,sum_time,sum_time<span class="operator">/</span>count_star avg_time, min_time, max_time <span class="keyword">FROM</span> stats_mysql_query_digest <span class="keyword">WHERE</span> digest_text <span class="keyword">LIKE</span> <span class="string">&#x27;SELECT%&#x27;</span> <span class="keyword">AND</span> min_time <span class="operator">&gt;</span> <span class="number">1000</span> <span class="keyword">ORDER</span> <span class="keyword">BY</span> sum_time <span class="keyword">DESC</span> LIMIT <span class="number">5</span>;</span><br><span class="line"><span class="operator">+</span><span class="comment">--------------------+--------------------------+------------+-------------+----------+----------+----------+</span></span><br><span class="line"><span class="operator">|</span> digest             <span class="operator">|</span> SUBSTR(digest_text,<span class="number">0</span>,<span class="number">20</span>) <span class="operator">|</span> count_star <span class="operator">|</span> sum_time    <span class="operator">|</span> avg_time <span class="operator">|</span> min_time <span class="operator">|</span> max_time <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">--------------------+--------------------------+------------+-------------+----------+----------+----------+</span></span><br><span class="line"><span class="operator">|</span> <span class="number">0x9EED412C6E63E477</span> <span class="operator">|</span> <span class="keyword">SELECT</span> a.id <span class="keyword">as</span> acco      <span class="operator">|</span> <span class="number">961733</span>     <span class="operator">|</span> <span class="number">24115349801</span> <span class="operator">|</span> <span class="number">25074</span>    <span class="operator">|</span> <span class="number">10994</span>    <span class="operator">|</span> <span class="number">7046628</span>  <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> <span class="number">0x8DDD43A9EA37750D</span> <span class="operator">|</span> <span class="keyword">Select</span> ( <span class="built_in">Coalesce</span>((      <span class="operator">|</span> <span class="number">107069</span>     <span class="operator">|</span> <span class="number">3156179256</span>  <span class="operator">|</span> <span class="number">29477</span>    <span class="operator">|</span> <span class="number">1069</span>     <span class="operator">|</span> <span class="number">24600674</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> <span class="number">0x9EED412C6E63E477</span> <span class="operator">|</span> <span class="keyword">SELECT</span> a.id <span class="keyword">as</span> acco      <span class="operator">|</span> <span class="number">91996</span>      <span class="operator">|</span> <span class="number">1883354396</span>  <span class="operator">|</span> <span class="number">20472</span>    <span class="operator">|</span> <span class="number">10095</span>    <span class="operator">|</span> <span class="number">497877</span>   <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> <span class="number">0x08B23A268C35C08E</span> <span class="operator">|</span> <span class="keyword">SELECT</span> id <span class="keyword">as</span> reward      <span class="operator">|</span> <span class="number">49401</span>      <span class="operator">|</span> <span class="number">244088592</span>   <span class="operator">|</span> <span class="number">4940</span>     <span class="operator">|</span> <span class="number">1237</span>     <span class="operator">|</span> <span class="number">1483791</span>  <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> <span class="number">0x437C846F935344F8</span> <span class="operator">|</span> <span class="keyword">SELECT</span> <span class="keyword">Distinct</span> i.e      <span class="operator">|</span> <span class="number">164</span>        <span class="operator">|</span> <span class="number">163873101</span>   <span class="operator">|</span> <span class="number">999226</span>   <span class="operator">|</span> <span class="number">1383</span>     <span class="operator">|</span> <span class="number">7905811</span>  <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">--------------------+--------------------------+------------+-------------+----------+----------+----------+</span></span><br><span class="line"><span class="number">5</span> <span class="keyword">rows</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.01</span> sec)</span><br></pre>
+
+<h4 id="查找按总执行时间排序的前-5-个查询，平均执行时间至少为-1-秒。还显示总执行时间的百分比："><a href="#查找按总执行时间排序的前-5-个查询，平均执行时间至少为-1-秒。还显示总执行时间的百分比：" class="headerlink" title="查找按总执行时间排序的前 5 个查询，平均执行时间至少为 1 秒。还显示总执行时间的百分比："></a>查找按总执行时间排序的前 5 个查询，平均执行时间至少为 1 秒。还显示总执行时间的百分比：</h4><pre class="highlight"><span class="line">Admin<span class="operator">&gt;</span> <span class="keyword">SELECT</span> digest,SUBSTR(digest_text,<span class="number">0</span>,<span class="number">25</span>),count_star,sum_time,sum_time<span class="operator">/</span>count_star avg_time, ROUND(sum_time<span class="operator">*</span><span class="number">100.00</span><span class="operator">/</span>(<span class="keyword">SELECT</span> <span class="built_in">SUM</span>(sum_time) <span class="keyword">FROM</span> stats_mysql_query_digest),<span class="number">3</span>) pct <span class="keyword">FROM</span> stats_mysql_query_digest <span class="keyword">WHERE</span> digest_text <span class="keyword">LIKE</span> <span class="string">&#x27;SELECT%&#x27;</span> <span class="keyword">AND</span> sum_time<span class="operator">/</span>count_star <span class="operator">&gt;</span> <span class="number">1000000</span> <span class="keyword">ORDER</span> <span class="keyword">BY</span> sum_time <span class="keyword">DESC</span> LIMIT <span class="number">5</span>;</span><br><span class="line"><span class="operator">+</span><span class="comment">--------------------+--------------------------+------------+--------------+----------+-------+</span></span><br><span class="line"><span class="operator">|</span> digest             <span class="operator">|</span> SUBSTR(digest_text,<span class="number">0</span>,<span class="number">25</span>) <span class="operator">|</span> count_star <span class="operator">|</span> sum_time     <span class="operator">|</span> avg_time <span class="operator">|</span> pct   <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">--------------------+--------------------------+------------+--------------+----------+-------+</span></span><br><span class="line"><span class="operator">|</span> <span class="number">0x36CE5295726DB5B4</span> <span class="operator">|</span> <span class="keyword">SELECT</span> <span class="built_in">COUNT</span>(<span class="operator">*</span>) <span class="keyword">as</span> total <span class="operator">|</span> <span class="number">146390</span>     <span class="operator">|</span> <span class="number">185951894994</span> <span class="operator">|</span> <span class="number">1270249</span>  <span class="operator">|</span> <span class="number">2.11</span>  <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> <span class="number">0xD38895B4F4D2A4B3</span> <span class="operator">|</span> <span class="keyword">SELECT</span> instance.name <span class="keyword">as</span>  <span class="operator">|</span> <span class="number">9783</span>       <span class="operator">|</span> <span class="number">12409642528</span>  <span class="operator">|</span> <span class="number">1268490</span>  <span class="operator">|</span> <span class="number">0.141</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> <span class="number">0x8C1B0405E1AAB9DB</span> <span class="operator">|</span> <span class="keyword">SELECT</span> <span class="built_in">COUNT</span>(<span class="operator">*</span>) <span class="keyword">as</span> total <span class="operator">|</span> <span class="number">1194</span>       <span class="operator">|</span> <span class="number">1356742749</span>   <span class="operator">|</span> <span class="number">1136300</span>  <span class="operator">|</span> <span class="number">0.015</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">--------------------+--------------------------+------------+--------------+----------+-------+</span></span><br><span class="line"><span class="number">3</span> <span class="keyword">rows</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre>
+
+<h4 id="查找按总执行时间排序的前-5-个查询，平均执行时间至少为-15-毫秒，并显示占总执行时间的百分比："><a href="#查找按总执行时间排序的前-5-个查询，平均执行时间至少为-15-毫秒，并显示占总执行时间的百分比：" class="headerlink" title="查找按总执行时间排序的前 5 个查询，平均执行时间至少为 15 毫秒，并显示占总执行时间的百分比："></a>查找按总执行时间排序的前 5 个查询，平均执行时间至少为 15 毫秒，并显示占总执行时间的百分比：</h4><pre class="highlight"><span class="line">Admin<span class="operator">&gt;</span> <span class="keyword">SELECT</span> digest,SUBSTR(digest_text,<span class="number">0</span>,<span class="number">25</span>),count_star,sum_time,sum_time<span class="operator">/</span>count_star avg_time, ROUND(sum_time<span class="operator">*</span><span class="number">100.00</span><span class="operator">/</span>(<span class="keyword">SELECT</span> <span class="built_in">SUM</span>(sum_time) <span class="keyword">FROM</span> stats_mysql_query_digest <span class="keyword">WHERE</span> digest_text <span class="keyword">LIKE</span> <span class="string">&#x27;SELECT%&#x27;</span>),<span class="number">3</span>) pct <span class="keyword">FROM</span> stats_mysql_query_digest <span class="keyword">WHERE</span> digest_text <span class="keyword">LIKE</span> <span class="string">&#x27;SELECT%&#x27;</span> <span class="keyword">AND</span> sum_time<span class="operator">/</span>count_star <span class="operator">&gt;</span> <span class="number">15000</span> <span class="keyword">ORDER</span> <span class="keyword">BY</span> sum_time <span class="keyword">DESC</span> LIMIT <span class="number">5</span>;</span><br><span class="line"><span class="operator">+</span><span class="comment">--------------------+--------------------------+------------+---------------+----------+--------+</span></span><br><span class="line"><span class="operator">|</span> digest             <span class="operator">|</span> SUBSTR(digest_text,<span class="number">0</span>,<span class="number">25</span>) <span class="operator">|</span> count_star <span class="operator">|</span> sum_time      <span class="operator">|</span> avg_time <span class="operator">|</span> pct    <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">--------------------+--------------------------+------------+---------------+----------+--------+</span></span><br><span class="line"><span class="operator">|</span> <span class="number">0x38BE36BDFFDBE638</span> <span class="operator">|</span> <span class="keyword">SELECT</span> instance.name <span class="keyword">as</span>  <span class="operator">|</span> <span class="number">59360371</span>   <span class="operator">|</span> <span class="number">1096562204931</span> <span class="operator">|</span> <span class="number">18472</span>    <span class="operator">|</span> <span class="number">13.006</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> <span class="number">0x36CE5295726DB5B4</span> <span class="operator">|</span> <span class="keyword">SELECT</span> <span class="built_in">COUNT</span>(<span class="operator">*</span>) <span class="keyword">as</span> total <span class="operator">|</span> <span class="number">146390</span>     <span class="operator">|</span> <span class="number">185951894994</span>  <span class="operator">|</span> <span class="number">1270249</span>  <span class="operator">|</span> <span class="number">2.205</span>  <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> <span class="number">0x1DEFCE9DEF3BDF87</span> <span class="operator">|</span> <span class="keyword">SELECT</span> <span class="keyword">DISTINCT</span> i.extid  <span class="operator">|</span> <span class="number">592281</span>     <span class="operator">|</span> <span class="number">40215136635</span>   <span class="operator">|</span> <span class="number">67898</span>    <span class="operator">|</span> <span class="number">0.477</span>  <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> <span class="number">0xDA8C56B5644C0822</span> <span class="operator">|</span> <span class="keyword">SELECT</span> <span class="built_in">COUNT</span>(<span class="operator">*</span>) <span class="keyword">as</span> total <span class="operator">|</span> <span class="number">44130</span>      <span class="operator">|</span> <span class="number">24842335265</span>   <span class="operator">|</span> <span class="number">562935</span>   <span class="operator">|</span> <span class="number">0.295</span>  <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> <span class="number">0x9EED412C6E63E477</span> <span class="operator">|</span> <span class="keyword">SELECT</span> a.id <span class="keyword">as</span> accountid <span class="operator">|</span> <span class="number">961768</span>     <span class="operator">|</span> <span class="number">24116011513</span>   <span class="operator">|</span> <span class="number">25074</span>    <span class="operator">|</span> <span class="number">0.286</span>  <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">--------------------+--------------------------+------------+---------------+----------+--------+</span></span><br><span class="line"><span class="number">5</span> <span class="keyword">rows</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre>
+
+<h3 id="规则设置"><a href="#规则设置" class="headerlink" title="规则设置"></a>规则设置</h3><p>根据 digest 设置规则</p>
+<pre class="highlight"><span class="line">INSERT INTO mysql_query_rules (rule_id,active,digest,destination_hostgroup,apply)</span><br><span class="line">VALUES</span><br><span class="line">(1,1,&#x27;0x38BE36BDFFDBE638&#x27;,20,1);</span><br></pre>
+
+<p>根据 match_digest 设置规则(正则表达式)</p>
+<pre class="highlight"><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> mysql_query_rules (rule_id,active,match_digest,destination_hostgroup,apply)</span><br><span class="line"><span class="keyword">VALUES</span></span><br><span class="line">(<span class="number">1</span>,<span class="number">1</span>,<span class="string">&#x27;^SELECT COUNT\(\*\)&#x27;</span>,<span class="number">20</span>,<span class="number">1</span>);</span><br></pre>
+
+<h2 id="集群"><a href="#集群" class="headerlink" title="集群"></a>集群</h2><p>目前已支持同步的数据</p>
+<ul>
+<li>global_variables (Supported from ProxySQL 2.1.x)</li>
+<li>mysql_query_rules</li>
+<li>mysql_servers</li>
+<li>mysql_users</li>
+<li>proxysql_servers</li>
+</ul>
+<h3 id="proxy-集群服务器"><a href="#proxy-集群服务器" class="headerlink" title="proxy 集群服务器"></a>proxy 集群服务器</h3><pre class="highlight"><span class="line"># 查看</span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> proxysql_servers;</span><br><span class="line"></span><br><span class="line"># 添加集群</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> `proxysql_servers` (hostname, port, comment) <span class="keyword">VALUES</span> (<span class="string">&#x27;192.168.31.200&#x27;</span>, <span class="number">6032</span>, <span class="string">&#x27;proxysql1&#x27;</span>);</span><br><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> `proxysql_servers` (hostname, port, comment) <span class="keyword">VALUES</span> (<span class="string">&#x27;192.168.31.201&#x27;</span>, <span class="number">6032</span>, <span class="string">&#x27;proxysql2&#x27;</span>);</span><br><span class="line"></span><br><span class="line"># 生效并保存</span><br><span class="line">LOAD PROXYSQL SERVERS <span class="keyword">TO</span> RUNTIME;</span><br><span class="line">SAVE PROXYSQL SERVERS <span class="keyword">TO</span> DISK;</span><br></pre>
+
+<h3 id="设置-proxy-监控账号信息"><a href="#设置-proxy-监控账号信息" class="headerlink" title="设置 proxy 监控账号信息"></a>设置 proxy 监控账号信息</h3><p>*** 此处有个大坑：cluster_username 不能直接使用 admin 账号，必须新建账号，且在 <code>admin-admin_credentials</code> 中配置账号信息，否则不触发同步</p>
+<pre class="highlight"><span class="line"># 查看 admin 变量</span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> global_variables <span class="keyword">WHERE</span> variable_name <span class="keyword">LIKE</span> <span class="string">&#x27;admin%&#x27;</span>;</span><br><span class="line"></span><br><span class="line"># 设置集群 proxy 监控账号密码及凭证</span><br><span class="line"><span class="keyword">UPDATE</span> global_variables <span class="keyword">SET</span> variable_value<span class="operator">=</span><span class="string">&#x27;cluster&#x27;</span> <span class="keyword">WHERE</span> variable_name<span class="operator">=</span><span class="string">&#x27;admin-cluster_username&#x27;</span>;</span><br><span class="line"><span class="keyword">UPDATE</span> global_variables <span class="keyword">SET</span> variable_value<span class="operator">=</span><span class="string">&#x27;cluster&#x27;</span> <span class="keyword">WHERE</span> variable_name<span class="operator">=</span><span class="string">&#x27;admin-cluster_password&#x27;</span>;</span><br><span class="line"><span class="keyword">UPDATE</span> global_variables <span class="keyword">SET</span> variable_value<span class="operator">=</span><span class="string">&#x27;admin:admin;cluster:cluster&#x27;</span> <span class="keyword">WHERE</span> variable_name<span class="operator">=</span><span class="string">&#x27;admin-admin_credentials&#x27;</span>;</span><br><span class="line"></span><br><span class="line"># 生效并保存</span><br><span class="line">LOAD ADMIN VARIABLES <span class="keyword">TO</span> RUNTIME;</span><br><span class="line">SAVE ADMIN VARIABLES <span class="keyword">TO</span> DISK;</span><br></pre>
+
+<h3 id="查看同步状态"><a href="#查看同步状态" class="headerlink" title="查看同步状态"></a>查看同步状态</h3><pre class="highlight"><span class="line"># 查看集群状态</span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> stats_proxysql_servers_metrics;</span><br><span class="line"></span><br><span class="line"># 查看集群同步状态</span><br><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> stats_proxysql_servers_checksums;</span><br></pre>
+
+<h2 id="参考地址"><a href="#参考地址" class="headerlink" title="参考地址"></a>参考地址</h2><p>官方文档: <a target="_blank" rel="noopener" href="https://proxysql.com/documentation/">https://proxysql.com/documentation/</a><br>官方集群文档: <a target="_blank" rel="noopener" href="https://proxysql.com/documentation/proxysql-cluster/">https://proxysql.com/documentation/proxysql-cluster/</a><br>集群参考: <a target="_blank" rel="noopener" href="https://proxysql.com/blog/proxysql-cluster/">https://proxysql.com/blog/proxysql-cluster/</a></p>
+
+  </div>
+  <div>
+    
+      <div 
+        class="post-note note-warning copyright" 
+        style="margin-top: 42px">
+        <p>
+          <span style="font-weight: bold;">作者：</span><a 
+            target="_blank" 
+            rel="nofollow noopener noreferrer" 
+            href="/about">
+            Chun
+          </a>
+        </p>
+        <p>
+          <span style="font-weight: bold;">文章链接：</span><a 
+            target="_blank" 
+            rel="nofollow noopener noreferrer" 
+            href="http://example.com/2022/09/05/proxy%E5%AE%89%E8%A3%85/">
+            http://example.com/2022/09/05/proxy%E5%AE%89%E8%A3%85/
+          </a>
+        </p>
+        <p><span style="font-weight: bold;">版权声明：</span>本博客所有文章除特别声明外，均采用<a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0 协议</a>。转载请注明出处！</p>
+      </div>
+    
+  </div>
+</article>
+<div class="nav">
+  
+    <div class="nav-item-prev">
+      <a 
+        href="/2022/09/05/redis/" 
+        class="nav-link">
+        <i class="iconfont icon-left nav-prev-icon"></i>
+        <div>
+          <div class="nav-label">上一篇</div>
+          
+        </div>
+      </a>
+    </div>
+  
+  
+    <div class="nav-item-next">
+      <a 
+        href="/2022/09/05/proxysql%E4%BD%BF%E7%94%A8keeplived%E5%AE%9E%E7%8E%B0%E9%AB%98%E5%8F%AF%E7%94%A8/" 
+        class="nav-link">
+        <div>
+          <div class="nav-label">下一篇</div>
+          
+        </div>
+        <i class="iconfont icon-right nav-next-icon"></i>
+      </a>
+    </div>
+  
+</div>
+
+  <div 
+    class="card card-content comment-card" 
+    style="margin-top: 16px;">
+    <div class="comment-card-title">评论</div>
+    
+  <div id="vcomments"></div>
+  
+  <script>
+    loadScript("//unpkg.com/valine/dist/Valine.min.js");
+    var oldLoadVa = window.onload;
+    window.onload = function () {
+      oldLoadVa && oldLoadVa();
+      new Valine({
+        el: '#vcomments',
+        appId: 'Fb12FgxcTGFydqPfZAOKsZkb-gzGzoHsz',
+        appKey: 'OIQyDCrjzjWbBV6vCqiXKAUJ',
+        placeholder: 'Just go go',
+        path: window.location.pathname,
+        avatar: 'mp',
+        meta: ["nick","mail","link"],
+        pageSize: '10',
+        lang: '',
+        visitor: 'false',
+        highlight: true,
+        recordIP: false,
+        
+        
+        
+        enableQQ: 'false',
+        requiredFields: [],
+      });
+    };
+  </script>
+
+  </div>
+
+<div 
+  class="card card-content toc-card" 
+  id="mobiletoc">
+  <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>目录
+</div>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-text">安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#rpm-%E5%AE%89%E8%A3%85%E6%96%B9%E5%BC%8F"><span class="toc-text">rpm 安装方式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86"><span class="toc-text">服务管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8"><span class="toc-text">启动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%81%9C%E6%AD%A2"><span class="toc-text">停止</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8D%E5%90%AF"><span class="toc-text">重启</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E9%97%B4%E7%A7%BB%E5%8A%A8"><span class="toc-text">配置间移动</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE"><span class="toc-text">配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E8%B4%A6%E5%8F%B7%E5%AF%86%E7%A0%81"><span class="toc-text">设置账号密码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-text">添加后端服务器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%84%E5%A4%8D%E5%88%B6-MGR"><span class="toc-text">组复制 MGR</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mysql-%E7%94%A8%E6%88%B7"><span class="toc-text">mysql 用户</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sql%E7%BB%9F%E8%AE%A1"><span class="toc-text">sql统计</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%B9%E6%8D%AE%E6%80%BB%E6%89%A7%E8%A1%8C%E6%97%B6%E9%97%B4%E6%89%BE%E5%88%B0%E5%89%8D-5-%E4%B8%AA%E6%9F%A5%E8%AF%A2"><span class="toc-text">根据总执行时间找到前 5 个查询</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2%E6%AC%A1%E6%95%B0%E6%9C%80%E5%A4%9A%E7%9A%84-5-%E6%9D%A1sql"><span class="toc-text">查询次数最多的 5 条sql</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2%E6%9C%80%E8%80%97%E6%97%B6%E7%9A%84-5-%E6%9D%A1sql"><span class="toc-text">查询最耗时的 5 条sql</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E6%89%BE%E6%8C%89%E6%80%BB%E6%89%A7%E8%A1%8C%E6%97%B6%E9%97%B4%E5%89%8D-5%EF%BC%8C%E5%B9%B6%E4%B8%94%E6%9C%80%E7%9F%AD%E6%89%A7%E8%A1%8C%E6%97%B6%E9%97%B4%E8%87%B3%E5%B0%91%E4%B8%BA-1-%E6%AF%AB%E7%A7%92%EF%BC%9A"><span class="toc-text">查找按总执行时间前 5，并且最短执行时间至少为 1 毫秒：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E6%89%BE%E6%8C%89%E6%80%BB%E6%89%A7%E8%A1%8C%E6%97%B6%E9%97%B4%E6%8E%92%E5%BA%8F%E7%9A%84%E5%89%8D-5-%E4%B8%AA%E6%9F%A5%E8%AF%A2%EF%BC%8C%E5%B9%B3%E5%9D%87%E6%89%A7%E8%A1%8C%E6%97%B6%E9%97%B4%E8%87%B3%E5%B0%91%E4%B8%BA-1-%E7%A7%92%E3%80%82%E8%BF%98%E6%98%BE%E7%A4%BA%E6%80%BB%E6%89%A7%E8%A1%8C%E6%97%B6%E9%97%B4%E7%9A%84%E7%99%BE%E5%88%86%E6%AF%94%EF%BC%9A"><span class="toc-text">查找按总执行时间排序的前 5 个查询，平均执行时间至少为 1 秒。还显示总执行时间的百分比：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E6%89%BE%E6%8C%89%E6%80%BB%E6%89%A7%E8%A1%8C%E6%97%B6%E9%97%B4%E6%8E%92%E5%BA%8F%E7%9A%84%E5%89%8D-5-%E4%B8%AA%E6%9F%A5%E8%AF%A2%EF%BC%8C%E5%B9%B3%E5%9D%87%E6%89%A7%E8%A1%8C%E6%97%B6%E9%97%B4%E8%87%B3%E5%B0%91%E4%B8%BA-15-%E6%AF%AB%E7%A7%92%EF%BC%8C%E5%B9%B6%E6%98%BE%E7%A4%BA%E5%8D%A0%E6%80%BB%E6%89%A7%E8%A1%8C%E6%97%B6%E9%97%B4%E7%9A%84%E7%99%BE%E5%88%86%E6%AF%94%EF%BC%9A"><span class="toc-text">查找按总执行时间排序的前 5 个查询，平均执行时间至少为 15 毫秒，并显示占总执行时间的百分比：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%84%E5%88%99%E8%AE%BE%E7%BD%AE"><span class="toc-text">规则设置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9B%86%E7%BE%A4"><span class="toc-text">集群</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#proxy-%E9%9B%86%E7%BE%A4%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-text">proxy 集群服务器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE-proxy-%E7%9B%91%E6%8E%A7%E8%B4%A6%E5%8F%B7%E4%BF%A1%E6%81%AF"><span class="toc-text">设置 proxy 监控账号信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E5%90%8C%E6%AD%A5%E7%8A%B6%E6%80%81"><span class="toc-text">查看同步状态</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E5%9C%B0%E5%9D%80"><span class="toc-text">参考地址</span></a></li></ol>
+</div>
+            </main>
+            <aside class="right-column">
+              <div class="sticky-widescreen">
+  
+  
+    <article class="card card-content toc-card">
+      <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>目录
+</div>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-text">安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#rpm-%E5%AE%89%E8%A3%85%E6%96%B9%E5%BC%8F"><span class="toc-text">rpm 安装方式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86"><span class="toc-text">服务管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8"><span class="toc-text">启动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%81%9C%E6%AD%A2"><span class="toc-text">停止</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8D%E5%90%AF"><span class="toc-text">重启</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E9%97%B4%E7%A7%BB%E5%8A%A8"><span class="toc-text">配置间移动</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE"><span class="toc-text">配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E8%B4%A6%E5%8F%B7%E5%AF%86%E7%A0%81"><span class="toc-text">设置账号密码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-text">添加后端服务器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%84%E5%A4%8D%E5%88%B6-MGR"><span class="toc-text">组复制 MGR</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mysql-%E7%94%A8%E6%88%B7"><span class="toc-text">mysql 用户</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sql%E7%BB%9F%E8%AE%A1"><span class="toc-text">sql统计</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A0%B9%E6%8D%AE%E6%80%BB%E6%89%A7%E8%A1%8C%E6%97%B6%E9%97%B4%E6%89%BE%E5%88%B0%E5%89%8D-5-%E4%B8%AA%E6%9F%A5%E8%AF%A2"><span class="toc-text">根据总执行时间找到前 5 个查询</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2%E6%AC%A1%E6%95%B0%E6%9C%80%E5%A4%9A%E7%9A%84-5-%E6%9D%A1sql"><span class="toc-text">查询次数最多的 5 条sql</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E8%AF%A2%E6%9C%80%E8%80%97%E6%97%B6%E7%9A%84-5-%E6%9D%A1sql"><span class="toc-text">查询最耗时的 5 条sql</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E6%89%BE%E6%8C%89%E6%80%BB%E6%89%A7%E8%A1%8C%E6%97%B6%E9%97%B4%E5%89%8D-5%EF%BC%8C%E5%B9%B6%E4%B8%94%E6%9C%80%E7%9F%AD%E6%89%A7%E8%A1%8C%E6%97%B6%E9%97%B4%E8%87%B3%E5%B0%91%E4%B8%BA-1-%E6%AF%AB%E7%A7%92%EF%BC%9A"><span class="toc-text">查找按总执行时间前 5，并且最短执行时间至少为 1 毫秒：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E6%89%BE%E6%8C%89%E6%80%BB%E6%89%A7%E8%A1%8C%E6%97%B6%E9%97%B4%E6%8E%92%E5%BA%8F%E7%9A%84%E5%89%8D-5-%E4%B8%AA%E6%9F%A5%E8%AF%A2%EF%BC%8C%E5%B9%B3%E5%9D%87%E6%89%A7%E8%A1%8C%E6%97%B6%E9%97%B4%E8%87%B3%E5%B0%91%E4%B8%BA-1-%E7%A7%92%E3%80%82%E8%BF%98%E6%98%BE%E7%A4%BA%E6%80%BB%E6%89%A7%E8%A1%8C%E6%97%B6%E9%97%B4%E7%9A%84%E7%99%BE%E5%88%86%E6%AF%94%EF%BC%9A"><span class="toc-text">查找按总执行时间排序的前 5 个查询，平均执行时间至少为 1 秒。还显示总执行时间的百分比：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E6%89%BE%E6%8C%89%E6%80%BB%E6%89%A7%E8%A1%8C%E6%97%B6%E9%97%B4%E6%8E%92%E5%BA%8F%E7%9A%84%E5%89%8D-5-%E4%B8%AA%E6%9F%A5%E8%AF%A2%EF%BC%8C%E5%B9%B3%E5%9D%87%E6%89%A7%E8%A1%8C%E6%97%B6%E9%97%B4%E8%87%B3%E5%B0%91%E4%B8%BA-15-%E6%AF%AB%E7%A7%92%EF%BC%8C%E5%B9%B6%E6%98%BE%E7%A4%BA%E5%8D%A0%E6%80%BB%E6%89%A7%E8%A1%8C%E6%97%B6%E9%97%B4%E7%9A%84%E7%99%BE%E5%88%86%E6%AF%94%EF%BC%9A"><span class="toc-text">查找按总执行时间排序的前 5 个查询，平均执行时间至少为 15 毫秒，并显示占总执行时间的百分比：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A7%84%E5%88%99%E8%AE%BE%E7%BD%AE"><span class="toc-text">规则设置</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9B%86%E7%BE%A4"><span class="toc-text">集群</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#proxy-%E9%9B%86%E7%BE%A4%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-text">proxy 集群服务器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE-proxy-%E7%9B%91%E6%8E%A7%E8%B4%A6%E5%8F%B7%E4%BF%A1%E6%81%AF"><span class="toc-text">设置 proxy 监控账号信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E5%90%8C%E6%AD%A5%E7%8A%B6%E6%80%81"><span class="toc-text">查看同步状态</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E5%9C%B0%E5%9D%80"><span class="toc-text">参考地址</span></a></li></ol>
+    </article>
+  
+  
+  <article class="card card-content">
+    <div class="recent-posts-card">
+  <div class="recent-posts-header">
+    <i 
+      class="iconfont icon-wenzhang_huaban" 
+      style="padding-right: 2px;">
+    </i>最近文章
+  </div>
+  <div class="recent-posts-list">
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2022-09-05</div>
+        <a href="/2022/09/05/%E9%87%8D%E5%A4%8D%E8%AF%B7%E6%B1%82%E7%A6%81%E7%94%A8/"><div class="recent-posts-item-content"></div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2022-09-05</div>
+        <a href="/2022/09/05/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BB%BA%E8%A1%A8%E8%A7%84%E8%8C%83/"><div class="recent-posts-item-content"></div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2022-09-05</div>
+        <a href="/2022/09/05/%E6%9E%9A%E4%B8%BE%E7%B1%BB%E5%9E%8B%E8%87%AA%E5%8A%A8%E5%A1%AB%E5%85%85swagger%E6%8F%8F%E8%BF%B0/"><div class="recent-posts-item-content"></div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2022-09-05</div>
+        <a href="/2022/09/05/%E5%B7%A5%E5%85%B7%E6%96%87%E6%A1%A3/"><div class="recent-posts-item-content"></div></a>
+      </div>
+    
+  </div>
+</div>
+  </article>
+  
+  
+</div>
+            </aside>
+          </div>
+        </div>
+      </div>
+    </div>
+     
+    <footer class="footer">
+  <div class="footer-container">
+    <div>
+      <div class="footer-dsc">
+        <span>
+          Copyright ©
+          
+            2022
+          
+          
+        </span>
+        &nbsp;
+        <a 
+          href="/" 
+          class="footer-link">
+          Chun's Blog
+        </a>
+      </div>
+    </div>
+
+    
+      <div class="footer-dsc">
+        
+          Powered by
+          <a 
+            href="https://hexo.io/" 
+            class="footer-link" 
+            target="_blank" 
+            rel="nofollow noopener noreferrer">
+            &nbsp;Hexo
+          </a>
+        
+        
+          <span>&nbsp;|&nbsp;</span>
+        
+        
+          Theme -
+          <a 
+            href="https://github.com/theme-kaze" 
+            class="footer-link" 
+            target="_blank"
+            rel="nofollow noopener noreferrer">
+            &nbsp;Kaze
+          </a>
+        
+      </div>
+    
+    
+    
+    
+</footer>
+ 
+    
+  <a 
+    role="button" 
+    id="scrollbutton" 
+    class="basebutton" 
+    aria-label="回到顶部">
+    <i class="iconfont icon-arrowleft button-icon"></i>
+  </a>
+
+<a 
+  role="button" 
+  id="menubutton"
+  aria-label="menu button"
+  class="basebutton">
+  <i class="iconfont icon-menu button-icon"></i>
+</a>
+<a 
+  role="button" 
+  id="popbutton" 
+  class="basebutton" 
+  aria-label="控制中心">
+  <i class="iconfont icon-expand button-icon"></i>
+</a>
+<a 
+  role="button" 
+  id="darkbutton" 
+  class="basebutton darkwidget" 
+  aria-label="夜色模式">
+  <i class="iconfont icon-weather button-icon"></i>
+</a>
+<a 
+  role="button" 
+  id="searchbutton" 
+  class="basebutton searchwidget" 
+  aria-label="搜索">
+  <i class="iconfont icon-search button-icon"></i>
+</a> 
+     
+     
+     
+      <script>
+  var addImgLayout = function () {
+    var img = document.querySelectorAll('.post-content img')
+    var i
+    for (i = 0; i < img.length; i++) {
+      var wrapper = document.createElement('a')
+      wrapper.setAttribute('href', img[i].getAttribute('data-src'))
+      wrapper.setAttribute('aria-label', 'illustration')
+      wrapper.style.cssText =
+        'width: 100%; display: flex; justify-content: center;'
+      if (img[i].alt) wrapper.dataset.caption = img[i].alt
+      wrapper.dataset.nolink = true
+      img[i].before(wrapper)
+      wrapper.append(img[i])
+      var divWrap = document.createElement('div')
+      divWrap.classList.add('gallery')
+      wrapper.before(divWrap)
+      divWrap.append(wrapper)
+    }
+    baguetteBox.run('.gallery')
+  }
+</script>
+<script>
+  loadScript(
+    "/js/lib/lightbox/baguetteBox.min.js",
+    addImgLayout
+  )
+</script>
+ 
+     
+     
+    <script src="/js/main.js"></script> 
+     
+    
+      <script>
+        var addLazyload = function () {
+          var observer = lozad('.lozad', {
+            load: function (el) {
+              el.srcset = el.getAttribute('data-src')
+            },
+            loaded: function (el) {
+              el.classList.add('loaded')
+            },
+          })
+          observer.observe()
+        }
+      </script>
+      <script>
+        loadScript('/js/lib/lozad.min.js', addLazyload)
+      </script>
+    
+    <script src="//instant.page/5.1.0" type="module"
+      integrity="sha384-by67kQnR+pyfy8yWP4kPO12fHKRLHZPfEsiSXR8u2IKcTdxD805MGUXBzVPnkLHw"></script>
+    
+    
+      <script>
+        setTimeout(() => {localSearch("search.json")}, 0)
+      </script>
+    
+  </body>
+</html>

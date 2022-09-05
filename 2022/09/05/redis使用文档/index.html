@@ -18,22 +18,22 @@
   <link 
     rel="icon" 
     href="/">
-  <title>Hello World</title>
+  <title>Chun's Blog</title>
   
     
       <meta 
         property="og:title" 
-        content="Hello World">
+        content="Chun&#39;s Blog">
     
     
       <meta 
         property="og:url" 
-        content="http://example.com/2022/09/05/hello-world/index.html">
+        content="http://example.com/2022/09/05/redis%E4%BD%BF%E7%94%A8%E6%96%87%E6%A1%A3/index.html">
     
     
       <meta 
         property="og:img" 
-        content="http://img.chunge666.top/20220613190320.png">
+        content="http://img.chunge666.top/QQ图片20220905150341.jpg">
     
     
     
@@ -45,7 +45,7 @@
         content="2022-09-05">
       <meta 
         property="og:article:modified_time" 
-        content="2022-09-05">
+        content="2022-05-19">
       <meta 
         property="og:article:author" 
         content="Chun">
@@ -314,7 +314,7 @@
     style="padding-right: 2px;">
   </i>目录
 </div>
-<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#redis-%E4%BD%BF%E7%94%A8%E6%96%87%E6%A1%A3"><span class="toc-text">redis 使用文档</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8"><span class="toc-text">使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E7%BC%93%E5%AD%98%E5%92%8C%E4%BD%BF%E7%94%A8"><span class="toc-text">生成缓存和使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E7%BC%93%E5%AD%98"><span class="toc-text">删除缓存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%93%E5%AD%98-key-%E5%AE%9A%E4%B9%89%E4%BD%8D%E7%BD%AE"><span class="toc-text">缓存 key 定义位置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#key-%E7%9A%84%E9%BB%98%E8%AE%A4%E8%B6%85%E6%97%B6%E6%97%B6%E9%97%B4"><span class="toc-text">key 的默认超时时间</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89-key-%E7%9A%84%E8%B6%85%E6%97%B6%E6%97%B6%E9%97%B4"><span class="toc-text">自定义 key 的超时时间</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2"><span class="toc-text">部署</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%95%E5%85%A5-pom-%E6%96%87%E4%BB%B6"><span class="toc-text">引入 pom 文件</span></a></li></ol></li></ol></li></ol>
       </div>
     </article>
   
@@ -365,23 +365,14 @@
             </aside>
             <main class="main-column">
               
-  <div class="image-wrapper">
-    <img 
-      src="http://img.chunge666.top/20220613190320.png" 
-      data-src="http://img.chunge666.top/20220613190320.png"
-      srcset="data:image/svg+xml,%3Csvg%20xmlns=&#39;http://www.w3.org/2000/svg&#39;%20viewBox=&#39;0%200%20300%20300&#39;%3E%3C/svg%3E"
-      class="image lozad"
-      alt="Hello World thumbnail">
-  </div>
-
 <article class="card card-content">
   <header>
     <h1 class="post-title">
-      Hello World
+      
     </h1>
   </header>
   <div class="post-meta post-show-meta">
-    <time datetime="2022-09-05T05:10:33.810Z">
+    <time datetime="2022-09-05T07:40:16.772Z">
       <i 
         class="iconfont icon-calendar" 
         style="margin-right: 2px;">
@@ -391,7 +382,7 @@
     
     
       <span class="dot"></span>
-      <span>75 字</span>
+      <span>263 字</span>
     
   </div>
   
@@ -399,19 +390,41 @@
   <div 
     id="section" 
     class="post-content">
-    <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre class="highlight"><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre>
+    <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre class="highlight"><span class="line">$ hexo server</span><br></pre>
+<!-- code_chunk_output -->
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre class="highlight"><span class="line">$ hexo generate</span><br></pre>
+<ul>
+<li><a href="#redis-%E4%BD%BF%E7%94%A8%E6%96%87%E6%A1%A3">redis 使用文档</a><ul>
+<li><a href="#%E4%BD%BF%E7%94%A8">使用</a><ul>
+<li><a href="#%E7%94%9F%E6%88%90%E7%BC%93%E5%AD%98%E5%92%8C%E4%BD%BF%E7%94%A8">生成缓存和使用</a></li>
+<li><a href="#%E5%88%A0%E9%99%A4%E7%BC%93%E5%AD%98">删除缓存</a></li>
+<li><a href="#%E7%BC%93%E5%AD%98-key-%E5%AE%9A%E4%B9%89%E4%BD%8D%E7%BD%AE">缓存 key 定义位置</a></li>
+<li><a href="#key-%E7%9A%84%E9%BB%98%E8%AE%A4%E8%B6%85%E6%97%B6%E6%97%B6%E9%97%B4">key 的默认超时时间</a></li>
+<li><a href="#%E8%87%AA%E5%AE%9A%E4%B9%89-key-%E7%9A%84%E8%B6%85%E6%97%B6%E6%97%B6%E9%97%B4">自定义 key 的超时时间</a></li>
+</ul>
+</li>
+<li><a href="#%E9%83%A8%E7%BD%B2">部署</a><ul>
+<li><a href="#%E5%BC%95%E5%85%A5-pom-%E6%96%87%E4%BB%B6">引入 pom 文件</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre class="highlight"><span class="line">$ hexo deploy</span><br></pre>
+<h1 id="redis-使用文档"><a href="#redis-使用文档" class="headerlink" title="redis 使用文档"></a>redis 使用文档</h1><h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><h3 id="生成缓存和使用"><a href="#生成缓存和使用" class="headerlink" title="生成缓存和使用"></a>生成缓存和使用</h3><p>在 <code>springbean</code> 的带有返回值的方法上使用 <code>@Cacheable</code> 注解, <code>@Cacheable</code> 的 <code>value</code> 属性就是 <code>redis 缓存</code>的 <code>key</code>，<br>缓存的数据就是方法的返回值</p>
+<pre class="highlight"><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestServiceImpl</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Cacheable(value = RedisVar.LIST_USER)</span></span><br><span class="line">    <span class="keyword">public</span> List&lt;User&gt; <span class="title function_">listUser</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="comment">// 查询代码</span></span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<h3 id="删除缓存"><a href="#删除缓存" class="headerlink" title="删除缓存"></a>删除缓存</h3><p>在 <code>springbean</code> 的方法上使用 <code>@CacheEvict</code> 注解, 即可删除对应的缓存</p>
+<pre class="highlight"><span class="line">@Service</span><br><span class="line">public class TestServiceImpl&#123;</span><br><span class="line"></span><br><span class="line">    @CacheEvict(value = RedisVar.LIST_USER)</span><br><span class="line">    public void deleteByUserId(Long userId)&#123;</span><br><span class="line">        // 删除用户</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre>
+
+<h3 id="缓存-key-定义位置"><a href="#缓存-key-定义位置" class="headerlink" title="缓存 key 定义位置"></a>缓存 key 定义位置</h3><p>位置：统一定义在 <code>com.itran.fgoc.common.redis.var.RedisVar</code> 类中</p>
+<h3 id="key-的默认超时时间"><a href="#key-的默认超时时间" class="headerlink" title="key 的默认超时时间"></a>key 的默认超时时间</h3><p>修改 <code>RedisVar.DEFAULT_TTL</code> 的值, 默认6小时</p>
+<h3 id="自定义-key-的超时时间"><a href="#自定义-key-的超时时间" class="headerlink" title="自定义 key 的超时时间"></a>自定义 key 的超时时间</h3><p>修改 <code>RedisVar.TTL_MAP</code> 的值, 以分钟为单位</p>
+<h2 id="部署"><a href="#部署" class="headerlink" title="部署"></a>部署</h2><h3 id="引入-pom-文件"><a href="#引入-pom-文件" class="headerlink" title="引入 pom 文件"></a>引入 pom 文件</h3><pre class="highlight"><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;com.itran.fgoc&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;common-redis&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre>
+
+
 
   </div>
   <div>
@@ -431,8 +444,8 @@
           <span style="font-weight: bold;">文章链接：</span><a 
             target="_blank" 
             rel="nofollow noopener noreferrer" 
-            href="http://example.com/2022/09/05/hello-world/">
-            http://example.com/2022/09/05/hello-world/
+            href="http://example.com/2022/09/05/redis%E4%BD%BF%E7%94%A8%E6%96%87%E6%A1%A3/">
+            http://example.com/2022/09/05/redis%E4%BD%BF%E7%94%A8%E6%96%87%E6%A1%A3/
           </a>
         </p>
         <p><span style="font-weight: bold;">版权声明：</span>本博客所有文章除特别声明外，均采用<a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0 协议</a>。转载请注明出处！</p>
@@ -444,7 +457,7 @@
   
     <div class="nav-item-prev">
       <a 
-        href="/2022/09/05/centos7.9%E9%99%8D%E7%BA%A77.5/" 
+        href="/2022/09/05/xml%E8%BD%ACjavabean/" 
         class="nav-link">
         <i class="iconfont icon-left nav-prev-icon"></i>
         <div>
@@ -454,6 +467,18 @@
       </a>
     </div>
   
+  
+    <div class="nav-item-next">
+      <a 
+        href="/2022/09/05/redis/" 
+        class="nav-link">
+        <div>
+          <div class="nav-label">下一篇</div>
+          
+        </div>
+        <i class="iconfont icon-right nav-next-icon"></i>
+      </a>
+    </div>
   
 </div>
 
@@ -502,7 +527,7 @@
     style="padding-right: 2px;">
   </i>目录
 </div>
-<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#redis-%E4%BD%BF%E7%94%A8%E6%96%87%E6%A1%A3"><span class="toc-text">redis 使用文档</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8"><span class="toc-text">使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E7%BC%93%E5%AD%98%E5%92%8C%E4%BD%BF%E7%94%A8"><span class="toc-text">生成缓存和使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E7%BC%93%E5%AD%98"><span class="toc-text">删除缓存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%93%E5%AD%98-key-%E5%AE%9A%E4%B9%89%E4%BD%8D%E7%BD%AE"><span class="toc-text">缓存 key 定义位置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#key-%E7%9A%84%E9%BB%98%E8%AE%A4%E8%B6%85%E6%97%B6%E6%97%B6%E9%97%B4"><span class="toc-text">key 的默认超时时间</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89-key-%E7%9A%84%E8%B6%85%E6%97%B6%E6%97%B6%E9%97%B4"><span class="toc-text">自定义 key 的超时时间</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2"><span class="toc-text">部署</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%95%E5%85%A5-pom-%E6%96%87%E4%BB%B6"><span class="toc-text">引入 pom 文件</span></a></li></ol></li></ol></li></ol>
 </div>
             </main>
             <aside class="right-column">
@@ -516,7 +541,7 @@
     style="padding-right: 2px;">
   </i>目录
 </div>
-<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#redis-%E4%BD%BF%E7%94%A8%E6%96%87%E6%A1%A3"><span class="toc-text">redis 使用文档</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8"><span class="toc-text">使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E7%BC%93%E5%AD%98%E5%92%8C%E4%BD%BF%E7%94%A8"><span class="toc-text">生成缓存和使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E7%BC%93%E5%AD%98"><span class="toc-text">删除缓存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%93%E5%AD%98-key-%E5%AE%9A%E4%B9%89%E4%BD%8D%E7%BD%AE"><span class="toc-text">缓存 key 定义位置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#key-%E7%9A%84%E9%BB%98%E8%AE%A4%E8%B6%85%E6%97%B6%E6%97%B6%E9%97%B4"><span class="toc-text">key 的默认超时时间</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89-key-%E7%9A%84%E8%B6%85%E6%97%B6%E6%97%B6%E9%97%B4"><span class="toc-text">自定义 key 的超时时间</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2"><span class="toc-text">部署</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%95%E5%85%A5-pom-%E6%96%87%E4%BB%B6"><span class="toc-text">引入 pom 文件</span></a></li></ol></li></ol></li></ol>
     </article>
   
   

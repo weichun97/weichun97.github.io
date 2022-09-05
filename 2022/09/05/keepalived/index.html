@@ -18,22 +18,22 @@
   <link 
     rel="icon" 
     href="/">
-  <title>Hello World</title>
+  <title>Chun's Blog</title>
   
     
       <meta 
         property="og:title" 
-        content="Hello World">
+        content="Chun&#39;s Blog">
     
     
       <meta 
         property="og:url" 
-        content="http://example.com/2022/09/05/hello-world/index.html">
+        content="http://example.com/2022/09/05/keepalived/index.html">
     
     
       <meta 
         property="og:img" 
-        content="http://img.chunge666.top/20220613190320.png">
+        content="http://img.chunge666.top/QQ图片20220905150341.jpg">
     
     
     
@@ -45,7 +45,7 @@
         content="2022-09-05">
       <meta 
         property="og:article:modified_time" 
-        content="2022-09-05">
+        content="2022-03-09">
       <meta 
         property="og:article:author" 
         content="Chun">
@@ -314,7 +314,7 @@
     style="padding-right: 2px;">
   </i>目录
 </div>
-<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-text">安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#yum-%E5%AE%89%E8%A3%85"><span class="toc-text">yum 安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#rpm-%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85"><span class="toc-text">rpm 离线安装</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%8C%E6%9C%BA%E7%83%AD%E5%A4%87"><span class="toc-text">双机热备</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%86%E5%A4%87%E6%9D%A1%E4%BB%B6"><span class="toc-text">准备条件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%96%E8%BE%91%E4%B8%BB%E4%BB%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84-keepalived-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-text">编辑主从服务器的 keepalived 配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E6%B5%8B%E8%AF%95"><span class="toc-text">启动测试</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LVS-keepalived"><span class="toc-text">LVS + keepalived</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-text">参考链接</span></a></li></ol>
       </div>
     </article>
   
@@ -365,23 +365,14 @@
             </aside>
             <main class="main-column">
               
-  <div class="image-wrapper">
-    <img 
-      src="http://img.chunge666.top/20220613190320.png" 
-      data-src="http://img.chunge666.top/20220613190320.png"
-      srcset="data:image/svg+xml,%3Csvg%20xmlns=&#39;http://www.w3.org/2000/svg&#39;%20viewBox=&#39;0%200%20300%20300&#39;%3E%3C/svg%3E"
-      class="image lozad"
-      alt="Hello World thumbnail">
-  </div>
-
 <article class="card card-content">
   <header>
     <h1 class="post-title">
-      Hello World
+      
     </h1>
   </header>
   <div class="post-meta post-show-meta">
-    <time datetime="2022-09-05T05:10:33.810Z">
+    <time datetime="2022-09-05T07:40:16.750Z">
       <i 
         class="iconfont icon-calendar" 
         style="margin-right: 2px;">
@@ -391,7 +382,7 @@
     
     
       <span class="dot"></span>
-      <span>75 字</span>
+      <span>766 字</span>
     
   </div>
   
@@ -399,19 +390,38 @@
   <div 
     id="section" 
     class="post-content">
-    <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre class="highlight"><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre>
+    <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><h3 id="yum-安装"><a href="#yum-安装" class="headerlink" title="yum 安装"></a>yum 安装</h3><pre class="highlight"><span class="line">apt-get install keepalived</span><br></pre>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre class="highlight"><span class="line">$ hexo server</span><br></pre>
+<h3 id="rpm-离线安装"><a href="#rpm-离线安装" class="headerlink" title="rpm 离线安装"></a>rpm 离线安装</h3><p>依赖关系</p>
+<pre class="highlight"><span class="line">keepalived-1.3.5-19.el7.x86_64.rpm</span><br><span class="line">    - net-snmp-libs-5.7.2-49.el7.x86_64.rpm</span><br><span class="line">    - net-snmp-agent-libs-5.7.2-49.el7.x86_64.rpm</span><br></pre>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre class="highlight"><span class="line">$ hexo generate</span><br></pre>
+<pre class="highlight"><span class="line">rpm -ivh keepalived-1.3.5-19.el7.x86_64.rpm</span><br></pre>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre class="highlight"><span class="line">$ hexo deploy</span><br></pre>
+<h2 id="双机热备"><a href="#双机热备" class="headerlink" title="双机热备"></a>双机热备</h2><blockquote>
+<p>缺点：只有主服务器不可用时，从服务器才能使用，比较浪费资源</p>
+</blockquote>
+<h3 id="准备条件"><a href="#准备条件" class="headerlink" title="准备条件"></a>准备条件</h3><p>两台可以浏览器访问的 <code>ubuntu</code> 服务器, 并安装好 <code>keepalived</code></p>
+<pre class="highlight"><span class="line">服务器A  192.168.1.200</span><br><span class="line">服务器B  192.168.1.201</span><br></pre>
+<p>访问192.168.1.200   显示 192.168.1.200<br>访问192.168.1.201   显示 192.168.1.201</p>
+<h3 id="编辑主从服务器的-keepalived-配置文件"><a href="#编辑主从服务器的-keepalived-配置文件" class="headerlink" title="编辑主从服务器的 keepalived 配置文件"></a>编辑主从服务器的 keepalived 配置文件</h3><p>配置文件路径: <code>/etc/keepalived/keepalived.conf</code> , 默认是没有的，需要自己手动创建</p>
+<p>主服务器(服务器A)</p>
+<pre class="highlight"><span class="line">global_defs &#123;  </span><br><span class="line">    router_id NodeA  </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"># 定义脚本</span><br><span class="line">vrrp_script chk_nginx &#123;</span><br><span class="line">    script &quot;/opt/check_ng.sh&quot; # 脚本地址</span><br><span class="line">    interval 3 # 脚本触发间隔（此处表示3秒触发一次）</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">vrrp_instance VI_1 &#123;  </span><br><span class="line">    state MASTER    #设置为主服务器  </span><br><span class="line">    interface enp0s3  #监测网络接口  </span><br><span class="line">    virtual_router_id 51  #主、备必须一样  </span><br><span class="line">    priority 100   #(主、备机取不同的优先级，主机值较大，备份机值较小,值越大优先级越高)  </span><br><span class="line">    advert_int 1   #VRRP Multicast广播周期秒数  </span><br><span class="line">    authentication &#123;  </span><br><span class="line">        auth_type PASS  #VRRP认证方式，主备必须一致  </span><br><span class="line">        auth_pass 1111   #(密码)  </span><br><span class="line">    &#125;  </span><br><span class="line">    virtual_ipaddress &#123;  </span><br><span class="line">        192.168.1.199/24  #VRRP HA虚拟地址  </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    # 引用上面定义的脚本</span><br><span class="line">    track_script &#123;</span><br><span class="line">        chk_nginx</span><br><span class="line">    &#125;</span><br><span class="line">&#125;  </span><br></pre>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+<p>从服务器(服务器B)</p>
+<pre class="highlight"><span class="line">global_defs &#123;  </span><br><span class="line">    router_id NodeB  </span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line">vrrp_script chk_nginx &#123;</span><br><span class="line">    script &quot;/opt/check_ng.sh&quot; # 脚本地址</span><br><span class="line">    interval 3 # 脚本触发间隔（此处表示3秒触发一次）</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">vrrp_instance VI_1 &#123;  </span><br><span class="line">    state BACKUP    #设置为主服务器  </span><br><span class="line">    interface enp0s3  #监测网络接口  </span><br><span class="line">    virtual_router_id 51  #主、备必须一样  </span><br><span class="line">    priority 90   #(主、备机取不同的优先级，主机值较大，备份机值较小,值越大优先级越高)  </span><br><span class="line">    advert_int 1   #VRRP Multicast广播周期秒数  </span><br><span class="line">    authentication &#123;  </span><br><span class="line">        auth_type PASS  #VRRP认证方式，主备必须一致  </span><br><span class="line">        auth_pass 1111   #(密码)  </span><br><span class="line">    &#125;  </span><br><span class="line">    virtual_ipaddress &#123;  </span><br><span class="line">        192.168.1.199/24  #VRRP HA虚拟地址  </span><br><span class="line">    &#125;  </span><br><span class="line">    </span><br><span class="line">    # 引用上面定义的脚本</span><br><span class="line">    track_script &#123;</span><br><span class="line">        chk_nginx</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre>
+
+<p><code>check_ng.sh</code> 脚本文件</p>
+<p>用来检查 <code>nginx</code> 是否可用的脚本，不可用的话关闭 <code>keepalived</code></p>
+<pre class="highlight"><span class="line">#!/bin/bash</span><br><span class="line">#时间变量，用于记录日志</span><br><span class="line">d=`date --date today +%Y%m%d_%H:%M:%S`</span><br><span class="line">#计算nginx进程数量</span><br><span class="line">n=`ps -C nginx --no-heading|wc -l`</span><br><span class="line">#如果进程为0，则启动nginx，并且再次检测nginx进程数量，</span><br><span class="line">#如果还为0，说明nginx无法启动，此时需要关闭keepalived</span><br><span class="line">if [ $n -eq &quot;0&quot; ]; then</span><br><span class="line">        /etc/init.d/nginx start</span><br><span class="line">        n2=`ps -C nginx --no-heading|wc -l`</span><br><span class="line">        if [ $n2 -eq &quot;0&quot;  ]; then</span><br><span class="line">                echo &quot;$d nginx down,keepalived will stop&quot; &gt;&gt; /var/log/check_ng.log</span><br><span class="line">                systemctl stop keepalived</span><br><span class="line">        fi</span><br><span class="line">fi</span><br></pre>
+
+<h3 id="启动测试"><a href="#启动测试" class="headerlink" title="启动测试"></a>启动测试</h3><ol>
+<li>在主从服务器分别运行 <code>service keepalived start</code> </li>
+<li>使用 <code>ip add</code> 查看vip地址是否生效<br><img src="http://img.chunge666.top/QQ%E5%9B%BE%E7%89%8720191114150201.png" alt="image" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="http://img.chunge666.top/QQ%E5%9B%BE%E7%89%8720191114150201.png" class="lozad post-image"></li>
+<li>访问 <code>192.168.1.199</code> 会显示 <code>服务器A</code> 的内容 <code>192.168.1.200</code>，</li>
+<li>关闭服务器A的 <code> keepalived</code></li>
+<li>再次访问 <code>192.168.1.199</code> 会显示 <code>服务器B</code> 的内容 <code>192.168.1.201</code></li>
+</ol>
+<h2 id="LVS-keepalived"><a href="#LVS-keepalived" class="headerlink" title="LVS + keepalived"></a>LVS + keepalived</h2><h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/b050d8861fc1">https://www.jianshu.com/p/b050d8861fc1</a><br>配置文件参数说明 <a target="_blank" rel="noopener" href="https://www.iteye.com/blog/aoyouzi-2288124">https://www.iteye.com/blog/aoyouzi-2288124</a></p>
 
   </div>
   <div>
@@ -431,8 +441,8 @@
           <span style="font-weight: bold;">文章链接：</span><a 
             target="_blank" 
             rel="nofollow noopener noreferrer" 
-            href="http://example.com/2022/09/05/hello-world/">
-            http://example.com/2022/09/05/hello-world/
+            href="http://example.com/2022/09/05/keepalived/">
+            http://example.com/2022/09/05/keepalived/
           </a>
         </p>
         <p><span style="font-weight: bold;">版权声明：</span>本博客所有文章除特别声明外，均采用<a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0 协议</a>。转载请注明出处！</p>
@@ -444,7 +454,7 @@
   
     <div class="nav-item-prev">
       <a 
-        href="/2022/09/05/centos7.9%E9%99%8D%E7%BA%A77.5/" 
+        href="/2022/09/05/nginx/" 
         class="nav-link">
         <i class="iconfont icon-left nav-prev-icon"></i>
         <div>
@@ -454,6 +464,18 @@
       </a>
     </div>
   
+  
+    <div class="nav-item-next">
+      <a 
+        href="/2022/09/05/jar%E6%B3%A8%E5%86%8C%E5%88%B0windows%E6%9C%8D%E5%8A%A1/" 
+        class="nav-link">
+        <div>
+          <div class="nav-label">下一篇</div>
+          
+        </div>
+        <i class="iconfont icon-right nav-next-icon"></i>
+      </a>
+    </div>
   
 </div>
 
@@ -502,7 +524,7 @@
     style="padding-right: 2px;">
   </i>目录
 </div>
-<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-text">安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#yum-%E5%AE%89%E8%A3%85"><span class="toc-text">yum 安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#rpm-%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85"><span class="toc-text">rpm 离线安装</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%8C%E6%9C%BA%E7%83%AD%E5%A4%87"><span class="toc-text">双机热备</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%86%E5%A4%87%E6%9D%A1%E4%BB%B6"><span class="toc-text">准备条件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%96%E8%BE%91%E4%B8%BB%E4%BB%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84-keepalived-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-text">编辑主从服务器的 keepalived 配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E6%B5%8B%E8%AF%95"><span class="toc-text">启动测试</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LVS-keepalived"><span class="toc-text">LVS + keepalived</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-text">参考链接</span></a></li></ol>
 </div>
             </main>
             <aside class="right-column">
@@ -516,7 +538,7 @@
     style="padding-right: 2px;">
   </i>目录
 </div>
-<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-text">安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#yum-%E5%AE%89%E8%A3%85"><span class="toc-text">yum 安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#rpm-%E7%A6%BB%E7%BA%BF%E5%AE%89%E8%A3%85"><span class="toc-text">rpm 离线安装</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%8C%E6%9C%BA%E7%83%AD%E5%A4%87"><span class="toc-text">双机热备</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%86%E5%A4%87%E6%9D%A1%E4%BB%B6"><span class="toc-text">准备条件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%96%E8%BE%91%E4%B8%BB%E4%BB%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84-keepalived-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-text">编辑主从服务器的 keepalived 配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E6%B5%8B%E8%AF%95"><span class="toc-text">启动测试</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LVS-keepalived"><span class="toc-text">LVS + keepalived</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-text">参考链接</span></a></li></ol>
     </article>
   
   

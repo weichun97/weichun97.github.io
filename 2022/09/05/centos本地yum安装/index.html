@@ -18,22 +18,22 @@
   <link 
     rel="icon" 
     href="/">
-  <title>Hello World</title>
+  <title>Chun's Blog</title>
   
     
       <meta 
         property="og:title" 
-        content="Hello World">
+        content="Chun&#39;s Blog">
     
     
       <meta 
         property="og:url" 
-        content="http://example.com/2022/09/05/hello-world/index.html">
+        content="http://example.com/2022/09/05/centos%E6%9C%AC%E5%9C%B0yum%E5%AE%89%E8%A3%85/index.html">
     
     
       <meta 
         property="og:img" 
-        content="http://img.chunge666.top/20220613190320.png">
+        content="http://img.chunge666.top/QQ图片20220905150341.jpg">
     
     
     
@@ -45,7 +45,7 @@
         content="2022-09-05">
       <meta 
         property="og:article:modified_time" 
-        content="2022-09-05">
+        content="2022-03-09">
       <meta 
         property="og:article:author" 
         content="Chun">
@@ -314,7 +314,7 @@
     style="padding-right: 2px;">
   </i>目录
 </div>
-<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-text">安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8"><span class="toc-text">使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-text">参考链接</span></a></li></ol>
       </div>
     </article>
   
@@ -365,23 +365,14 @@
             </aside>
             <main class="main-column">
               
-  <div class="image-wrapper">
-    <img 
-      src="http://img.chunge666.top/20220613190320.png" 
-      data-src="http://img.chunge666.top/20220613190320.png"
-      srcset="data:image/svg+xml,%3Csvg%20xmlns=&#39;http://www.w3.org/2000/svg&#39;%20viewBox=&#39;0%200%20300%20300&#39;%3E%3C/svg%3E"
-      class="image lozad"
-      alt="Hello World thumbnail">
-  </div>
-
 <article class="card card-content">
   <header>
     <h1 class="post-title">
-      Hello World
+      
     </h1>
   </header>
   <div class="post-meta post-show-meta">
-    <time datetime="2022-09-05T05:10:33.810Z">
+    <time datetime="2022-09-05T07:40:16.734Z">
       <i 
         class="iconfont icon-calendar" 
         style="margin-right: 2px;">
@@ -391,7 +382,7 @@
     
     
       <span class="dot"></span>
-      <span>75 字</span>
+      <span>69 字</span>
     
   </div>
   
@@ -399,19 +390,14 @@
   <div 
     id="section" 
     class="post-content">
-    <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre class="highlight"><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre>
+    <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><pre class="highlight"><span class="line">yum install yum-plugin-downloadonly</span><br></pre>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre class="highlight"><span class="line">$ hexo server</span><br></pre>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><pre class="highlight"><span class="line"><span class="comment"># 创建用来存 rpm 包的文件夹</span></span><br><span class="line"><span class="built_in">mkdir</span> /data/rpm -p</span><br><span class="line"></span><br><span class="line"><span class="comment"># 下载 keepalived 的 rpm 及依赖的 rpm 包到 /data/rpm m目录下</span></span><br><span class="line">yum install –downloadonly –downloaddir=/data/rpm keepalived</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装 keepalived</span></span><br><span class="line"><span class="built_in">cd</span> /data/rpm/</span><br><span class="line">yum localinstall *.rpm -y</span><br></pre>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre class="highlight"><span class="line">$ hexo generate</span><br></pre>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre class="highlight"><span class="line">$ hexo deploy</span><br></pre>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/nmap/p/9511848.html">https://www.cnblogs.com/nmap/p/9511848.html</a></p>
 
   </div>
   <div>
@@ -431,8 +417,8 @@
           <span style="font-weight: bold;">文章链接：</span><a 
             target="_blank" 
             rel="nofollow noopener noreferrer" 
-            href="http://example.com/2022/09/05/hello-world/">
-            http://example.com/2022/09/05/hello-world/
+            href="http://example.com/2022/09/05/centos%E6%9C%AC%E5%9C%B0yum%E5%AE%89%E8%A3%85/">
+            http://example.com/2022/09/05/centos%E6%9C%AC%E5%9C%B0yum%E5%AE%89%E8%A3%85/
           </a>
         </p>
         <p><span style="font-weight: bold;">版权声明：</span>本博客所有文章除特别声明外，均采用<a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0 协议</a>。转载请注明出处！</p>
@@ -444,7 +430,7 @@
   
     <div class="nav-item-prev">
       <a 
-        href="/2022/09/05/centos7.9%E9%99%8D%E7%BA%A77.5/" 
+        href="/2022/09/05/centos%E5%8D%87%E7%BA%A7openssh/" 
         class="nav-link">
         <i class="iconfont icon-left nav-prev-icon"></i>
         <div>
@@ -454,6 +440,18 @@
       </a>
     </div>
   
+  
+    <div class="nav-item-next">
+      <a 
+        href="/2022/09/05/centos7.9%E9%99%8D%E7%BA%A77.5/" 
+        class="nav-link">
+        <div>
+          <div class="nav-label">下一篇</div>
+          
+        </div>
+        <i class="iconfont icon-right nav-next-icon"></i>
+      </a>
+    </div>
   
 </div>
 
@@ -502,7 +500,7 @@
     style="padding-right: 2px;">
   </i>目录
 </div>
-<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-text">安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8"><span class="toc-text">使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-text">参考链接</span></a></li></ol>
 </div>
             </main>
             <aside class="right-column">
@@ -516,7 +514,7 @@
     style="padding-right: 2px;">
   </i>目录
 </div>
-<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-text">安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8"><span class="toc-text">使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-text">参考链接</span></a></li></ol>
     </article>
   
   

@@ -18,22 +18,22 @@
   <link 
     rel="icon" 
     href="/">
-  <title>Hello World</title>
+  <title>Chun's Blog</title>
   
     
       <meta 
         property="og:title" 
-        content="Hello World">
+        content="Chun&#39;s Blog">
     
     
       <meta 
         property="og:url" 
-        content="http://example.com/2022/09/05/hello-world/index.html">
+        content="http://example.com/2022/09/05/%E9%87%8D%E5%A4%8D%E8%AF%B7%E6%B1%82%E7%A6%81%E7%94%A8/index.html">
     
     
       <meta 
         property="og:img" 
-        content="http://img.chunge666.top/20220613190320.png">
+        content="http://img.chunge666.top/QQ图片20220905150341.jpg">
     
     
     
@@ -314,7 +314,7 @@
     style="padding-right: 2px;">
   </i>目录
 </div>
-<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%98%B2%E9%87%8D%E5%A4%8D%E6%8F%90%E4%BA%A4"><span class="toc-text">防重复提交</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%B4%E6%98%8E"><span class="toc-text">说明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8"><span class="toc-text">使用</span></a></li></ol></li></ol>
       </div>
     </article>
   
@@ -365,23 +365,14 @@
             </aside>
             <main class="main-column">
               
-  <div class="image-wrapper">
-    <img 
-      src="http://img.chunge666.top/20220613190320.png" 
-      data-src="http://img.chunge666.top/20220613190320.png"
-      srcset="data:image/svg+xml,%3Csvg%20xmlns=&#39;http://www.w3.org/2000/svg&#39;%20viewBox=&#39;0%200%20300%20300&#39;%3E%3C/svg%3E"
-      class="image lozad"
-      alt="Hello World thumbnail">
-  </div>
-
 <article class="card card-content">
   <header>
     <h1 class="post-title">
-      Hello World
+      
     </h1>
   </header>
   <div class="post-meta post-show-meta">
-    <time datetime="2022-09-05T05:10:33.810Z">
+    <time datetime="2022-09-05T07:40:16.799Z">
       <i 
         class="iconfont icon-calendar" 
         style="margin-right: 2px;">
@@ -391,7 +382,7 @@
     
     
       <span class="dot"></span>
-      <span>75 字</span>
+      <span>189 字</span>
     
   </div>
   
@@ -399,19 +390,25 @@
   <div 
     id="section" 
     class="post-content">
-    <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre class="highlight"><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre>
+    <!-- @import "[TOC]" {cmd="toc" depthFrom=1 depthTo=6 orderedList=false} -->
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre class="highlight"><span class="line">$ hexo server</span><br></pre>
+<!-- code_chunk_output -->
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre class="highlight"><span class="line">$ hexo generate</span><br></pre>
+<ul>
+<li><a href="#%E9%98%B2%E9%87%8D%E5%A4%8D%E6%8F%90%E4%BA%A4">防重复提交</a><ul>
+<li><a href="#%E8%AF%B4%E6%98%8E">说明</a></li>
+<li><a href="#%E4%BD%BF%E7%94%A8">使用</a></li>
+</ul>
+</li>
+</ul>
+<!-- /code_chunk_output -->
+<h1 id="防重复提交"><a href="#防重复提交" class="headerlink" title="防重复提交"></a>防重复提交</h1><h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>在接口方法上添加 <code>@RepeatSubmit</code> 注解即可，注解参数说明：<br>| 参数  |  类型 |  描述 |<br>|—|—|—|<br>|  value | int  |  间隔时间(秒)，小于此时间视为重复提交</p>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>用户工作情况同一个用户 1 秒内只允许请求此接口一次</p>
+<pre class="highlight"><span class="line">@RepeatSubmit(1)</span><br><span class="line">@GetMapping(&quot;/workSituation&quot;)</span><br><span class="line">@ApiOperation(value = &quot;用户工作情况&quot;)</span><br><span class="line">@ApiImplicitParams(&#123;</span><br><span class="line">        @ApiImplicitParam(paramType = &quot;query&quot;, name = &quot;runningDay&quot;, value = &quot;运行日&quot;, dataType = &quot;string&quot;, defaultValue = &quot;2022-06-11&quot;),</span><br><span class="line">&#125;)</span><br><span class="line">public ResultBean&lt;UserWorkSituationVO&gt; userWorkSituation(@RequestParam(value = &quot;runningDay&quot;, required = false) @DateTimeFormat(pattern = DatePattern.NORM_DATE_PATTERN) Date runningDay)&#123;</span><br><span class="line">    return ResultBean.success(pdaDriverService.userWorkSituation(runningDay));</span><br><span class="line">&#125;</span><br></pre>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre class="highlight"><span class="line">$ hexo deploy</span><br></pre>
+<p>如果多次提交，返回：</p>
+<pre class="highlight"><span class="line">&#123;</span><br><span class="line">  &quot;code&quot;: 6001,</span><br><span class="line">  &quot;message&quot;: &quot;请勿重复提交！&quot;,</span><br><span class="line">  &quot;data&quot;: null,</span><br><span class="line">  &quot;success&quot;: false</span><br><span class="line">&#125;</span><br></pre>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
 
   </div>
   <div>
@@ -431,8 +428,8 @@
           <span style="font-weight: bold;">文章链接：</span><a 
             target="_blank" 
             rel="nofollow noopener noreferrer" 
-            href="http://example.com/2022/09/05/hello-world/">
-            http://example.com/2022/09/05/hello-world/
+            href="http://example.com/2022/09/05/%E9%87%8D%E5%A4%8D%E8%AF%B7%E6%B1%82%E7%A6%81%E7%94%A8/">
+            http://example.com/2022/09/05/%E9%87%8D%E5%A4%8D%E8%AF%B7%E6%B1%82%E7%A6%81%E7%94%A8/
           </a>
         </p>
         <p><span style="font-weight: bold;">版权声明：</span>本博客所有文章除特别声明外，均采用<a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0 协议</a>。转载请注明出处！</p>
@@ -442,18 +439,18 @@
 </article>
 <div class="nav">
   
-    <div class="nav-item-prev">
+  
+    <div class="nav-item-next">
       <a 
-        href="/2022/09/05/centos7.9%E9%99%8D%E7%BA%A77.5/" 
+        href="/2022/09/05/%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BB%BA%E8%A1%A8%E8%A7%84%E8%8C%83/" 
         class="nav-link">
-        <i class="iconfont icon-left nav-prev-icon"></i>
         <div>
-          <div class="nav-label">上一篇</div>
+          <div class="nav-label">下一篇</div>
           
         </div>
+        <i class="iconfont icon-right nav-next-icon"></i>
       </a>
     </div>
-  
   
 </div>
 
@@ -502,7 +499,7 @@
     style="padding-right: 2px;">
   </i>目录
 </div>
-<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%98%B2%E9%87%8D%E5%A4%8D%E6%8F%90%E4%BA%A4"><span class="toc-text">防重复提交</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%B4%E6%98%8E"><span class="toc-text">说明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8"><span class="toc-text">使用</span></a></li></ol></li></ol>
 </div>
             </main>
             <aside class="right-column">
@@ -516,7 +513,7 @@
     style="padding-right: 2px;">
   </i>目录
 </div>
-<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Start"><span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create-a-new-post"><span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run-server"><span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate-static-files"><span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy-to-remote-sites"><span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%98%B2%E9%87%8D%E5%A4%8D%E6%8F%90%E4%BA%A4"><span class="toc-text">防重复提交</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%B4%E6%98%8E"><span class="toc-text">说明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8"><span class="toc-text">使用</span></a></li></ol></li></ol>
     </article>
   
   
