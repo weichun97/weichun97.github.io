@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+  <meta charset="UTF-8">
+  <meta 
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <meta 
+    http-equiv="X-UA-Compatible" 
+    content="ie=edge">
+  <meta 
+    name="theme-color" 
+    content="#fff" 
+    id="theme-color">
+  <meta 
+    name="description" 
+    content="chunge&#39;s blog">
+  
+    <meta property="algolia:search" 
+      data-application-id="OBXVQ9OU0H" 
+      data-api-key="d858255d29c33cd3b57e6d8a56d94535" 
+      data-index-name="hexo">
+  
+  <link 
+    rel="icon" 
+    href="/">
+  <title>表单校验</title>
+  
+    
+      <meta 
+        property="og:title" 
+        content="表单校验">
+    
+    
+      <meta 
+        property="og:url" 
+        content="https://blog.chunge666.top/%E8%A1%A8%E5%8D%95%E6%A0%A1%E9%AA%8C.html">
+    
+    
+      <meta 
+        property="og:img" 
+        content="https://cdn.jsdelivr.net/gh/weichun97/img/img/20220905150341.jpg">
+    
+    
+    
+      <meta 
+        property="og:type" 
+        content="article">
+      <meta 
+        property="og:article:published_time" 
+        content="2018-01-01">
+      <meta 
+        property="og:article:modified_time" 
+        content="2022-09-06">
+      <meta 
+        property="og:article:author" 
+        content="Chun">
+      
+        
+          <meta 
+            property="og:article:tag" 
+            content="springboot">
+        
+      
+    
+  
+  
+  <link rel="preload" href="//at.alicdn.com/t/font_1946621_i1kgafibvw.css" as="style" >
+  <link rel="preload" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css" as="style" >
+  <link rel="preload" href="/css/main.css" as="style" >
+  
+  <link rel="modulepreload" href="//instant.page/5.1.0">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1946621_i1kgafibvw.css">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css">
+  
+  
+  
+    <link rel="stylesheet" href="/js/lib/lightbox/baguetteBox.min.css">
+  
+  <script>
+    function loadScript(url, cb) {
+      var script = document.createElement('script');
+      script.src = url;
+      if (cb) script.onload = cb;
+      script.async = true;
+      document.body.appendChild(script);
+    }
+    function loadCSS(href, data, attr) {
+      var sheet = document.createElement('link');
+      sheet.ref = 'stylesheet';
+      sheet.href = href;
+      sheet.dataset[data] = attr;
+      document.head.appendChild(sheet);
+    }
+    function changeCSS(cssFile, data, attr) {
+      var oldlink = document.querySelector(data);
+      var newlink = document.createElement("link");
+      newlink.setAttribute("rel", "stylesheet");
+      newlink.setAttribute("href", cssFile);
+      newlink.dataset.prism = attr;
+      document.head.replaceChild(newlink, oldlink);
+    }
+  </script>
+  <script src="/assets/algolia/algoliasearchLite.min.js" async></script>
+  
+    
+  
+  <script>
+    // control reverse button
+    var reverseDarkList = {
+      dark: 'light',
+      light: 'dark'
+    };
+    var themeColor = {
+      dark: '#1c1c1e',
+      light: '#fff'
+    }
+    // get the data of css prefers-color-scheme
+    var getCssMediaQuery = function() {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    };
+    // reverse current darkmode setting function
+    var reverseDarkModeSetting = function() {
+      var setting = localStorage.getItem('user-color-scheme');
+      if(reverseDarkList[setting]) {
+        setting = reverseDarkList[setting];
+      } else if(setting === null) {
+        setting = reverseDarkList[getCssMediaQuery()];
+      } else {
+        return;
+      }
+      localStorage.setItem('user-color-scheme', setting);
+      return setting;
+    };
+    // apply current darkmode setting
+  </script>
+  
+    <script>
+      var setDarkmode = function(mode) {
+      var setting = mode || localStorage.getItem('user-color-scheme');
+      if(setting === getCssMediaQuery()) {
+        document.documentElement.removeAttribute('data-user-color-scheme');
+        localStorage.removeItem('user-color-scheme');
+        document.getElementById('theme-color').content = themeColor[setting];
+        document.getElementById('theme-color').dataset.mode = setting;
+      } else if(reverseDarkList[setting]) {
+        document.documentElement.setAttribute('data-user-color-scheme', setting);
+        document.getElementById('theme-color').content = themeColor[setting];
+        document.getElementById('theme-color').dataset.mode = setting;
+      } else {
+        document.documentElement.removeAttribute('data-user-color-scheme');
+        localStorage.removeItem('user-color-scheme');
+        document.getElementById('theme-color').content = themeColor[getCssMediaQuery()];
+        document.getElementById('theme-color').dataset.mode = getCssMediaQuery();
+      }
+    };
+    setDarkmode();
+    </script>
+  
+  
+  
+    <link rel="preload" href="/js/lib/lightbox/baguetteBox.min.js" as="script">
+    <link rel="preload" href="/js/lib/lightbox/baguetteBox.min.css" as="style" >
+  
+  
+    <link rel="preload" href="/js/lib/lozad.min.js" as="script">
+  
+  
+  
+  
+  
+    
+    <link rel="prefetch" href="//unpkg.com/valine/dist/Valine.min.js" as="script">
+  
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+  <body>
+    <div class="wrapper">
+       
+      <nav class="navbar">
+  <div class="navbar-logo">
+    <a class="navbar-logo-main" href="/">
+      
+      <span class="navbar-logo-dsc">Chun's Blog</span>
+      </a>
+  </div>
+  <div class="navbar-menu">
+    
+      <a 
+        href="/" 
+        class="navbar-menu-item">
+        
+          首页
+        
+      </a>
+    
+      <a 
+        href="/archives" 
+        class="navbar-menu-item">
+        
+          归档
+        
+      </a>
+    
+      <a 
+        href="/tags" 
+        class="navbar-menu-item">
+        
+          标签
+        
+      </a>
+    
+      <a 
+        href="/categories" 
+        class="navbar-menu-item">
+        
+          分类
+        
+      </a>
+    
+      <a 
+        href="/about" 
+        class="navbar-menu-item">
+        
+          关于
+        
+      </a>
+    
+      <a 
+        href="/links" 
+        class="navbar-menu-item">
+        
+          友链
+        
+      </a>
+    
+    <button 
+      class="navbar-menu-item darknavbar navbar-menu-btn" 
+      aria-label="Toggle dark mode"
+      id="dark">
+      <i class="iconfont icon-weather"></i>
+    </button>
+    <button 
+      class="navbar-menu-item searchnavbar navbar-menu-btn" 
+      aria-label="Toggle search"
+      id="search">
+      <!-- <i 
+        class="iconfont icon-search" 
+        style="font-size: 1.2rem; font-weight: 400;">
+      </i> -->
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img"
+        class="iconify iconify--ion" width="28" height="28" preserveAspectRatio="xMidYMid meet" viewBox="0 0 512 512">
+        <path fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="28"
+          d="M256 80a176 176 0 1 0 176 176A176 176 0 0 0 256 80Z"></path>
+        <path fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="28"
+          d="M232 160a72 72 0 1 0 72 72a72 72 0 0 0-72-72Z"></path>
+        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="28"
+          d="M283.64 283.64L336 336"></path>
+      </svg>
+    </button>
+  </div>
+</nav> 
+      
+      <div 
+        id="local-search" 
+        style="display: none">
+        <input
+          class="navbar-menu-item"
+          id="search-input"
+          placeholder="请输入搜索内容..." />
+        <div id="search-content"></div>
+      </div>
+      
+      <div class="section-wrap">
+        <div class="container">
+          <div class="columns">
+            <aside class="left-column">
+              
+              <div class="card card-author">
+                
+  <img 
+    src="https://cdn.jsdelivr.net/gh/weichun97/img/img/20220905150341.jpg" 
+    class="author-img"
+    width="88"
+    height="88"
+    alt="author avatar">
+
+<p class="author-name">Chun</p>
+<p class="author-description"></p>
+<div class="author-message">
+  <a 
+    class="author-posts-count" 
+    href="/archives">
+    <span>12</span>
+    <span>文章</span>
+  </a>
+  <a 
+    class="author-categories-count" 
+    href="/categories">
+    <span>4</span>
+    <span>分类</span>
+  </a>
+  <a 
+    class="author-tags-count" 
+    href="/tags">
+    <span>12</span>
+    <span>标签</span>
+  </a>
+</div>
+
+              </div>
+               <div class="sticky-tablet">
+  
+  
+    <article class="display-when-two-columns spacer">
+      <div class="card card-content toc-card">
+        <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>目录
+</div>
+<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-text">简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E7%94%A8"><span class="toc-text">为什么要用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8"><span class="toc-text">使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8"><span class="toc-text">简单使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E9%83%A8%E7%B1%BB%E6%A0%A1%E9%AA%8C"><span class="toc-text">内部类校验</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#spring-%E7%BB%9F%E4%B8%80%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86"><span class="toc-text">spring 统一异常处理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%A8%E5%B1%80%E5%BC%82%E5%B8%B8%E6%8B%A6%E6%88%AA%E5%99%A8"><span class="toc-text">全局异常拦截器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%9A%E5%8A%A1%E7%BB%9F%E4%B8%80%E5%BC%82%E5%B8%B8"><span class="toc-text">业务统一异常</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%9F%E4%B8%80%E5%BC%82%E5%B8%B8%E7%A0%81%E6%8E%A5%E5%8F%A3"><span class="toc-text">统一异常码接口</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%9F%E4%B8%80%E5%BC%82%E5%B8%B8%E7%A0%81%E5%AE%9E%E7%8E%B0%E7%B1%BB"><span class="toc-text">统一异常码实现类</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A1%A8%E5%8D%95%E6%A0%A1%E9%AA%8C"><span class="toc-text">自定义表单校验</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B3%A8%E8%A7%A3"><span class="toc-text">注解</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B3%A8%E8%A7%A3%E8%A7%A3%E6%9E%90%E5%99%A8"><span class="toc-text">注解解析器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9E%9A%E4%B8%BE%E7%A4%BA%E4%BE%8B"><span class="toc-text">枚举示例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#NullVar"><span class="toc-text">NullVar</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-1"><span class="toc-text">使用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%BB%98%E8%AE%A4%E8%A1%A8%E5%8D%95%E6%A0%A1%E9%AA%8C"><span class="toc-text">默认表单校验</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-text">参考链接</span></a></li></ol></li></ol>
+      </div>
+    </article>
+  
+  
+  <article class="card card-content categories-widget">
+    <div class="categories-card">
+  <div class="categories-header">
+    <i 
+      class="iconfont icon-fenlei" 
+      style="padding-right: 2px;">
+    </i>分类
+  </div>
+  <div class="categories-list">
+    
+      <a href="/categories/java/">
+        <div class="categories-list-item">
+          java
+          <span class="categories-list-item-badge">2</span>
+        </div>
+      </a>
+    
+      <a href="/categories/%E7%BC%96%E8%BE%91%E5%99%A8/">
+        <div class="categories-list-item">
+          编辑器
+          <span class="categories-list-item-badge">3</span>
+        </div>
+      </a>
+    
+      <a href="/categories/linux/">
+        <div class="categories-list-item">
+          linux
+          <span class="categories-list-item-badge">5</span>
+        </div>
+      </a>
+    
+      <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">
+        <div class="categories-list-item">
+          数据库
+          <span class="categories-list-item-badge">2</span>
+        </div>
+      </a>
+    
+  </div>
+</div>
+  </article>
+  
+  <article class="card card-content tags-widget">
+    <div class="tags-card">
+  <div class="tags-header">
+    <i 
+      class="iconfont icon-biaoqian" 
+      style="padding-right: 2px;">
+    </i>热门标签
+  </div>
+  <div class="tags-list">
+    
+      <a 
+        href="/tags/centos/" 
+        title="centos">
+        <div class="tags-list-item">centos</div>
+      </a>
+    
+      <a 
+        href="/tags/idea/" 
+        title="idea">
+        <div class="tags-list-item">idea</div>
+      </a>
+    
+      <a 
+        href="/tags/keepalived/" 
+        title="keepalived">
+        <div class="tags-list-item">keepalived</div>
+      </a>
+    
+      <a 
+        href="/tags/xml/" 
+        title="xml">
+        <div class="tags-list-item">xml</div>
+      </a>
+    
+      <a 
+        href="/tags/redis/" 
+        title="redis">
+        <div class="tags-list-item">redis</div>
+      </a>
+    
+      <a 
+        href="/tags/mysql/" 
+        title="mysql">
+        <div class="tags-list-item">mysql</div>
+      </a>
+    
+      <a 
+        href="/tags/proxysql/" 
+        title="proxysql">
+        <div class="tags-list-item">proxysql</div>
+      </a>
+    
+      <a 
+        href="/tags/nginx/" 
+        title="nginx">
+        <div class="tags-list-item">nginx</div>
+      </a>
+    
+      <a 
+        href="/tags/jar/" 
+        title="jar">
+        <div class="tags-list-item">jar</div>
+      </a>
+    
+      <a 
+        href="/tags/docker/" 
+        title="docker">
+        <div class="tags-list-item">docker</div>
+      </a>
+    
+      <a 
+        href="/tags/yum/" 
+        title="yum">
+        <div class="tags-list-item">yum</div>
+      </a>
+    
+      <a 
+        href="/tags/springboot/" 
+        title="springboot">
+        <div class="tags-list-item">springboot</div>
+      </a>
+    
+  </div>
+</div>
+  </article>
+  
+  
+</div>
+            </aside>
+            <main class="main-column">
+              
+<article class="card card-content">
+  <header>
+    <h1 class="post-title">
+      表单校验
+    </h1>
+  </header>
+  <div class="post-meta post-show-meta">
+    <time datetime="2017-12-31T16:00:00.000Z">
+      <i 
+        class="iconfont icon-calendar" 
+        style="margin-right: 2px;">
+      </i>
+      <span>2018-01-01</span>
+    </time>
+    
+      <span class="dot"></span>
+      
+        <a 
+          href="/categories/java/" 
+          class="post-meta-link">
+          java
+        </a>
+      
+    
+    
+      <span class="dot"></span>
+      <span>1.8k 字</span>
+    
+  </div>
+  
+    <div 
+      class="post-meta post-show-meta" 
+      style="margin-top: -10px;">
+      <div style="display: flex; align-items: center;">
+        <i 
+          class="iconfont icon-biaoqian" 
+          style="margin-right: 2px; font-size: 1.15rem;">
+        </i>
+        
+          
+          <a 
+            href="/tags/springboot/" 
+            class="post-meta-link">
+            springboot
+          </a>
+        
+      </div>
+    </div>
+  
+  </header>
+  <div 
+    id="section" 
+    class="post-content">
+    <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><h3 id="为什么要用"><a href="#为什么要用" class="headerlink" title="为什么要用"></a>为什么要用</h3><p>传统的表单校验需要使用大量的<code>ifelse</code>,这样虽然可以实现校验的功能，但是确实代码的可读性非常的差，而且，如下图：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/weichun97/img/img/image-20220906000540880.png" alt="image-20220906000540880" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="https://cdn.jsdelivr.net/gh/weichun97/img/img/image-20220906000540880.png" class="lozad post-image"></p>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><h3 id="简单使用"><a href="#简单使用" class="headerlink" title="简单使用"></a>简单使用</h3><p>引入 <code>maven</code> 依赖</p>
+<pre class="highlight"><code class="hljs plaintext">&lt;dependency&gt;<br>	&lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;<br>	&lt;artifactId&gt;spring-boot-starter-validation&lt;/artifactId&gt;<br>&lt;/dependency&gt;<br></code></pre>
+
+<p>创建验证对象</p>
+<pre class="highlight"><code class="hljs java"><span class="hljs-keyword">import</span> lombok.Data;<br><span class="hljs-keyword">import</span> javax.validation.constraints.NotBlank;<br><span class="hljs-keyword">import</span> javax.validation.constraints.Pattern;<br><span class="hljs-keyword">import</span> java.io.Serializable;<br><br><span class="hljs-meta">@Data</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TestForm</span> &#123;<br><br>    <span class="hljs-meta">@NotNull(message = &quot;日期不能为空&quot;)</span><br>    <span class="hljs-keyword">private</span> Date Date;<br><br>    <span class="hljs-meta">@NotBlank(message = &quot;进出不能为空&quot;)</span><br>    <span class="hljs-keyword">private</span> String io;<br><br>    <span class="hljs-meta">@NotNull(message = &quot;类型不能为空&quot;)</span><br>    <span class="hljs-keyword">private</span> Integer type;<br>&#125;<br><br></code></pre>
+
+<p>使用<code>@Valid</code>校验, 并将结果存在<code>BindingResult</code>中</p>
+<pre class="highlight"><code class="hljs java"><span class="hljs-keyword">public</span> R <span class="hljs-title function_">test</span><span class="hljs-params">(<span class="hljs-meta">@Valid</span> <span class="hljs-meta">@RequestBody</span> TestForm test, BindingResult bindingResult)</span> &#123;<br>    <span class="hljs-keyword">if</span>(bindingResult.hasErrors())&#123;<br>        <span class="hljs-keyword">for</span> (ObjectError objectError: bindingResult.getAllErrors()) &#123;<br>            <span class="hljs-keyword">return</span> R.error(objectError.getDefaultMessage());<br>        &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> R.ok();<br>&#125;<br></code></pre>
+
+<h3 id="内部类校验"><a href="#内部类校验" class="headerlink" title="内部类校验"></a>内部类校验</h3><p>在要校验的属性上加上 <code>@Valid</code> 注解</p>
+<pre class="highlight"><code class="hljs java"><span class="hljs-keyword">import</span> lombok.Data;<br><span class="hljs-keyword">import</span> javax.validation.Valid;<br><span class="hljs-keyword">import</span> java.util.Date;<br><span class="hljs-keyword">import</span> java.util.List;<br><br><span class="hljs-meta">@Data</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">UserVO</span> &#123;<br><br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 男性用户</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@Valid</span><br>    <span class="hljs-keyword">private</span> List&lt;User&gt; mans;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 女性用户</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@Valid</span><br>    <span class="hljs-keyword">private</span> List&lt;User&gt; womans;<br><br>    <span class="hljs-meta">@Data</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">UserVO</span> &#123;<br><br>        <span class="hljs-comment">/**</span><br><span class="hljs-comment">         * id</span><br><span class="hljs-comment">         */</span><br>        <span class="hljs-keyword">private</span> Long id;<br><br>        <span class="hljs-comment">/**</span><br><span class="hljs-comment">         * 姓名</span><br><span class="hljs-comment">         */</span><br>        <span class="hljs-meta">@NotBlank(message = &quot;姓名不能为空&quot;)</span><br>        <span class="hljs-keyword">private</span> String name;<br>    &#125;<br>&#125;<br></code></pre>
+
+<h3 id="spring-统一异常处理"><a href="#spring-统一异常处理" class="headerlink" title="spring 统一异常处理"></a>spring 统一异常处理</h3><h4 id="全局异常拦截器"><a href="#全局异常拦截器" class="headerlink" title="全局异常拦截器"></a>全局异常拦截器</h4><pre class="highlight"><code class="hljs java"><span class="hljs-keyword">import</span> cn.hutool.core.util.StrUtil;<br><span class="hljs-keyword">import</span> com.itran.fgoc.common.core.api.Response;<br><span class="hljs-keyword">import</span> com.itran.fgoc.common.core.api.ResultCode;<br><span class="hljs-keyword">import</span> lombok.extern.slf4j.Slf4j;<br><span class="hljs-keyword">import</span> org.springframework.core.Ordered;<br><span class="hljs-keyword">import</span> org.springframework.core.annotation.Order;<br><span class="hljs-keyword">import</span> org.springframework.dao.DuplicateKeyException;<br><span class="hljs-keyword">import</span> org.springframework.validation.BindException;<br><span class="hljs-keyword">import</span> org.springframework.validation.FieldError;<br><span class="hljs-keyword">import</span> org.springframework.web.bind.MethodArgumentNotValidException;<br><span class="hljs-keyword">import</span> org.springframework.web.bind.annotation.ExceptionHandler;<br><span class="hljs-keyword">import</span> org.springframework.web.bind.annotation.RestControllerAdvice;<br><span class="hljs-keyword">import</span> javax.validation.ConstraintViolationException;<br><br><span class="hljs-meta">@RestControllerAdvice</span><br><span class="hljs-meta">@Order(Ordered.HIGHEST_PRECEDENCE)</span><br><span class="hljs-meta">@Slf4j</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">MyGlobalExceptionHandler</span> &#123;<br><br>    <span class="hljs-meta">@ExceptionHandler(value = ApiException.class)</span><br>    <span class="hljs-keyword">public</span> Response <span class="hljs-title function_">handle</span><span class="hljs-params">(ApiException e)</span> &#123;<br>        <span class="hljs-keyword">if</span> (e.getErrorCode() != <span class="hljs-literal">null</span>) &#123;<br>            <span class="hljs-keyword">if</span>(StrUtil.isNotBlank(e.getMsg()))&#123;<br>                log.info(e.getMsg(), e);<br>                <span class="hljs-keyword">return</span> Response.failed(e.getErrorCode(), e.getMsg());<br>            &#125;<br>            <span class="hljs-keyword">return</span> Response.failed(e.getErrorCode());<br>        &#125;<br>        log.info(e.getMessage(), e);<br>        <span class="hljs-keyword">return</span> Response.failed(e.getMessage());<br>    &#125;<br><br>    <span class="hljs-meta">@ExceptionHandler(value = BindException.class)</span><br>    <span class="hljs-keyword">public</span> Response <span class="hljs-title function_">validExceptionHandler</span><span class="hljs-params">(BindException e)</span> &#123;<br>        log.info(e.getMessage(), e);<br>        <span class="hljs-type">FieldError</span> <span class="hljs-variable">fieldError</span> <span class="hljs-operator">=</span> e.getBindingResult().getFieldError();<br>        <span class="hljs-keyword">return</span> Response.failed(ResultCode.VALIDATE_FAILED, fieldError.getDefaultMessage());<br>    &#125;<br><br>    <span class="hljs-meta">@ExceptionHandler(value = ConstraintViolationException.class)</span><br>    <span class="hljs-keyword">public</span> Response <span class="hljs-title function_">constraintViolationExceptionHandler</span><span class="hljs-params">(ConstraintViolationException e)</span> &#123;<br>        log.info(e.getMessage(), e);<br>        <span class="hljs-keyword">return</span> Response.failed(ResultCode.VALIDATE_FAILED, e.getConstraintViolations().iterator().next().getMessage());<br>    &#125;<br><br>    <span class="hljs-meta">@ExceptionHandler(value = &#123;MethodArgumentNotValidException.class&#125;)</span><br>    <span class="hljs-keyword">public</span> Response <span class="hljs-title function_">methodArgumentNotValidHandler</span><span class="hljs-params">(MethodArgumentNotValidException e)</span> &#123;<br>        log.info(e.getMessage(), e);<br>        <span class="hljs-type">FieldError</span> <span class="hljs-variable">fieldError</span> <span class="hljs-operator">=</span> e.getBindingResult().getFieldError();<br>        <span class="hljs-keyword">return</span> Response.failed(ResultCode.VALIDATE_FAILED, fieldError.getDefaultMessage());<br>    &#125;<br><br>    <span class="hljs-meta">@ExceptionHandler(value = &#123;DuplicateKeyException.class&#125;)</span><br>    <span class="hljs-keyword">public</span> Response <span class="hljs-title function_">handleDuplicateKeyException</span><span class="hljs-params">(DuplicateKeyException e)</span> &#123;<br>        log.error(e.getMessage(), e);<br>        <span class="hljs-keyword">return</span> Response.failed(ResultCode.DUPLICATE_KEY);<br>    &#125;<br><br>    <span class="hljs-meta">@ExceptionHandler(value = &#123;Exception.class&#125;)</span><br>    <span class="hljs-keyword">public</span> Response <span class="hljs-title function_">handle</span><span class="hljs-params">(Exception e)</span> &#123;<br>        log.error(e.getMessage(), e);<br>        <span class="hljs-keyword">return</span> Response.failed(ResultCode.FAILED);<br>    &#125;<br><br>&#125;<br></code></pre>
+
+<h4 id="业务统一异常"><a href="#业务统一异常" class="headerlink" title="业务统一异常"></a>业务统一异常</h4><pre class="highlight"><code class="hljs java"><span class="hljs-keyword">import</span> com.itran.fgoc.common.core.api.IErrorCode;<br><span class="hljs-keyword">import</span> lombok.AllArgsConstructor;<br><span class="hljs-keyword">import</span> lombok.Data;<br><span class="hljs-keyword">import</span> lombok.NoArgsConstructor;<br><br><span class="hljs-meta">@Data</span><br><span class="hljs-meta">@NoArgsConstructor</span><br><span class="hljs-meta">@AllArgsConstructor</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ApiException</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">RuntimeException</span> &#123;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 异常码</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> IErrorCode errorCode;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 自定义错误描述</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> String msg;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * Instantiates a new Api exception.</span><br><span class="hljs-comment">     *</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> iErrorCode the error code</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">ApiException</span><span class="hljs-params">(IErrorCode iErrorCode)</span>&#123;<br>        <span class="hljs-built_in">this</span>.errorCode = iErrorCode;<br>    &#125;<br>&#125;<br></code></pre>
+
+<h4 id="统一异常码接口"><a href="#统一异常码接口" class="headerlink" title="统一异常码接口"></a>统一异常码接口</h4><pre class="highlight"><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">IErrorCode</span> &#123;<br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 异常编码</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span></span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-type">long</span> <span class="hljs-title function_">getCode</span><span class="hljs-params">()</span>;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 异常信息</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span></span><br><span class="hljs-comment">     */</span><br>    String <span class="hljs-title function_">getMessage</span><span class="hljs-params">()</span>;<br>&#125;<br></code></pre>
+
+<h4 id="统一异常码实现类"><a href="#统一异常码实现类" class="headerlink" title="统一异常码实现类"></a>统一异常码实现类</h4><pre class="highlight"><code class="hljs java"><span class="hljs-keyword">import</span> lombok.AllArgsConstructor;<br><span class="hljs-keyword">import</span> lombok.Getter;<br><span class="hljs-keyword">import</span> lombok.NoArgsConstructor;<br><br><span class="hljs-meta">@Getter</span><br><span class="hljs-meta">@NoArgsConstructor</span><br><span class="hljs-meta">@AllArgsConstructor</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">enum</span> <span class="hljs-title class_">ResultCode</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">IErrorCode</span> &#123;<br><br>    SUCCESS(<span class="hljs-number">200</span>, <span class="hljs-string">&quot;操作成功&quot;</span>),<br>    FAILED(<span class="hljs-number">500</span>, <span class="hljs-string">&quot;操作失败&quot;</span>),<br>    UNAUTHORIZED(<span class="hljs-number">401</span>, <span class="hljs-string">&quot;暂未登录或token已经过期&quot;</span>),<br>    VALIDATE_FAILED(<span class="hljs-number">402</span>, <span class="hljs-string">&quot;参数检验失败&quot;</span>),<br>    FORBIDDEN(<span class="hljs-number">403</span>, <span class="hljs-string">&quot;没有相关权限&quot;</span>),<br>    LOGIN_FAILED(<span class="hljs-number">405</span>, <span class="hljs-string">&quot;登录失败,帐号或密码错误&quot;</span>),<br>    LOGIN_CODE_TIMEOUT(<span class="hljs-number">405</span>, <span class="hljs-string">&quot;登录失败,验证码已过期&quot;</span>),<br>    LOGIN_CODE_FAILED(<span class="hljs-number">405</span>, <span class="hljs-string">&quot;登录失败,验证码输入错误&quot;</span>),<br>    DATA_IS_NULL(<span class="hljs-number">501</span>, <span class="hljs-string">&quot;操作的数据异常&quot;</span>),<br>    REMOTE_CALL_FAILED(<span class="hljs-number">502</span>, <span class="hljs-string">&quot;远程调用失败&quot;</span>),<br>    INSERT_ERROR(<span class="hljs-number">5000</span>,<span class="hljs-string">&quot;插入数据失败！&quot;</span>),<br>    UPDATE_ERROR(<span class="hljs-number">5001</span>,<span class="hljs-string">&quot;修改数据失败！&quot;</span>),<br>    DELETE_ERROR(<span class="hljs-number">5002</span>,<span class="hljs-string">&quot;删除数据失败！&quot;</span>),<br>    DUPLICATE_KEY(<span class="hljs-number">5003</span>,<span class="hljs-string">&quot;数据已存在！&quot;</span>),<br><br>    <span class="hljs-comment">// 1001 用户相关</span><br>    CODE_1001001(<span class="hljs-number">1001001</span>, <span class="hljs-string">&quot;用户不存在&quot;</span>),<br>    CODE_1001002(<span class="hljs-number">1001002</span>, <span class="hljs-string">&quot;用户名不能为空&quot;</span>),<br><br>    <span class="hljs-comment">// 1002 权限相关</span><br>    CODE_1002001(<span class="hljs-number">1002001</span>, <span class="hljs-string">&quot;无操作权限&quot;</span>),<br>    ;<br>    <span class="hljs-keyword">private</span> <span class="hljs-type">long</span> code;<br>    <span class="hljs-keyword">private</span> String message;<br><br>&#125;<br></code></pre>
+
+
+
+
+
+<h3 id="自定义表单校验"><a href="#自定义表单校验" class="headerlink" title="自定义表单校验"></a>自定义表单校验</h3><h4 id="注解"><a href="#注解" class="headerlink" title="注解"></a>注解</h4><pre class="highlight"><code class="hljs java"><span class="hljs-keyword">import</span> com.itran.fgoc.common.core.<span class="hljs-keyword">var</span>.NullVar;<br><span class="hljs-keyword">import</span> java.lang.annotation.Documented;<br><span class="hljs-keyword">import</span> java.lang.annotation.ElementType;<br><span class="hljs-keyword">import</span> java.lang.annotation.Repeatable;<br><span class="hljs-keyword">import</span> java.lang.annotation.Retention;<br><span class="hljs-keyword">import</span> java.lang.annotation.RetentionPolicy;<br><span class="hljs-keyword">import</span> java.lang.annotation.Target;<br><span class="hljs-keyword">import</span> javax.validation.Constraint;<br><span class="hljs-keyword">import</span> javax.validation.Payload;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * 校验字段是否是枚举中，null值不校验</span><br><span class="hljs-comment"> * 校验顺序：intEnumValues -&gt; longEnumValues -&gt; stringEnumValues -&gt; enumClass</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@Target(&#123;ElementType.METHOD, ElementType.FIELD, ElementType.ANNOTATION_TYPE, ElementType.CONSTRUCTOR, ElementType.PARAMETER, ElementType.TYPE_USE&#125;)</span><br><span class="hljs-meta">@Retention(RetentionPolicy.RUNTIME)</span><br><span class="hljs-meta">@Repeatable(Enum.List.class)</span><br><span class="hljs-meta">@Documented</span><br><span class="hljs-meta">@Constraint(</span><br><span class="hljs-meta">    validatedBy = EnumValidator.class</span><br><span class="hljs-meta">)</span><br><span class="hljs-keyword">public</span> <span class="hljs-meta">@interface</span> Enum &#123;<br>    String <span class="hljs-title function_">message</span><span class="hljs-params">()</span> <span class="hljs-keyword">default</span> <span class="hljs-string">&quot;枚举字段不正确&quot;</span>;<br><br>    Class&lt;?&gt; enumClass() <span class="hljs-keyword">default</span> NullVar.class;<br><br>    <span class="hljs-type">int</span>[] intEnumValues() <span class="hljs-keyword">default</span> &#123;&#125;;<br><br>    <span class="hljs-type">long</span>[] longEnumValues() <span class="hljs-keyword">default</span> &#123;&#125;;<br><br>    String[] stringEnumValues() <span class="hljs-keyword">default</span> &#123;&#125;;<br><br>    Class&lt;?&gt;[] groups() <span class="hljs-keyword">default</span> &#123;&#125;;<br><br>    Class&lt;? <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Payload</span>&gt;[] payload() <span class="hljs-keyword">default</span> &#123;&#125;;<br><br>    <span class="hljs-meta">@Target(&#123;ElementType.METHOD, ElementType.FIELD, ElementType.ANNOTATION_TYPE, ElementType.CONSTRUCTOR, ElementType.PARAMETER, ElementType.TYPE_USE&#125;)</span><br>    <span class="hljs-meta">@Retention(RetentionPolicy.RUNTIME)</span><br>    <span class="hljs-meta">@Documented</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-meta">@interface</span> List &#123;<br>        Enum[] value();<br>    &#125;<br>&#125;<br></code></pre>
+
+<h4 id="注解解析器"><a href="#注解解析器" class="headerlink" title="注解解析器"></a>注解解析器</h4><pre class="highlight"><code class="hljs java"><span class="hljs-keyword">import</span> cn.hutool.core.util.ArrayUtil;<br><span class="hljs-keyword">import</span> cn.hutool.core.util.ReflectUtil;<br><br><span class="hljs-keyword">import</span> javax.validation.ConstraintValidator;<br><span class="hljs-keyword">import</span> javax.validation.ConstraintValidatorContext;<br><span class="hljs-keyword">import</span> java.util.Arrays;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">EnumValidator</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">ConstraintValidator</span>&lt;Enum, Object&gt; &#123;<br><br>    <span class="hljs-keyword">private</span> Object[] enumValues;<br>    <span class="hljs-keyword">private</span> <span class="hljs-type">int</span>[] intEnumValues;<br>    <span class="hljs-keyword">private</span> <span class="hljs-type">long</span>[] longEnumValues;<br>    <span class="hljs-keyword">private</span> String[] stringEnumValues;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">EnumValidator</span><span class="hljs-params">()</span> &#123;<br>    &#125;<br><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">initialize</span><span class="hljs-params">(Enum constraintAnnotation)</span> &#123;<br>        enumValues = ReflectUtil.getFieldsValue(constraintAnnotation.enumClass());<br>        intEnumValues = constraintAnnotation.intEnumValues();<br>        longEnumValues = constraintAnnotation.longEnumValues();<br>        stringEnumValues = constraintAnnotation.stringEnumValues();<br>    &#125;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-type">boolean</span> <span class="hljs-title function_">isValid</span><span class="hljs-params">(Object object, ConstraintValidatorContext constraintValidatorContext)</span> &#123;<br>        <span class="hljs-keyword">if</span>(object == <span class="hljs-literal">null</span>)&#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;<br>        &#125;<br>        <span class="hljs-keyword">if</span>(!ArrayUtil.isEmpty(intEnumValues))&#123;<br>            <span class="hljs-keyword">return</span> ArrayUtil.contains(intEnumValues, (<span class="hljs-type">int</span>)object);<br>        &#125;<br>        <span class="hljs-keyword">if</span>(!ArrayUtil.isEmpty(longEnumValues))&#123;<br>            <span class="hljs-keyword">return</span> ArrayUtil.contains(longEnumValues, (<span class="hljs-type">long</span>)object);<br>        &#125;<br>        <span class="hljs-keyword">if</span>(!ArrayUtil.isEmpty(stringEnumValues))&#123;<br>            <span class="hljs-keyword">return</span> ArrayUtil.contains(stringEnumValues, (<span class="hljs-type">long</span>)object);<br>        &#125;<br>        <span class="hljs-keyword">return</span> Arrays.asList(enumValues).contains(object);<br>    &#125;<br>&#125;<br></code></pre>
+
+<h4 id="枚举示例"><a href="#枚举示例" class="headerlink" title="枚举示例"></a>枚举示例</h4><pre class="highlight"><code class="hljs java"><span class="hljs-keyword">import</span> cn.hutool.core.map.MapUtil;<br><span class="hljs-keyword">import</span> java.util.Map;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">ContainerTypeVar</span>&#123;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 轮廓</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">interface</span> <span class="hljs-title class_">Contour</span> &#123;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">RECTANGULAR_SOLID</span> <span class="hljs-operator">=</span> <span class="hljs-number">0</span>;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">LOWER_LEFT_TRAPEZOID</span> <span class="hljs-operator">=</span> <span class="hljs-number">1</span>;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">UPPER_LEFT_TRAPEZOID</span> <span class="hljs-operator">=</span> <span class="hljs-number">2</span>;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">LOWER_TRAPEZOID</span> <span class="hljs-operator">=</span> <span class="hljs-number">3</span>;<br>        <span class="hljs-type">int</span> <span class="hljs-variable">UPPER_TRAPEZOID</span> <span class="hljs-operator">=</span> <span class="hljs-number">4</span>;<br><br>        Map&lt;Object, Object&gt; MSG = MapUtil.builder()<br>                .put(RECTANGULAR_SOLID, <span class="hljs-string">&quot;长方体&quot;</span>)<br>                .put(LOWER_LEFT_TRAPEZOID, <span class="hljs-string">&quot;单切左下&quot;</span>)<br>                .put(UPPER_LEFT_TRAPEZOID, <span class="hljs-string">&quot;单切左上&quot;</span>)<br>                .put(LOWER_TRAPEZOID, <span class="hljs-string">&quot;双切下&quot;</span>)<br>                .put(UPPER_TRAPEZOID, <span class="hljs-string">&quot;双切上&quot;</span>)<br>                .build()<br>                ;<br>    &#125;<br>&#125;<br></code></pre>
+
+<h4 id="NullVar"><a href="#NullVar" class="headerlink" title="NullVar"></a>NullVar</h4><pre class="highlight"><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">interface</span> <span class="hljs-title class_">NullVar</span> &#123;<br><br>&#125;<br></code></pre>
+
+<h4 id="使用-1"><a href="#使用-1" class="headerlink" title="使用"></a>使用</h4><pre class="highlight"><code class="hljs java"><span class="hljs-comment">// 4种方式任选其一，优先级从上往下</span><br><span class="hljs-comment">// 使用自定义int数组校验</span><br><span class="hljs-meta">@Enum(intEnumValues = &#123;1,2&#125;, message = &quot;轮廓数据异常&quot;)</span><br><span class="hljs-keyword">private</span> Integer contour;<br><br><span class="hljs-comment">// 使用自定义long数组校验</span><br><span class="hljs-meta">@Enum(longEnumValues = &#123;1,2&#125;, message = &quot;轮廓数据异常&quot;)</span><br><span class="hljs-keyword">private</span> Integer contour;<br><br><span class="hljs-comment">// 使用自定义string数组校验</span><br><span class="hljs-meta">@Enum(stringEnumValues = &#123;&quot;1&quot;,&quot;2&quot;&#125;, message = &quot;轮廓数据异常&quot;)</span><br><span class="hljs-keyword">private</span> Integer contour;<br><br><span class="hljs-comment">// 使用枚举类校验</span><br><span class="hljs-meta">@Enum(enumClass = ContainerTypeVar.Contour.class, message = &quot;轮廓数据异常&quot;)</span><br><span class="hljs-keyword">private</span> Integer contour;<br></code></pre>
+
+<h3 id="默认表单校验"><a href="#默认表单校验" class="headerlink" title="默认表单校验"></a>默认表单校验</h3><table>
+<thead>
+<tr>
+<th>限制</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>@Null</td>
+<td>限制只能为null</td>
+</tr>
+<tr>
+<td>@NotNull</td>
+<td>限制必须不为null</td>
+</tr>
+<tr>
+<td>@AssertFalse</td>
+<td>限制必须为false</td>
+</tr>
+<tr>
+<td>@AssertTrue</td>
+<td>限制必须为true</td>
+</tr>
+<tr>
+<td>@DecimalMax(value)</td>
+<td>限制必须为一个不大于指定值的数字</td>
+</tr>
+<tr>
+<td>@DecimalMin(value)</td>
+<td>限制必须为一个不小于指定值的数字</td>
+</tr>
+<tr>
+<td>@Digits(integer,fraction)</td>
+<td>限制必须为一个小数，且整数部分的位数不能超过integer，小数部分的位数不能超过fraction</td>
+</tr>
+<tr>
+<td>@Future</td>
+<td>限制必须是一个将来的日期</td>
+</tr>
+<tr>
+<td>@Max(value)</td>
+<td>限制必须为一个不大于指定值的数字</td>
+</tr>
+<tr>
+<td>@Min(value)</td>
+<td>限制必须为一个不小于指定值的数字</td>
+</tr>
+<tr>
+<td>@Past</td>
+<td>限制必须是一个过去的日期</td>
+</tr>
+<tr>
+<td>@Pattern(regexp)</td>
+<td>限制必须符合指定的正则表达式</td>
+</tr>
+<tr>
+<td>@Size(max,min)</td>
+<td>限制字符长度必须在min到max之间</td>
+</tr>
+<tr>
+<td>@Past</td>
+<td>验证注解的元素值（日期类型）比当前时间早</td>
+</tr>
+<tr>
+<td>@NotEmpty</td>
+<td>验证注解的元素值不为null且不为空（字符串长度不为0、集合大小不为0）</td>
+</tr>
+<tr>
+<td>@NotBlank</td>
+<td>验证注解的元素值不为空（不为null、去除首位空格后长度为0），不同于@NotEmpty，@NotBlank只应用于字符串且在比较时会去除字符串的空格</td>
+</tr>
+<tr>
+<td>@Email</td>
+<td>验证注解的元素值是Email，也可以通过正则表达式和flag指定自定义的email格式</td>
+</tr>
+</tbody></table>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/cjsblog/p/8946768.html">https://www.cnblogs.com/cjsblog/p/8946768.html</a><br><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/8ea600893d87">https://www.jianshu.com/p/8ea600893d87</a></p>
+
+  </div>
+  <div>
+    
+      <div 
+        class="post-note note-warning copyright" 
+        style="margin-top: 42px">
+        <p>
+          <span style="font-weight: bold;">作者：</span><a 
+            target="_blank" 
+            rel="nofollow noopener noreferrer" 
+            href="/about">
+            Chun
+          </a>
+        </p>
+        <p>
+          <span style="font-weight: bold;">文章链接：</span><a 
+            target="_blank" 
+            rel="nofollow noopener noreferrer" 
+            href="https://blog.chunge666.top/%E8%A1%A8%E5%8D%95%E6%A0%A1%E9%AA%8C.html">
+            https://blog.chunge666.top/%E8%A1%A8%E5%8D%95%E6%A0%A1%E9%AA%8C.html
+          </a>
+        </p>
+        <p><span style="font-weight: bold;">版权声明：</span>本博客所有文章除特别声明外，均采用<a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0 协议</a>。转载请注明出处！</p>
+      </div>
+    
+  </div>
+</article>
+<div class="nav">
+  
+    <div class="nav-item-prev">
+      <a 
+        href="/docker%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4.html" 
+        class="nav-link">
+        <i class="iconfont icon-left nav-prev-icon"></i>
+        <div>
+          <div class="nav-label">上一篇</div>
+          
+            <div class="nav-title">docker 常用命令 </div>
+          
+        </div>
+      </a>
+    </div>
+  
+  
+</div>
+
+  <div 
+    class="card card-content comment-card" 
+    style="margin-top: 16px;">
+    <div class="comment-card-title">评论</div>
+    
+  <div id="vcomments"></div>
+  
+  <script>
+    loadScript("//unpkg.com/valine/dist/Valine.min.js");
+    var oldLoadVa = window.onload;
+    window.onload = function () {
+      oldLoadVa && oldLoadVa();
+      new Valine({
+        el: '#vcomments',
+        appId: 'Fb12FgxcTGFydqPfZAOKsZkb-gzGzoHsz',
+        appKey: 'OIQyDCrjzjWbBV6vCqiXKAUJ',
+        placeholder: 'Just go go',
+        path: window.location.pathname,
+        avatar: 'mp',
+        meta: ["nick","mail","link"],
+        pageSize: '10',
+        lang: '',
+        visitor: 'false',
+        highlight: true,
+        recordIP: false,
+        
+        
+        
+        enableQQ: 'false',
+        requiredFields: [],
+      });
+    };
+  </script>
+
+  </div>
+
+<div 
+  class="card card-content toc-card" 
+  id="mobiletoc">
+  <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>目录
+</div>
+<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-text">简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E7%94%A8"><span class="toc-text">为什么要用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8"><span class="toc-text">使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8"><span class="toc-text">简单使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E9%83%A8%E7%B1%BB%E6%A0%A1%E9%AA%8C"><span class="toc-text">内部类校验</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#spring-%E7%BB%9F%E4%B8%80%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86"><span class="toc-text">spring 统一异常处理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%A8%E5%B1%80%E5%BC%82%E5%B8%B8%E6%8B%A6%E6%88%AA%E5%99%A8"><span class="toc-text">全局异常拦截器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%9A%E5%8A%A1%E7%BB%9F%E4%B8%80%E5%BC%82%E5%B8%B8"><span class="toc-text">业务统一异常</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%9F%E4%B8%80%E5%BC%82%E5%B8%B8%E7%A0%81%E6%8E%A5%E5%8F%A3"><span class="toc-text">统一异常码接口</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%9F%E4%B8%80%E5%BC%82%E5%B8%B8%E7%A0%81%E5%AE%9E%E7%8E%B0%E7%B1%BB"><span class="toc-text">统一异常码实现类</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A1%A8%E5%8D%95%E6%A0%A1%E9%AA%8C"><span class="toc-text">自定义表单校验</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B3%A8%E8%A7%A3"><span class="toc-text">注解</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B3%A8%E8%A7%A3%E8%A7%A3%E6%9E%90%E5%99%A8"><span class="toc-text">注解解析器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9E%9A%E4%B8%BE%E7%A4%BA%E4%BE%8B"><span class="toc-text">枚举示例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#NullVar"><span class="toc-text">NullVar</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-1"><span class="toc-text">使用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%BB%98%E8%AE%A4%E8%A1%A8%E5%8D%95%E6%A0%A1%E9%AA%8C"><span class="toc-text">默认表单校验</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-text">参考链接</span></a></li></ol></li></ol>
+</div>
+            </main>
+            <aside class="right-column">
+              <div class="sticky-widescreen">
+  
+  
+    <article class="card card-content toc-card">
+      <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>目录
+</div>
+<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-text">简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E7%94%A8"><span class="toc-text">为什么要用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8"><span class="toc-text">使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8"><span class="toc-text">简单使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E9%83%A8%E7%B1%BB%E6%A0%A1%E9%AA%8C"><span class="toc-text">内部类校验</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#spring-%E7%BB%9F%E4%B8%80%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86"><span class="toc-text">spring 统一异常处理</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%A8%E5%B1%80%E5%BC%82%E5%B8%B8%E6%8B%A6%E6%88%AA%E5%99%A8"><span class="toc-text">全局异常拦截器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%9A%E5%8A%A1%E7%BB%9F%E4%B8%80%E5%BC%82%E5%B8%B8"><span class="toc-text">业务统一异常</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%9F%E4%B8%80%E5%BC%82%E5%B8%B8%E7%A0%81%E6%8E%A5%E5%8F%A3"><span class="toc-text">统一异常码接口</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%9F%E4%B8%80%E5%BC%82%E5%B8%B8%E7%A0%81%E5%AE%9E%E7%8E%B0%E7%B1%BB"><span class="toc-text">统一异常码实现类</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A1%A8%E5%8D%95%E6%A0%A1%E9%AA%8C"><span class="toc-text">自定义表单校验</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B3%A8%E8%A7%A3"><span class="toc-text">注解</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B3%A8%E8%A7%A3%E8%A7%A3%E6%9E%90%E5%99%A8"><span class="toc-text">注解解析器</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9E%9A%E4%B8%BE%E7%A4%BA%E4%BE%8B"><span class="toc-text">枚举示例</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#NullVar"><span class="toc-text">NullVar</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-1"><span class="toc-text">使用</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%BB%98%E8%AE%A4%E8%A1%A8%E5%8D%95%E6%A0%A1%E9%AA%8C"><span class="toc-text">默认表单校验</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-text">参考链接</span></a></li></ol></li></ol>
+    </article>
+  
+  
+  <article class="card card-content">
+    <div class="recent-posts-card">
+  <div class="recent-posts-header">
+    <i 
+      class="iconfont icon-wenzhang_huaban" 
+      style="padding-right: 2px;">
+    </i>最近文章
+  </div>
+  <div class="recent-posts-list">
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2022-09-06</div>
+        <a href="/jar%E6%B3%A8%E5%86%8C%E5%88%B0windows%E6%9C%8D%E5%8A%A1.html"><div class="recent-posts-item-content">jar 包装成 windows 服务</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2022-09-05</div>
+        <a href="/%E5%B8%B8%E7%94%A8%E6%8F%92%E4%BB%B6.html"><div class="recent-posts-item-content">idea常用插件</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2022-09-05</div>
+        <a href="/xml%E8%BD%ACjavabean.html"><div class="recent-posts-item-content">xml 自动转 javabean</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2022-09-05</div>
+        <a href="/proxy%E5%AE%89%E8%A3%85.html"><div class="recent-posts-item-content">proxysql 安装</div></a>
+      </div>
+    
+  </div>
+</div>
+  </article>
+  
+  
+</div>
+            </aside>
+          </div>
+        </div>
+      </div>
+    </div>
+     
+    <footer class="footer">
+  <div class="footer-container">
+    <div>
+      <div class="footer-dsc">
+        <span>
+          Copyright ©
+          
+            2022
+          
+          
+        </span>
+        &nbsp;
+        <a 
+          href="/" 
+          class="footer-link">
+          Chun's Blog
+        </a>
+      </div>
+    </div>
+
+    
+      <div class="footer-dsc">
+        
+          Powered by
+          <a 
+            href="https://hexo.io/" 
+            class="footer-link" 
+            target="_blank" 
+            rel="nofollow noopener noreferrer">
+            &nbsp;Hexo
+          </a>
+        
+        
+          <span>&nbsp;|&nbsp;</span>
+        
+        
+          Theme -
+          <a 
+            href="https://github.com/theme-kaze" 
+            class="footer-link" 
+            target="_blank"
+            rel="nofollow noopener noreferrer">
+            &nbsp;Kaze
+          </a>
+        
+      </div>
+    
+    
+    
+      <div class="BbeiAn-info">
+        <a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">粤ICP备19001235号 </a>
+      </div>
+      
+    
+    
+</footer>
+ 
+    
+  <a 
+    role="button" 
+    id="scrollbutton" 
+    class="basebutton" 
+    aria-label="回到顶部">
+    <i class="iconfont icon-arrowleft button-icon"></i>
+  </a>
+
+<a 
+  role="button" 
+  id="menubutton"
+  aria-label="menu button"
+  class="basebutton">
+  <i class="iconfont icon-menu button-icon"></i>
+</a>
+<a 
+  role="button" 
+  id="popbutton" 
+  class="basebutton" 
+  aria-label="控制中心">
+  <i class="iconfont icon-expand button-icon"></i>
+</a>
+<a 
+  role="button" 
+  id="darkbutton" 
+  class="basebutton darkwidget" 
+  aria-label="夜色模式">
+  <i class="iconfont icon-weather button-icon"></i>
+</a>
+<a 
+  role="button" 
+  id="searchbutton" 
+  class="basebutton searchwidget" 
+  aria-label="搜索">
+  <i class="iconfont icon-search button-icon"></i>
+</a> 
+     
+     
+     
+      <script>
+  var addImgLayout = function () {
+    var img = document.querySelectorAll('.post-content img')
+    var i
+    for (i = 0; i < img.length; i++) {
+      var wrapper = document.createElement('a')
+      wrapper.setAttribute('href', img[i].getAttribute('data-src'))
+      wrapper.setAttribute('aria-label', 'illustration')
+      wrapper.style.cssText =
+        'width: 100%; display: flex; justify-content: center;'
+      if (img[i].alt) wrapper.dataset.caption = img[i].alt
+      wrapper.dataset.nolink = true
+      img[i].before(wrapper)
+      wrapper.append(img[i])
+      var divWrap = document.createElement('div')
+      divWrap.classList.add('gallery')
+      wrapper.before(divWrap)
+      divWrap.append(wrapper)
+    }
+    baguetteBox.run('.gallery')
+  }
+</script>
+<script>
+  loadScript(
+    "/js/lib/lightbox/baguetteBox.min.js",
+    addImgLayout
+  )
+</script>
+ 
+     
+     
+    <script src="/js/main.js"></script> 
+     
+    
+      <script>
+        var addLazyload = function () {
+          var observer = lozad('.lozad', {
+            load: function (el) {
+              el.srcset = el.getAttribute('data-src')
+            },
+            loaded: function (el) {
+              el.classList.add('loaded')
+            },
+          })
+          observer.observe()
+        }
+      </script>
+      <script>
+        loadScript('/js/lib/lozad.min.js', addLazyload)
+      </script>
+    
+    <script src="//instant.page/5.1.0" type="module"
+      integrity="sha384-by67kQnR+pyfy8yWP4kPO12fHKRLHZPfEsiSXR8u2IKcTdxD805MGUXBzVPnkLHw"></script>
+    
+      <script>
+        var googleAnalytics = function () {
+          window.dataLayer = window.dataLayer || []
+          function gtag() {
+            dataLayer.push(arguments)
+          }
+          gtag('js', new Date())
+          gtag('config', 'G-GZE49Y8JZ5')
+        }
+    </script>
+      <script>
+        loadScript(
+          'https://www.googletagmanager.com/gtag/js?id=' +
+            'G-GZE49Y8JZ5',
+          googleAnalytics
+        )
+      </script>
+    
+    
+      <script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.14.2/dist/algoliasearch.umd.js"></script>
+      <script>
+        setTimeout(() => {localSearch2()}, 0)
+      </script>
+    
+  </body>
+</html>
