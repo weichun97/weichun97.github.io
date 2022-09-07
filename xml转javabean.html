@@ -48,10 +48,10 @@
         content="article">
       <meta 
         property="og:article:published_time" 
-        content="2022-09-05">
+        content="2019-07-26">
       <meta 
         property="og:article:modified_time" 
-        content="2022-09-05">
+        content="2022-09-07">
       <meta 
         property="og:article:author" 
         content="Chun">
@@ -109,7 +109,6 @@
       document.head.replaceChild(newlink, oldlink);
     }
   </script>
-  <script src="/assets/algolia/algoliasearchLite.min.js" async></script>
   
     
   
@@ -474,12 +473,12 @@
     </h1>
   </header>
   <div class="post-meta post-show-meta">
-    <time datetime="2022-09-05T12:51:51.154Z">
+    <time datetime="2019-07-25T16:00:00.000Z">
       <i 
         class="iconfont icon-calendar" 
         style="margin-right: 2px;">
       </i>
-      <span>2022-09-05</span>
+      <span>2019-07-26</span>
     </time>
     
       <span class="dot"></span>
@@ -493,7 +492,7 @@
     
     
       <span class="dot"></span>
-      <span>579 字</span>
+      <span>564 字</span>
     
   </div>
   
@@ -530,16 +529,16 @@
     id="section" 
     class="post-content">
     <h3 id="根据-xml-生成-xsd-文件"><a href="#根据-xml-生成-xsd-文件" class="headerlink" title="根据 xml 生成 xsd 文件"></a>根据 xml 生成 xsd 文件</h3><p>使用 idea 打开 xml 文件, 鼠标右键点击, 然后点击如下图位置生成 xsd 文件, 注意要选择 <code>local elements/types</code></p>
-<p><img src="http://img.chunge666.top/QQ%E5%9B%BE%E7%89%8720190812113605.png" alt="image" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="http://img.chunge666.top/QQ%E5%9B%BE%E7%89%8720190812113605.png" class="lozad post-image"></p>
-<p><img src="http://img.chunge666.top/xml02.png" alt="image" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="http://img.chunge666.top/xml02.png" class="lozad post-image"></p>
-<h3 id="根据-xsd-生成带有-jaxb-注解的-javabean"><a href="#根据-xsd-生成带有-jaxb-注解的-javabean" class="headerlink" title="根据 xsd 生成带有 jaxb 注解的 javabean"></a>根据 xsd 生成带有 jaxb 注解的 javabean</h3><p><img src="http://img.chunge666.top/xml03.png" alt="image" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="http://img.chunge666.top/xml03.png" class="lozad post-image"></p>
-<p><img src="http://img.chunge666.top/xml04.png" alt="image" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="http://img.chunge666.top/xml04.png" class="lozad post-image"></p>
-<h3 id="jaxb-工具类"><a href="#jaxb-工具类" class="headerlink" title="jaxb 工具类"></a>jaxb 工具类</h3><pre class="highlight"><code class="hljs java"><span class="hljs-keyword">import</span> javax.xml.bind.JAXBContext;<br><span class="hljs-keyword">import</span> javax.xml.bind.Marshaller;<br><span class="hljs-keyword">import</span> javax.xml.bind.Unmarshaller;<br><span class="hljs-keyword">import</span> java.io.StringReader;<br><span class="hljs-keyword">import</span> java.io.StringWriter;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Jaxb2工具类</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@author</span>   zhuc</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@create</span>   2013-3-29 下午2:40:14</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">JaxbUtil</span> &#123;<br>  <span class="hljs-comment">/**</span><br><span class="hljs-comment">   * JavaBean转换成xml</span><br><span class="hljs-comment">   * 默认编码UTF-8</span><br><span class="hljs-comment">   * <span class="hljs-doctag">@param</span> obj</span><br><span class="hljs-comment">   * <span class="hljs-doctag">@param</span> writer</span><br><span class="hljs-comment">   * <span class="hljs-doctag">@return</span></span><br><span class="hljs-comment">   */</span><br>  <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title function_">convertToXml</span><span class="hljs-params">(Object obj)</span> &#123;<br>    <span class="hljs-keyword">return</span> convertToXml(obj, <span class="hljs-string">&quot;UTF-8&quot;</span>);<br>  &#125;<br>  <span class="hljs-comment">/**</span><br><span class="hljs-comment">   * JavaBean转换成xml</span><br><span class="hljs-comment">   * <span class="hljs-doctag">@param</span> obj</span><br><span class="hljs-comment">   * <span class="hljs-doctag">@param</span> encoding</span><br><span class="hljs-comment">   * <span class="hljs-doctag">@return</span></span><br><span class="hljs-comment">   */</span><br>  <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title function_">convertToXml</span><span class="hljs-params">(Object obj, String encoding)</span> &#123;<br>    <span class="hljs-type">String</span> <span class="hljs-variable">result</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;<br>    <span class="hljs-keyword">try</span> &#123;<br>      <span class="hljs-type">JAXBContext</span> <span class="hljs-variable">context</span> <span class="hljs-operator">=</span> JAXBContext.newInstance(obj.getClass());<br>      <span class="hljs-type">Marshaller</span> <span class="hljs-variable">marshaller</span> <span class="hljs-operator">=</span> context.createMarshaller();<br>      marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, <span class="hljs-literal">true</span>);<br>      marshaller.setProperty(Marshaller.JAXB_ENCODING, encoding);<br>      <span class="hljs-type">StringWriter</span> <span class="hljs-variable">writer</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StringWriter</span>();<br>      marshaller.marshal(obj, writer);<br>      result = writer.toString();<br>    &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>      e.printStackTrace();<br>    &#125;<br>    <span class="hljs-keyword">return</span> result;<br>  &#125;<br>  <span class="hljs-comment">/**</span><br><span class="hljs-comment">   * xml转换成JavaBean</span><br><span class="hljs-comment">   * <span class="hljs-doctag">@param</span> xml</span><br><span class="hljs-comment">   * <span class="hljs-doctag">@param</span> c</span><br><span class="hljs-comment">   * <span class="hljs-doctag">@return</span></span><br><span class="hljs-comment">   */</span><br>  <span class="hljs-meta">@SuppressWarnings(&quot;unchecked&quot;)</span><br>  <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> &lt;T&gt; T <span class="hljs-title function_">converyToJavaBean</span><span class="hljs-params">(String xml, Class&lt;T&gt; c)</span> &#123;<br>    <span class="hljs-type">T</span> <span class="hljs-variable">t</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;<br>    <span class="hljs-keyword">try</span> &#123;<br>      <span class="hljs-type">JAXBContext</span> <span class="hljs-variable">context</span> <span class="hljs-operator">=</span> JAXBContext.newInstance(c);<br>      <span class="hljs-type">Unmarshaller</span> <span class="hljs-variable">unmarshaller</span> <span class="hljs-operator">=</span> context.createUnmarshaller();<br>      t = (T) unmarshaller.unmarshal(<span class="hljs-keyword">new</span> <span class="hljs-title class_">StringReader</span>(xml));<br>    &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>      e.printStackTrace();<br>    &#125;<br>    <span class="hljs-keyword">return</span> t;<br>  &#125;<br>&#125;<br></code></pre>
+<p><img src="https://cdn.jsdelivr.net/gh/weichun97/img/img/202209071131771.png" alt="image" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="https://cdn.jsdelivr.net/gh/weichun97/img/img/202209071131771.png" class="lozad post-image"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/weichun97/img/img/202209071130677.png" alt="image" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="https://cdn.jsdelivr.net/gh/weichun97/img/img/202209071130677.png" class="lozad post-image"></p>
+<h3 id="根据-xsd-生成带有-jaxb-注解的-javabean"><a href="#根据-xsd-生成带有-jaxb-注解的-javabean" class="headerlink" title="根据 xsd 生成带有 jaxb 注解的 javabean"></a>根据 xsd 生成带有 jaxb 注解的 javabean</h3><p><img src="https://cdn.jsdelivr.net/gh/weichun97/img/img/202209071134651.png" alt="image" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="https://cdn.jsdelivr.net/gh/weichun97/img/img/202209071134651.png" class="lozad post-image"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/weichun97/img/img/202209071135606.png" alt="image" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="https://cdn.jsdelivr.net/gh/weichun97/img/img/202209071135606.png" class="lozad post-image"></p>
+<h3 id="jaxb-工具类"><a href="#jaxb-工具类" class="headerlink" title="jaxb 工具类"></a>jaxb 工具类</h3><pre class="highlight"><code class="hljs java"><span class="hljs-keyword">import</span> javax.xml.bind.JAXBContext;<br><span class="hljs-keyword">import</span> javax.xml.bind.Marshaller;<br><span class="hljs-keyword">import</span> javax.xml.bind.Unmarshaller;<br><span class="hljs-keyword">import</span> java.io.StringReader;<br><span class="hljs-keyword">import</span> java.io.StringWriter;<br><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">JaxbUtil</span> &#123;<br>  <span class="hljs-comment">/**</span><br><span class="hljs-comment">   * JavaBean转换成xml</span><br><span class="hljs-comment">   * 默认编码UTF-8</span><br><span class="hljs-comment">   * <span class="hljs-doctag">@param</span> obj</span><br><span class="hljs-comment">   * <span class="hljs-doctag">@param</span> writer</span><br><span class="hljs-comment">   * <span class="hljs-doctag">@return</span></span><br><span class="hljs-comment">   */</span><br>  <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title function_">convertToXml</span><span class="hljs-params">(Object obj)</span> &#123;<br>    <span class="hljs-keyword">return</span> convertToXml(obj, <span class="hljs-string">&quot;UTF-8&quot;</span>);<br>  &#125;<br>  <span class="hljs-comment">/**</span><br><span class="hljs-comment">   * JavaBean转换成xml</span><br><span class="hljs-comment">   * <span class="hljs-doctag">@param</span> obj</span><br><span class="hljs-comment">   * <span class="hljs-doctag">@param</span> encoding</span><br><span class="hljs-comment">   * <span class="hljs-doctag">@return</span></span><br><span class="hljs-comment">   */</span><br>  <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> String <span class="hljs-title function_">convertToXml</span><span class="hljs-params">(Object obj, String encoding)</span> &#123;<br>    <span class="hljs-type">String</span> <span class="hljs-variable">result</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;<br>    <span class="hljs-keyword">try</span> &#123;<br>      <span class="hljs-type">JAXBContext</span> <span class="hljs-variable">context</span> <span class="hljs-operator">=</span> JAXBContext.newInstance(obj.getClass());<br>      <span class="hljs-type">Marshaller</span> <span class="hljs-variable">marshaller</span> <span class="hljs-operator">=</span> context.createMarshaller();<br>      marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, <span class="hljs-literal">true</span>);<br>      marshaller.setProperty(Marshaller.JAXB_ENCODING, encoding);<br>      <span class="hljs-type">StringWriter</span> <span class="hljs-variable">writer</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StringWriter</span>();<br>      marshaller.marshal(obj, writer);<br>      result = writer.toString();<br>    &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>      e.printStackTrace();<br>    &#125;<br>    <span class="hljs-keyword">return</span> result;<br>  &#125;<br>  <span class="hljs-comment">/**</span><br><span class="hljs-comment">   * xml转换成JavaBean</span><br><span class="hljs-comment">   * <span class="hljs-doctag">@param</span> xml</span><br><span class="hljs-comment">   * <span class="hljs-doctag">@param</span> c</span><br><span class="hljs-comment">   * <span class="hljs-doctag">@return</span></span><br><span class="hljs-comment">   */</span><br>  <span class="hljs-meta">@SuppressWarnings(&quot;unchecked&quot;)</span><br>  <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> &lt;T&gt; T <span class="hljs-title function_">converyToJavaBean</span><span class="hljs-params">(String xml, Class&lt;T&gt; c)</span> &#123;<br>    <span class="hljs-type">T</span> <span class="hljs-variable">t</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;<br>    <span class="hljs-keyword">try</span> &#123;<br>      <span class="hljs-type">JAXBContext</span> <span class="hljs-variable">context</span> <span class="hljs-operator">=</span> JAXBContext.newInstance(c);<br>      <span class="hljs-type">Unmarshaller</span> <span class="hljs-variable">unmarshaller</span> <span class="hljs-operator">=</span> context.createUnmarshaller();<br>      t = (T) unmarshaller.unmarshal(<span class="hljs-keyword">new</span> <span class="hljs-title class_">StringReader</span>(xml));<br>    &#125; <span class="hljs-keyword">catch</span> (Exception e) &#123;<br>      e.printStackTrace();<br>    &#125;<br>    <span class="hljs-keyword">return</span> t;<br>  &#125;<br>&#125;<br></code></pre>
 
 <h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><pre class="highlight"><code class="hljs java"><span class="hljs-keyword">import</span> com.caac.imf.api.IMFClient;<br><span class="hljs-keyword">import</span> com.caac.imf.api.IMFClientFactory;<br><span class="hljs-keyword">import</span> com.chun.test.xml.JaxbUtil;<br><span class="hljs-keyword">import</span> com.chun.test.xml.MSG;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@Author</span> chun</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@Date</span> 2019/7/26 10:58</span><br><span class="hljs-comment"> */</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">test</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        <span class="hljs-type">String</span> <span class="hljs-variable">xml</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;&lt;?xml version=\&quot;1.0\&quot; encoding=\&quot;UTF-8\&quot;?&gt;&quot;</span> +<br>                <span class="hljs-string">&quot;&lt;MSG&gt;&quot;</span> +<br>                <span class="hljs-string">&quot;    &lt;META&gt;&quot;</span> +<br>                <span class="hljs-string">&quot;        &lt;SNDR&gt;FIMS&lt;/SNDR&gt;&quot;</span> +<br>                <span class="hljs-string">&quot;        &lt;RCVR&gt;&lt;/RCVR&gt;&quot;</span> +<br>                <span class="hljs-string">&quot;        &lt;SEQN&gt;1&lt;/SEQN&gt;&quot;</span> +<br>                <span class="hljs-string">&quot;        &lt;DDTM&gt;2010010223000&lt;/DDTM&gt;&quot;</span> +<br>                <span class="hljs-string">&quot;        &lt;TYPE&gt;DFOE&lt;/TYPE&gt;&quot;</span> +<br>                <span class="hljs-string">&quot;        &lt;STYP&gt;DFDE&lt;/STYP&gt;&quot;</span> +<br>                <span class="hljs-string">&quot;    &lt;/META&gt;&quot;</span> +<br>                <span class="hljs-string">&quot;    &lt;DFLT&gt;&quot;</span> +<br>                <span class="hljs-string">&quot;        &lt;FLID&gt;657423&lt;/FLID&gt;&quot;</span> +<br>                <span class="hljs-string">&quot;        &lt;FFID&gt;3U-8898-20100103081030-A&lt;/FFID&gt;&quot;</span> +<br>                <span class="hljs-string">&quot;        &lt;FLTK&gt;W/Z&lt;/FLTK&gt;&quot;</span> +<br>                <span class="hljs-string">&quot;    &lt;/DFLT&gt;&quot;</span> +<br>                <span class="hljs-string">&quot;&lt;/MSG&gt;&quot;</span>;<br>        <span class="hljs-type">MSG</span> <span class="hljs-variable">msg</span> <span class="hljs-operator">=</span> JaxbUtil.converyToJavaBean(xml, MSG.class);<br>        System.out.println(msg.getDFLT().getFFID());<br><br>        <span class="hljs-type">String</span> <span class="hljs-variable">res</span> <span class="hljs-operator">=</span> JaxbUtil.convertToXml(msg);<br>        System.out.println(res);<br>    &#125;<br>&#125;<br></code></pre>
 
 <p>输出结果</p>
-<pre class="highlight"><code class="hljs plaintext">3U-8898-20100103081030-A<br>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;yes&quot;?&gt;<br>&lt;MSG&gt;<br>    &lt;META&gt;<br>        &lt;SNDR&gt;FIMS&lt;/SNDR&gt;<br>        &lt;RCVR&gt;&lt;/RCVR&gt;<br>        &lt;SEQN&gt;1&lt;/SEQN&gt;<br>        &lt;DDTM&gt;2010010223000&lt;/DDTM&gt;<br>        &lt;TYPE&gt;DFOE&lt;/TYPE&gt;<br>        &lt;STYP&gt;DFDE&lt;/STYP&gt;<br>    &lt;/META&gt;<br>    &lt;DFLT&gt;<br>        &lt;FLID&gt;657423&lt;/FLID&gt;<br>        &lt;FFID&gt;3U-8898-20100103081030-A&lt;/FFID&gt;<br>        &lt;FLTK&gt;W/Z&lt;/FLTK&gt;<br>    &lt;/DFLT&gt;<br>&lt;/MSG&gt;<br></code></pre>
+<pre class="highlight"><code class="hljs xml">3U-8898-20100103081030-A<br><span class="hljs-meta">&lt;?xml version=<span class="hljs-string">&quot;1.0&quot;</span> encoding=<span class="hljs-string">&quot;UTF-8&quot;</span> standalone=<span class="hljs-string">&quot;yes&quot;</span>?&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">MSG</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">META</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">SNDR</span>&gt;</span>FIMS<span class="hljs-tag">&lt;/<span class="hljs-name">SNDR</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">RCVR</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">RCVR</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">SEQN</span>&gt;</span>1<span class="hljs-tag">&lt;/<span class="hljs-name">SEQN</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">DDTM</span>&gt;</span>2010010223000<span class="hljs-tag">&lt;/<span class="hljs-name">DDTM</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">TYPE</span>&gt;</span>DFOE<span class="hljs-tag">&lt;/<span class="hljs-name">TYPE</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">STYP</span>&gt;</span>DFDE<span class="hljs-tag">&lt;/<span class="hljs-name">STYP</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">META</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">DFLT</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">FLID</span>&gt;</span>657423<span class="hljs-tag">&lt;/<span class="hljs-name">FLID</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">FFID</span>&gt;</span>3U-8898-20100103081030-A<span class="hljs-tag">&lt;/<span class="hljs-name">FFID</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">FLTK</span>&gt;</span>W/Z<span class="hljs-tag">&lt;/<span class="hljs-name">FLTK</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">DFLT</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">MSG</span>&gt;</span><br></code></pre>
 
 
 
@@ -591,12 +590,12 @@
   
     <div class="nav-item-next">
       <a 
-        href="/proxy%E5%AE%89%E8%A3%85.html" 
+        href="/%E8%A1%A8%E5%8D%95%E6%A0%A1%E9%AA%8C.html" 
         class="nav-link">
         <div>
           <div class="nav-label">下一篇</div>
           
-            <div class="nav-title">proxysql 安装 </div>
+            <div class="nav-title">表单校验 </div>
           
         </div>
         <i class="iconfont icon-right nav-next-icon"></i>
@@ -680,22 +679,22 @@
     
       <div class="recent-posts-item">
         <div class="recent-posts-item-title">2022-09-06</div>
-        <a href="/jar%E6%B3%A8%E5%86%8C%E5%88%B0windows%E6%9C%8D%E5%8A%A1.html"><div class="recent-posts-item-content">jar 包装成 windows 服务</div></a>
-      </div>
-    
-      <div class="recent-posts-item">
-        <div class="recent-posts-item-title">2022-09-05</div>
-        <a href="/%E5%B8%B8%E7%94%A8%E6%8F%92%E4%BB%B6.html"><div class="recent-posts-item-content">idea常用插件</div></a>
-      </div>
-    
-      <div class="recent-posts-item">
-        <div class="recent-posts-item-title">2022-09-05</div>
-        <a href="/xml%E8%BD%ACjavabean.html"><div class="recent-posts-item-content">xml 自动转 javabean</div></a>
+        <a href="/idea%E5%BF%AB%E6%8D%B7%E9%94%AE.html"><div class="recent-posts-item-content">idea 快捷键</div></a>
       </div>
     
       <div class="recent-posts-item">
         <div class="recent-posts-item-title">2022-09-05</div>
         <a href="/proxy%E5%AE%89%E8%A3%85.html"><div class="recent-posts-item-content">proxysql 安装</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2022-09-05</div>
+        <a href="/redis.html"><div class="recent-posts-item-content">redis 哨兵配置</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2022-09-05</div>
+        <a href="/nginx%E9%AB%98%E5%8F%AF%E7%94%A8%E6%90%AD%E5%BB%BA.html"><div class="recent-posts-item-content">nginx高可用搭建</div></a>
       </div>
     
   </div>
@@ -882,7 +881,7 @@
     
       <script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.14.2/dist/algoliasearch.umd.js"></script>
       <script>
-        setTimeout(() => {localSearch2()}, 0)
+        setTimeout(() => {localAlgoliasearch(10)}, 0)
       </script>
     
   </body>
