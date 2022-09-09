@@ -1260,13 +1260,19 @@ mjx-container svg:focus {
   outline: none;
 }
 #search-content {
-  max-height: 800px;
   overflow: auto;
   position: fixed;
   z-index: 20;
   margin-top: 64px;
   left: 10%;
   width: 80%;
+}
+#search-content .local-search-count {
+  background: var(--widget-background-color);
+  color: var(--info-text-color);
+  line-height: 44px;
+  text-align: center;
+  display: block;
 }
 #search-content .local-search-empty {
   color: var(--info-text-color);
@@ -1275,6 +1281,7 @@ mjx-container svg:focus {
   display: block;
 }
 #search-content ul {
+  max-height: 700px;
   overflow-y: auto;
   border: 1px solid var(--divider-color);
   padding: 10px 20px;
@@ -1303,7 +1310,11 @@ mjx-container svg:focus {
   max-height: 124px;
   overflow: hidden;
 }
-#search-content ul li .search-keyword {
+#search-content ul li .search-result em {
+  color: var(--note-danger-border-color);
+  font-style: normal;
+}
+#search-content ul li .search-result-title em {
   color: var(--note-danger-border-color);
   font-style: normal;
 }
