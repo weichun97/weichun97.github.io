@@ -1,0 +1,1006 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+  <meta charset="UTF-8">
+  <meta 
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <meta 
+    http-equiv="X-UA-Compatible" 
+    content="ie=edge">
+  <meta 
+    name="theme-color" 
+    content="#fff" 
+    id="theme-color">
+  <meta 
+    name="description" 
+    content="chunge&#39;s blog">
+  
+    <meta property="algolia:search" 
+      data-application-id="OBXVQ9OU0H" 
+      data-api-key="d858255d29c33cd3b57e6d8a56d94535" 
+      data-index-name="hexo">
+  
+  <link 
+    rel="icon" 
+    href="/">
+  <title>mysql-MGR搭建</title>
+  
+    
+      <meta 
+        property="og:title" 
+        content="mysql-MGR搭建">
+    
+    
+      <meta 
+        property="og:url" 
+        content="https://blog.chunge666.top/mysql-MGR%E6%90%AD%E5%BB%BA.html">
+    
+    
+      <meta 
+        property="og:img" 
+        content="http://img.chunge666.top/202209091607369.png)组复制背景">
+    
+    
+    
+      <meta 
+        property="og:type" 
+        content="article">
+      <meta 
+        property="og:article:published_time" 
+        content="2022-09-07">
+      <meta 
+        property="og:article:modified_time" 
+        content="2022-09-09">
+      <meta 
+        property="og:article:author" 
+        content="Chun">
+      
+        
+          <meta 
+            property="og:article:tag" 
+            content="centos">
+        
+          <meta 
+            property="og:article:tag" 
+            content="mysql">
+        
+      
+    
+  
+  
+  <link rel="preload" href="//at.alicdn.com/t/font_1946621_i1kgafibvw.css" as="style" >
+  <link rel="preload" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css" as="style" >
+  <link rel="preload" href="/css/main.css" as="style" >
+  
+  <link rel="modulepreload" href="//instant.page/5.1.0">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1946621_i1kgafibvw.css">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css">
+  
+  
+  
+    <link rel="stylesheet" href="/js/lib/lightbox/baguetteBox.min.css">
+  
+  <script>
+    function loadScript(url, cb) {
+      var script = document.createElement('script');
+      script.src = url;
+      if (cb) script.onload = cb;
+      script.async = true;
+      document.body.appendChild(script);
+    }
+    function loadCSS(href, data, attr) {
+      var sheet = document.createElement('link');
+      sheet.ref = 'stylesheet';
+      sheet.href = href;
+      sheet.dataset[data] = attr;
+      document.head.appendChild(sheet);
+    }
+    function changeCSS(cssFile, data, attr) {
+      var oldlink = document.querySelector(data);
+      var newlink = document.createElement("link");
+      newlink.setAttribute("rel", "stylesheet");
+      newlink.setAttribute("href", cssFile);
+      newlink.dataset.prism = attr;
+      document.head.replaceChild(newlink, oldlink);
+    }
+  </script>
+  
+    
+  
+  <script>
+    // control reverse button
+    var reverseDarkList = {
+      dark: 'light',
+      light: 'dark'
+    };
+    var themeColor = {
+      dark: '#1c1c1e',
+      light: '#fff'
+    }
+    // get the data of css prefers-color-scheme
+    var getCssMediaQuery = function() {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    };
+    // reverse current darkmode setting function
+    var reverseDarkModeSetting = function() {
+      var setting = localStorage.getItem('user-color-scheme');
+      if(reverseDarkList[setting]) {
+        setting = reverseDarkList[setting];
+      } else if(setting === null) {
+        setting = reverseDarkList[getCssMediaQuery()];
+      } else {
+        return;
+      }
+      localStorage.setItem('user-color-scheme', setting);
+      return setting;
+    };
+    // apply current darkmode setting
+  </script>
+  
+    <script>
+      var setDarkmode = function(mode) {
+      var setting = mode || localStorage.getItem('user-color-scheme');
+      if(setting === getCssMediaQuery()) {
+        document.documentElement.removeAttribute('data-user-color-scheme');
+        localStorage.removeItem('user-color-scheme');
+        document.getElementById('theme-color').content = themeColor[setting];
+        document.getElementById('theme-color').dataset.mode = setting;
+      } else if(reverseDarkList[setting]) {
+        document.documentElement.setAttribute('data-user-color-scheme', setting);
+        document.getElementById('theme-color').content = themeColor[setting];
+        document.getElementById('theme-color').dataset.mode = setting;
+      } else {
+        document.documentElement.removeAttribute('data-user-color-scheme');
+        localStorage.removeItem('user-color-scheme');
+        document.getElementById('theme-color').content = themeColor[getCssMediaQuery()];
+        document.getElementById('theme-color').dataset.mode = getCssMediaQuery();
+      }
+    };
+    setDarkmode();
+    </script>
+  
+  
+  
+    <link rel="preload" href="/js/lib/lightbox/baguetteBox.min.js" as="script">
+    <link rel="preload" href="/js/lib/lightbox/baguetteBox.min.css" as="style" >
+  
+  
+    <link rel="preload" href="/js/lib/lozad.min.js" as="script">
+  
+  
+  
+  
+  
+    
+    <link rel="prefetch" href="//unpkg.com/valine/dist/Valine.min.js" as="script">
+  
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+  <body>
+    <div class="wrapper">
+       
+      <nav class="navbar">
+  <div class="navbar-logo">
+    <a class="navbar-logo-main" href="/">
+      
+      <span class="navbar-logo-dsc">Chun's Blog</span>
+      </a>
+  </div>
+  <div class="navbar-menu">
+    
+      <a 
+        href="/" 
+        class="navbar-menu-item">
+        
+          首页
+        
+      </a>
+    
+      <a 
+        href="/archives" 
+        class="navbar-menu-item">
+        
+          归档
+        
+      </a>
+    
+      <a 
+        href="/tags" 
+        class="navbar-menu-item">
+        
+          标签
+        
+      </a>
+    
+      <a 
+        href="/categories" 
+        class="navbar-menu-item">
+        
+          分类
+        
+      </a>
+    
+      <a 
+        href="/about" 
+        class="navbar-menu-item">
+        
+          关于
+        
+      </a>
+    
+      <a 
+        href="/links" 
+        class="navbar-menu-item">
+        
+          友链
+        
+      </a>
+    
+    <button 
+      class="navbar-menu-item darknavbar navbar-menu-btn" 
+      aria-label="Toggle dark mode"
+      id="dark">
+      <i class="iconfont icon-weather"></i>
+    </button>
+    <button 
+      class="navbar-menu-item searchnavbar navbar-menu-btn" 
+      aria-label="Toggle search"
+      id="search">
+      <!-- <i 
+        class="iconfont icon-search" 
+        style="font-size: 1.2rem; font-weight: 400;">
+      </i> -->
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img"
+        class="iconify iconify--ion" width="28" height="28" preserveAspectRatio="xMidYMid meet" viewBox="0 0 512 512">
+        <path fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="28"
+          d="M256 80a176 176 0 1 0 176 176A176 176 0 0 0 256 80Z"></path>
+        <path fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="28"
+          d="M232 160a72 72 0 1 0 72 72a72 72 0 0 0-72-72Z"></path>
+        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="28"
+          d="M283.64 283.64L336 336"></path>
+      </svg>
+    </button>
+  </div>
+</nav> 
+      
+      <div 
+        id="local-search" 
+        style="display: none">
+        <input
+          class="navbar-menu-item"
+          id="search-input"
+          placeholder="请输入搜索内容..." />
+        <div id="search-content"></div>
+      </div>
+      
+      <div class="section-wrap">
+        <div class="container">
+          <div class="columns">
+            <aside class="left-column">
+              
+              <div class="card card-author">
+                
+  <img 
+    src="https://cdn.jsdelivr.net/gh/weichun97/img/img/20220905150341.jpg" 
+    class="author-img"
+    width="88"
+    height="88"
+    alt="author avatar">
+
+<p class="author-name">Chun</p>
+<p class="author-description"></p>
+<div class="author-message">
+  <a 
+    class="author-posts-count" 
+    href="/archives">
+    <span>16</span>
+    <span>文章</span>
+  </a>
+  <a 
+    class="author-categories-count" 
+    href="/categories">
+    <span>6</span>
+    <span>分类</span>
+  </a>
+  <a 
+    class="author-tags-count" 
+    href="/tags">
+    <span>13</span>
+    <span>标签</span>
+  </a>
+</div>
+
+              </div>
+               <div class="sticky-tablet">
+  
+  
+    <article class="display-when-two-columns spacer">
+      <div class="card card-content toc-card">
+        <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>目录
+</div>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%84%E5%A4%8D%E5%88%B6%E8%83%8C%E6%99%AF"><span class="toc-text">组复制背景</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%82%E6%AD%A5%E5%A4%8D%E5%88%B6"><span class="toc-text">异步复制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%8A%E5%90%8C%E6%AD%A5%E5%A4%8D%E5%88%B6"><span class="toc-text">半同步复制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%84%E5%A4%8D%E5%88%B6"><span class="toc-text">组复制</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="toc-text">环境准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-text">安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9-hostname"><span class="toc-text">修改 hostname</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E5%90%AF%E7%AB%AF%E5%8F%A3"><span class="toc-text">开启端口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E9%97%AD-selinux"><span class="toc-text">关闭 selinux</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B0%83%E6%95%B4-mysql-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-text">调整 mysql 配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%90%8C%E6%AD%A5%E8%B4%A6%E5%8F%B7"><span class="toc-text">创建同步账号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A0%E5%85%A5%E7%BB%84%E5%A4%8D%E5%88%B6%E9%80%9A%E9%81%93"><span class="toc-text">加入组复制通道</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E7%BB%84%E5%A4%8D%E5%88%B6"><span class="toc-text">启动组复制</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E7%BB%84"><span class="toc-text">启动组</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%8A%82%E7%82%B9%E5%8A%A0%E5%85%A5"><span class="toc-text">节点加入</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%8A%82%E7%82%B9%E9%80%80%E5%87%BA"><span class="toc-text">节点退出</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81"><span class="toc-text">验证</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E9%9B%86%E7%BE%A4%E6%83%85%E5%86%B5"><span class="toc-text">查看集群情况</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E4%B8%BB%E8%8A%82%E7%82%B9"><span class="toc-text">查看主节点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A8%A1%E6%8B%9F%E4%B8%BB%E4%BB%8E%E5%88%87%E6%8D%A2"><span class="toc-text">模拟主从切换</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#s1-%E9%80%80%E5%87%BA%E5%B9%B6%E6%9F%A5%E7%9C%8B%E6%83%85%E5%86%B5"><span class="toc-text">s1 退出并查看情况</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#s2-%E6%88%96-s3-%E6%9F%A5%E7%9C%8B%E8%8A%82%E7%82%B9%E6%83%85%E5%86%B5"><span class="toc-text">s2 或 s3 查看节点情况</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#s1-%E9%87%8D%E6%96%B0%E5%8A%A0%E5%85%A5%E7%BB%84%EF%BC%8C%E5%B9%B6%E6%9F%A5%E7%9C%8B%E6%83%85%E5%86%B5"><span class="toc-text">s1 重新加入组，并查看情况</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-text">结语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E5%9C%B0%E5%9D%80"><span class="toc-text">参考地址</span></a></li></ol>
+      </div>
+    </article>
+  
+  
+  <article class="card card-content categories-widget">
+    <div class="categories-card">
+  <div class="categories-header">
+    <i 
+      class="iconfont icon-fenlei" 
+      style="padding-right: 2px;">
+    </i>分类
+  </div>
+  <div class="categories-list">
+    
+      <a href="/categories/linux/">
+        <div class="categories-list-item">
+          linux
+          <span class="categories-list-item-badge">5</span>
+        </div>
+      </a>
+    
+      <a href="/categories/%E7%BC%96%E8%BE%91%E5%99%A8/">
+        <div class="categories-list-item">
+          编辑器
+          <span class="categories-list-item-badge">3</span>
+        </div>
+      </a>
+    
+      <a href="/categories/java/">
+        <div class="categories-list-item">
+          java
+          <span class="categories-list-item-badge">2</span>
+        </div>
+      </a>
+    
+      <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">
+        <div class="categories-list-item">
+          数据库
+          <span class="categories-list-item-badge">4</span>
+        </div>
+      </a>
+    
+      <a href="/categories/%E5%89%8D%E7%AB%AF/">
+        <div class="categories-list-item">
+          前端
+          <span class="categories-list-item-badge">1</span>
+        </div>
+      </a>
+    
+      <a href="/categories/%E5%85%B6%E4%BB%96/">
+        <div class="categories-list-item">
+          其他
+          <span class="categories-list-item-badge">1</span>
+        </div>
+      </a>
+    
+  </div>
+</div>
+  </article>
+  
+  <article class="card card-content tags-widget">
+    <div class="tags-card">
+  <div class="tags-header">
+    <i 
+      class="iconfont icon-biaoqian" 
+      style="padding-right: 2px;">
+    </i>热门标签
+  </div>
+  <div class="tags-list">
+    
+      <a 
+        href="/tags/centos/" 
+        title="centos">
+        <div class="tags-list-item">centos</div>
+      </a>
+    
+      <a 
+        href="/tags/mysql/" 
+        title="mysql">
+        <div class="tags-list-item">mysql</div>
+      </a>
+    
+      <a 
+        href="/tags/idea/" 
+        title="idea">
+        <div class="tags-list-item">idea</div>
+      </a>
+    
+      <a 
+        href="/tags/keepalived/" 
+        title="keepalived">
+        <div class="tags-list-item">keepalived</div>
+      </a>
+    
+      <a 
+        href="/tags/yum/" 
+        title="yum">
+        <div class="tags-list-item">yum</div>
+      </a>
+    
+      <a 
+        href="/tags/node/" 
+        title="node">
+        <div class="tags-list-item">node</div>
+      </a>
+    
+      <a 
+        href="/tags/springboot/" 
+        title="springboot">
+        <div class="tags-list-item">springboot</div>
+      </a>
+    
+      <a 
+        href="/tags/redis/" 
+        title="redis">
+        <div class="tags-list-item">redis</div>
+      </a>
+    
+      <a 
+        href="/tags/xml/" 
+        title="xml">
+        <div class="tags-list-item">xml</div>
+      </a>
+    
+      <a 
+        href="/tags/proxysql/" 
+        title="proxysql">
+        <div class="tags-list-item">proxysql</div>
+      </a>
+    
+      <a 
+        href="/tags/jar/" 
+        title="jar">
+        <div class="tags-list-item">jar</div>
+      </a>
+    
+      <a 
+        href="/tags/nginx/" 
+        title="nginx">
+        <div class="tags-list-item">nginx</div>
+      </a>
+    
+      <a 
+        href="/tags/docker/" 
+        title="docker">
+        <div class="tags-list-item">docker</div>
+      </a>
+    
+  </div>
+</div>
+  </article>
+  
+  
+</div>
+            </aside>
+            <main class="main-column">
+              
+  <div class="image-wrapper">
+    <img 
+      src="http://img.chunge666.top/202209091607369.png)组复制背景" 
+      data-src="http://img.chunge666.top/202209091607369.png)组复制背景"
+      srcset="data:image/svg+xml,%3Csvg%20xmlns=&#39;http://www.w3.org/2000/svg&#39;%20viewBox=&#39;0%200%20300%20300&#39;%3E%3C/svg%3E"
+      class="image lozad"
+      alt="mysql-MGR搭建 thumbnail">
+  </div>
+
+<article class="card card-content">
+  <header>
+    <h1 class="post-title">
+      mysql-MGR搭建
+    </h1>
+  </header>
+  <div class="post-meta post-show-meta">
+    <time datetime="2022-09-07T14:58:00.000Z">
+      <i 
+        class="iconfont icon-calendar" 
+        style="margin-right: 2px;">
+      </i>
+      <span>2022-09-07</span>
+    </time>
+    
+      <span class="dot"></span>
+      
+        <a 
+          href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" 
+          class="post-meta-link">
+          数据库
+        </a>
+      
+    
+    
+      <span class="dot"></span>
+      <span>1.6k 字</span>
+    
+  </div>
+  
+    <div 
+      class="post-meta post-show-meta" 
+      style="margin-top: -10px;">
+      <div style="display: flex; align-items: center;">
+        <i 
+          class="iconfont icon-biaoqian" 
+          style="margin-right: 2px; font-size: 1.15rem;">
+        </i>
+        
+          
+          <a 
+            href="/tags/centos/" 
+            class="post-meta-link">
+            centos
+          </a>
+        
+          
+            <span class="dot"></span>
+          
+          <a 
+            href="/tags/mysql/" 
+            class="post-meta-link">
+            mysql
+          </a>
+        
+      </div>
+    </div>
+  
+  </header>
+  <div 
+    id="section" 
+    class="post-content">
+    <h2 id="组复制背景"><a href="#组复制背景" class="headerlink" title="组复制背景"></a>组复制背景</h2><h3 id="异步复制"><a href="#异步复制" class="headerlink" title="异步复制"></a>异步复制</h3><p>传统的 MySQL 复制提供了一种简单的主从复制方法。有一个主（source）和一个或多个从（replica）。主节点执行事务生成 <code>binlog</code>，然后异步的发送到从节点的<code>relay log</code>, 从服务器重新执行（在基于sql语句的复制）或（基于数据行的复制）。默认情况下所有服务器都拥有数据的完整副本。</p>
+<p><img src="http://img.chunge666.top/202209091544451.png" alt="image-20220909154452393" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="http://img.chunge666.top/202209091544451.png" class="lozad post-image"></p>
+<div class="post-note note-danger"><p>假如主发生宕机并且binlog还没来得及被从接收，而切换程序将从提升为新的主，就会出现数据不一致的情况！另外，在高并发的情况下，传统的主从复制，从节点可能会与主产生较大的延迟</p></div>
+
+<h3 id="半同步复制"><a href="#半同步复制" class="headerlink" title="半同步复制"></a>半同步复制</h3><p>半同步复制在异步复制中增加了一个同步步骤。这意味着主节点在提交时等待至少一个从节点确认它已收到事务。只有这样，主节点才会恢复提交操作。</p>
+<p><img src="http://img.chunge666.top/202209091544978.png" alt="image-20220909154458914" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="http://img.chunge666.top/202209091544978.png" class="lozad post-image"></p>
+<div class="post-note note-danger"><p>当主等待从同步成功的过程中主挂了，这个主事务提交就失败了，客户端也收到了事务执行失败的结果了，但是从上已经将binLog的内容写到Relay Log里了，这个时候，从数据就会多了，但是多了数据一般问题不算严重，多了总比少了好。</p></div>
+
+<h3 id="组复制"><a href="#组复制" class="headerlink" title="组复制"></a>组复制</h3><p>组复制由多个节点组成，当其中一个节点提交事务，组内多数节点可用时，就允许执行事务。保证服务器的高可用，底层使用 Paxos 算法。</p>
+<p><img src="http://img.chunge666.top/202209091545611.png" alt="image-20220909154504555" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="http://img.chunge666.top/202209091545611.png" class="lozad post-image"></p>
+<div class="post-note note-danger"><p>使用组复制的 mysql 版本必须大于等于 <code>5.7.17</code></p></div>
+
+<h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><p>准备三台已安装mysql5.7，且可以互相访问的服务器，安装mysql5.7参考<a href="/mysql%E5%AE%89%E8%A3%85.html" title="mysql 安装">mysql 安装</a>。</p>
+<table>
+<thead>
+<tr>
+<th>服务器ip</th>
+<th>系统</th>
+<th>已安装软件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>192.168.31.200</td>
+<td>centos7.9</td>
+<td>mysql5.7.38</td>
+</tr>
+<tr>
+<td>192.168.31.201</td>
+<td>centos7.9</td>
+<td>mysql5.7.38</td>
+</tr>
+<tr>
+<td>192.168.31.202</td>
+<td>centos7.9</td>
+<td>mysql5.7.38</td>
+</tr>
+</tbody></table>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><h3 id="修改-hostname"><a href="#修改-hostname" class="headerlink" title="修改 hostname"></a>修改 hostname</h3><p>分别修改三台服务器的 hostname 为 s1、s2、s3</p>
+<pre class="highlight"><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">192.168.31.200</span><br>[root@localhost ~]# hostnamectl set-hostname s1<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">192.168.31.201</span><br>[root@localhost ~]# hostnamectl set-hostname s2<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">192.168.31.202</span><br>[root@localhost ~]# hostnamectl set-hostname s3<br></code></pre>
+
+<p>在三台服务器的 <code>/etc/hosts</code> 文件，添加 <code>hostname</code>  映射</p>
+<pre class="highlight"><code class="hljs plaintext">192.168.31.200 s1<br>192.168.31.201 s2<br>192.168.31.202 s3<br></code></pre>
+
+<h3 id="开启端口"><a href="#开启端口" class="headerlink" title="开启端口"></a>开启端口</h3><pre class="highlight"><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">开启 33061 端口用来 MGR 通信</span><br>[root@s1 ~]# firewall-cmd --zone=public --add-port=33061/tcp --permanent<br><span class="hljs-meta prompt_"># </span><span class="language-bash">刷新防火墙</span><br>[root@s1 ~]# firewall-cmd --reload<br></code></pre>
+
+<h3 id="关闭-selinux"><a href="#关闭-selinux" class="headerlink" title="关闭 selinux"></a>关闭 selinux</h3><p>关闭 selinux, 否则 MGR 会启动失败。</p>
+<p>先临时关闭 <code>setenforce 0</code>，重启服务器会失效</p>
+<p>然后永久关闭，修改 <code>/etc/selinux/config</code> ，将<code>SELINUX=enforcing</code>改为<code>SELINUX=disabled</code></p>
+<p><img src="http://img.chunge666.top/202209091545894.png" alt="image-20220909154511835" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="http://img.chunge666.top/202209091545894.png" class="lozad post-image"></p>
+<h3 id="调整-mysql-配置文件"><a href="#调整-mysql-配置文件" class="headerlink" title="调整 mysql 配置文件"></a>调整 mysql 配置文件</h3><p>在 <code>/etc/my.cnf</code> 文件 <code>[mysqld]</code> 下面追加， </p>
+<p>配置文件如下</p>
+<pre class="highlight"><code class="hljs ini"><span class="hljs-comment"># -----------------</span><br><span class="hljs-comment"># 禁用非 innodb 引擎</span><br><span class="hljs-comment"># -----------------</span><br><span class="hljs-attr">disabled_storage_engines</span>=<span class="hljs-string">&quot;MyISAM,BLACKHOLE,FEDERATED,ARCHIVE,MEMORY&quot;</span><br><br><span class="hljs-comment"># -----------------</span><br><span class="hljs-comment"># 复制设置</span><br><span class="hljs-comment"># -----------------</span><br><span class="hljs-comment"># * 服务器编号，s1=1, s2=2, s3=s3 *</span><br><span class="hljs-attr">server_id</span>=<span class="hljs-number">1</span><br><span class="hljs-comment"># 全局事务标识符开启</span><br><span class="hljs-attr">gtid_mode</span>=<span class="hljs-literal">ON</span><br><span class="hljs-attr">enforce_gtid_consistency</span>=<span class="hljs-literal">ON</span><br><span class="hljs-comment"># 同步的数据写入数据库</span><br><span class="hljs-attr">master_info_repository</span>=TABLE<br><span class="hljs-attr">relay_log_info_repository</span>=TABLE<br><span class="hljs-comment"># 开启组复制必须设置为 NONE</span><br><span class="hljs-attr">binlog_checksum</span>=NONE<br><span class="hljs-comment"># 开启 binlog</span><br><span class="hljs-attr">log_slave_updates</span>=<span class="hljs-literal">ON</span><br><span class="hljs-attr">log_bin</span>=binlog<br><span class="hljs-attr">binlog_format</span>=ROW<br><br><span class="hljs-comment"># -----------------</span><br><span class="hljs-comment"># 组复制设置</span><br><span class="hljs-comment"># -----------------</span><br><span class="hljs-comment"># 添加组复制插件</span><br><span class="hljs-attr">plugin_load_add</span>=<span class="hljs-string">&#x27;group_replication.so&#x27;</span><br><span class="hljs-attr">transaction_write_set_extraction</span>=XXHASH64<br><span class="hljs-comment"># 组名，同一个组必须相同，使用 UUID 格式，可以在 mysql 控制台使用 SELECT UUID(); 命令生成</span><br><span class="hljs-attr">group_replication_group_name</span>=<span class="hljs-string">&quot;aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa&quot;</span><br><span class="hljs-comment"># 服务启动时是否自动开启组复制，推荐手动开启</span><br><span class="hljs-attr">group_replication_start_on_boot</span>=<span class="hljs-literal">off</span><br><span class="hljs-comment"># * 与组成员通信的网络地址(注意端口不是3306，是需要新开的端口)  s1=s1:33061, s2=s2:33061, s3=s3:33061*</span><br><span class="hljs-attr">group_replication_local_address</span>= <span class="hljs-string">&quot;s1:33061&quot;</span><br><span class="hljs-comment"># 组成员</span><br><span class="hljs-attr">group_replication_group_seeds</span>= <span class="hljs-string">&quot;s1:33061,s2:33061,s3:33061&quot;</span><br><span class="hljs-comment"># 是否引导组，设置为 off</span><br><span class="hljs-attr">group_replication_bootstrap_group</span>=<span class="hljs-literal">off</span><br></code></pre>
+
+<div class="post-note note-info"><p>注释中开头结尾带 <code>*</code> 号的话，说明此行代码需要根据环境进行调整</p></div>
+
+<p>重启服务</p>
+<pre class="highlight"><code class="hljs shell">[root@s1 ~]# service mysqld restart<br></code></pre>
+
+<h3 id="创建同步账号"><a href="#创建同步账号" class="headerlink" title="创建同步账号"></a>创建同步账号</h3><p>所有节点创建同步账号</p>
+<pre class="highlight"><code class="hljs sql"># 临时关闭 binlog,防止污染<br>mysql<span class="hljs-operator">&gt;</span> <span class="hljs-keyword">SET</span> SQL_LOG_BIN<span class="hljs-operator">=</span><span class="hljs-number">0</span>;<br># 创建rpl_user账户，此账户用于实现主从数据同步 <br>mysql<span class="hljs-operator">&gt;</span> <span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">USER</span> rpl_user@<span class="hljs-string">&#x27;%&#x27;</span> IDENTIFIED <span class="hljs-keyword">BY</span> <span class="hljs-string">&#x27;As123456!&#x27;</span>;<br><br># 赋予主从同步权限 <br>mysql<span class="hljs-operator">&gt;</span> <span class="hljs-keyword">GRANT</span> REPLICATION SLAVE <span class="hljs-keyword">ON</span> <span class="hljs-operator">*</span>.<span class="hljs-operator">*</span> <span class="hljs-keyword">TO</span> rpl_user@<span class="hljs-string">&#x27;%&#x27;</span>;<br><br># 让刚才的修改生效 <br>mysql<span class="hljs-operator">&gt;</span> FLUSH PRIVILEGES;<br><br># 开启 binlog<br>mysql<span class="hljs-operator">&gt;</span> <span class="hljs-keyword">SET</span> SQL_LOG_BIN<span class="hljs-operator">=</span><span class="hljs-number">1</span>;<br></code></pre>
+
+<h3 id="加入组复制通道"><a href="#加入组复制通道" class="headerlink" title="加入组复制通道"></a>加入组复制通道</h3><p>所有节点使用刚刚创建的同步账号，加入组复制通道</p>
+<pre class="highlight"><code class="hljs sql">mysql<span class="hljs-operator">&gt;</span> CHANGE MASTER <span class="hljs-keyword">TO</span> MASTER_USER<span class="hljs-operator">=</span><span class="hljs-string">&#x27;rpl_user&#x27;</span>, MASTER_PASSWORD<span class="hljs-operator">=</span><span class="hljs-string">&#x27;As123456!&#x27;</span> <span class="hljs-keyword">FOR</span> CHANNEL <span class="hljs-string">&#x27;group_replication_recovery&#x27;</span>;<br></code></pre>
+
+
+
+<h3 id="启动组复制"><a href="#启动组复制" class="headerlink" title="启动组复制"></a>启动组复制</h3><h4 id="启动组"><a href="#启动组" class="headerlink" title="启动组"></a>启动组</h4><p>整个组需要由单个节点来首次开启组复制，我们在配置文件中设置为关闭了自动引导组<code>group_replication_bootstrap_group=off</code>，所以这里我这里我们使用s1来手动开启：</p>
+<pre class="highlight"><code class="hljs sql"># 开启引导组<br>mysql<span class="hljs-operator">&gt;</span> <span class="hljs-keyword">SET</span> <span class="hljs-keyword">GLOBAL</span> group_replication_bootstrap_group<span class="hljs-operator">=</span><span class="hljs-keyword">ON</span>;<br># 启动组复制<br>mysql<span class="hljs-operator">&gt;</span> <span class="hljs-keyword">START</span> GROUP_REPLICATION;<br># 关闭引导组<br>mysql<span class="hljs-operator">&gt;</span> <span class="hljs-keyword">SET</span> <span class="hljs-keyword">GLOBAL</span> group_replication_bootstrap_group<span class="hljs-operator">=</span>OFF;<br></code></pre>
+
+<p>启动完成后查看组成员，可以看到s1已经成功开启组复制了。</p>
+<pre class="highlight"><code class="hljs sql">mysql<span class="hljs-operator">&gt;</span> <span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">FROM</span> performance_schema.replication_group_members;<br></code></pre>
+
+<p><img src="http://img.chunge666.top/202209091545150.png" alt="image-20220909154518087" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="http://img.chunge666.top/202209091545150.png" class="lozad post-image"></p>
+<h4 id="节点加入"><a href="#节点加入" class="headerlink" title="节点加入"></a>节点加入</h4><p>引导组完成后，从节点只需要启动即可</p>
+<pre class="highlight"><code class="hljs sql">mysql<span class="hljs-operator">&gt;</span> <span class="hljs-keyword">START</span> GROUP_REPLICATION;<br></code></pre>
+
+<p>s2、s3 加入节点后，检查是否加入成功</p>
+<pre class="highlight"><code class="hljs sql">mysql<span class="hljs-operator">&gt;</span> <span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">FROM</span> performance_schema.replication_group_members;<br></code></pre>
+
+<p><img src="http://img.chunge666.top/202209091545405.png" alt="image-20220909154523333" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="http://img.chunge666.top/202209091545405.png" class="lozad post-image"></p>
+<h4 id="节点退出"><a href="#节点退出" class="headerlink" title="节点退出"></a>节点退出</h4><pre class="highlight"><code class="hljs sql">mysql<span class="hljs-operator">&gt;</span> STOP GROUP_REPLICATION;<br></code></pre>
+
+<h3 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h3><h4 id="查看集群情况"><a href="#查看集群情况" class="headerlink" title="查看集群情况"></a>查看集群情况</h4><pre class="highlight"><code class="hljs sql">mysql<span class="hljs-operator">&gt;</span> <span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">FROM</span> performance_schema.replication_group_members;<br></code></pre>
+
+<h4 id="查看主节点"><a href="#查看主节点" class="headerlink" title="查看主节点"></a>查看主节点</h4><p>如下图可以看出s1是主库，s2、s3 是从库。</p>
+<pre class="highlight"><code class="hljs sql">mysql<span class="hljs-operator">&gt;</span> <span class="hljs-keyword">SHOW</span> STATUS <span class="hljs-keyword">LIKE</span> <span class="hljs-string">&#x27;group_replication_primary_member&#x27;</span>;<br></code></pre>
+
+<p><img src="http://img.chunge666.top/202209091545250.png" alt="image-20220909154533185" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="http://img.chunge666.top/202209091545250.png" class="lozad post-image"></p>
+<h4 id="模拟主从切换"><a href="#模拟主从切换" class="headerlink" title="模拟主从切换"></a>模拟主从切换</h4><h5 id="s1-退出并查看情况"><a href="#s1-退出并查看情况" class="headerlink" title="s1 退出并查看情况"></a>s1 退出并查看情况</h5><pre class="highlight"><code class="hljs sql"># s1 退出节点<br>mysql<span class="hljs-operator">&gt;</span> STOP GROUP_REPLICATION;<br># s1 查看组员<br>mysql<span class="hljs-operator">&gt;</span> <span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">FROM</span> performance_schema.replication_group_members;<br></code></pre>
+
+<p><img src="http://img.chunge666.top/202209091545297.png" alt="image-20220909154538219" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="http://img.chunge666.top/202209091545297.png" class="lozad post-image"></p>
+<p>可以看到 s1 是 <code>OFFLINE</code> 状态，并且看不到其他节点</p>
+<h5 id="s2-或-s3-查看节点情况"><a href="#s2-或-s3-查看节点情况" class="headerlink" title="s2 或 s3 查看节点情况"></a>s2 或 s3 查看节点情况</h5><pre class="highlight"><code class="hljs sql"># 查看组员<br>mysql<span class="hljs-operator">&gt;</span> <span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">FROM</span> performance_schema.replication_group_members;<br># 查看主节点<br>mysql<span class="hljs-operator">&gt;</span> <span class="hljs-keyword">SHOW</span> STATUS <span class="hljs-keyword">LIKE</span> <span class="hljs-string">&#x27;group_replication_primary_member&#x27;</span>;<br></code></pre>
+
+<p><img src="http://img.chunge666.top/202209091545580.png" alt="image-20220909154543513" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="http://img.chunge666.top/202209091545580.png" class="lozad post-image"></p>
+<p>可以看到 s2 变成了主节点</p>
+<h5 id="s1-重新加入组，并查看情况"><a href="#s1-重新加入组，并查看情况" class="headerlink" title="s1 重新加入组，并查看情况"></a>s1 重新加入组，并查看情况</h5><pre class="highlight"><code class="hljs sql"># 重新加入组<br>mysql<span class="hljs-operator">&gt;</span> <span class="hljs-keyword">START</span> GROUP_REPLICATION;<br># 查看组员<br>mysql<span class="hljs-operator">&gt;</span> <span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">FROM</span> performance_schema.replication_group_members;<br># 查看主节点<br>mysql<span class="hljs-operator">&gt;</span> <span class="hljs-keyword">SHOW</span> STATUS <span class="hljs-keyword">LIKE</span> <span class="hljs-string">&#x27;group_replication_primary_member&#x27;</span>;<br></code></pre>
+
+<p><img src="http://img.chunge666.top/202209091545631.png" alt="image-20220909154551558" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="http://img.chunge666.top/202209091545631.png" class="lozad post-image"></p>
+<p>可以看到主节点仍然是 s2, 并不会切换成 s1</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>MGR 发生故障时，虽然可以实现自动主从切换，但是无法提供固定的访问入口，客户端连接时仍需要通过第三方工具来实现。这里推荐使用 proxysql，参考<a href="/mysql%E9%AB%98%E5%8F%AF%E7%94%A8.html" title="mysql 高可用">mysql 高可用</a></p>
+<h2 id="参考地址"><a href="#参考地址" class="headerlink" title="参考地址"></a>参考地址</h2><p>官方文档：<a target="_blank" rel="noopener" href="https://dev.mysql.com/doc/refman/5.7/en/group-replication.html">https://dev.mysql.com/doc/refman/5.7/en/group-replication.html</a></p>
+<p>MGR搭建过程中遇到的错误以及解决办法: <a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1533657">https://cloud.tencent.com/developer/article/1533657</a></p>
+<p>半同步复制的问题: <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/367194130">https://zhuanlan.zhihu.com/p/367194130</a></p>
+
+  </div>
+  <div>
+    
+      <div 
+        class="post-note note-warning copyright" 
+        style="margin-top: 42px">
+        <p>
+          <span style="font-weight: bold;">作者：</span><a 
+            target="_blank" 
+            rel="nofollow noopener noreferrer" 
+            href="/about">
+            Chun
+          </a>
+        </p>
+        <p>
+          <span style="font-weight: bold;">文章链接：</span><a 
+            target="_blank" 
+            rel="nofollow noopener noreferrer" 
+            href="https://blog.chunge666.top/mysql-MGR%E6%90%AD%E5%BB%BA.html">
+            https://blog.chunge666.top/mysql-MGR%E6%90%AD%E5%BB%BA.html
+          </a>
+        </p>
+        <p><span style="font-weight: bold;">版权声明：</span>本博客所有文章除特别声明外，均采用<a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0 协议</a>。转载请注明出处！</p>
+      </div>
+    
+  </div>
+</article>
+<div class="nav">
+  
+    <div class="nav-item-prev">
+      <a 
+        href="/mysql%E9%AB%98%E5%8F%AF%E7%94%A8.html" 
+        class="nav-link">
+        <i class="iconfont icon-left nav-prev-icon"></i>
+        <div>
+          <div class="nav-label">上一篇</div>
+          
+            <div class="nav-title">mysql 高可用 </div>
+          
+        </div>
+      </a>
+    </div>
+  
+  
+    <div class="nav-item-next">
+      <a 
+        href="/node%E7%89%88%E6%9C%AC%E5%88%87%E6%8D%A2.html" 
+        class="nav-link">
+        <div>
+          <div class="nav-label">下一篇</div>
+          
+            <div class="nav-title">node 版本切换 </div>
+          
+        </div>
+        <i class="iconfont icon-right nav-next-icon"></i>
+      </a>
+    </div>
+  
+</div>
+
+  <div 
+    class="card card-content comment-card" 
+    style="margin-top: 16px;">
+    <div class="comment-card-title">评论</div>
+    
+  <div id="vcomments"></div>
+  
+  <script>
+    loadScript("//unpkg.com/valine/dist/Valine.min.js");
+    var oldLoadVa = window.onload;
+    window.onload = function () {
+      oldLoadVa && oldLoadVa();
+      new Valine({
+        el: '#vcomments',
+        appId: 'Fb12FgxcTGFydqPfZAOKsZkb-gzGzoHsz',
+        appKey: 'OIQyDCrjzjWbBV6vCqiXKAUJ',
+        placeholder: 'Just go go',
+        path: window.location.pathname,
+        avatar: 'mp',
+        meta: ["nick","mail","link"],
+        pageSize: '10',
+        lang: '',
+        visitor: 'false',
+        highlight: true,
+        recordIP: false,
+        
+        
+        
+        enableQQ: 'false',
+        requiredFields: [],
+      });
+    };
+  </script>
+
+  </div>
+
+<div 
+  class="card card-content toc-card" 
+  id="mobiletoc">
+  <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>目录
+</div>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%84%E5%A4%8D%E5%88%B6%E8%83%8C%E6%99%AF"><span class="toc-text">组复制背景</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%82%E6%AD%A5%E5%A4%8D%E5%88%B6"><span class="toc-text">异步复制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%8A%E5%90%8C%E6%AD%A5%E5%A4%8D%E5%88%B6"><span class="toc-text">半同步复制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%84%E5%A4%8D%E5%88%B6"><span class="toc-text">组复制</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="toc-text">环境准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-text">安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9-hostname"><span class="toc-text">修改 hostname</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E5%90%AF%E7%AB%AF%E5%8F%A3"><span class="toc-text">开启端口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E9%97%AD-selinux"><span class="toc-text">关闭 selinux</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B0%83%E6%95%B4-mysql-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-text">调整 mysql 配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%90%8C%E6%AD%A5%E8%B4%A6%E5%8F%B7"><span class="toc-text">创建同步账号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A0%E5%85%A5%E7%BB%84%E5%A4%8D%E5%88%B6%E9%80%9A%E9%81%93"><span class="toc-text">加入组复制通道</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E7%BB%84%E5%A4%8D%E5%88%B6"><span class="toc-text">启动组复制</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E7%BB%84"><span class="toc-text">启动组</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%8A%82%E7%82%B9%E5%8A%A0%E5%85%A5"><span class="toc-text">节点加入</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%8A%82%E7%82%B9%E9%80%80%E5%87%BA"><span class="toc-text">节点退出</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81"><span class="toc-text">验证</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E9%9B%86%E7%BE%A4%E6%83%85%E5%86%B5"><span class="toc-text">查看集群情况</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E4%B8%BB%E8%8A%82%E7%82%B9"><span class="toc-text">查看主节点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A8%A1%E6%8B%9F%E4%B8%BB%E4%BB%8E%E5%88%87%E6%8D%A2"><span class="toc-text">模拟主从切换</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#s1-%E9%80%80%E5%87%BA%E5%B9%B6%E6%9F%A5%E7%9C%8B%E6%83%85%E5%86%B5"><span class="toc-text">s1 退出并查看情况</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#s2-%E6%88%96-s3-%E6%9F%A5%E7%9C%8B%E8%8A%82%E7%82%B9%E6%83%85%E5%86%B5"><span class="toc-text">s2 或 s3 查看节点情况</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#s1-%E9%87%8D%E6%96%B0%E5%8A%A0%E5%85%A5%E7%BB%84%EF%BC%8C%E5%B9%B6%E6%9F%A5%E7%9C%8B%E6%83%85%E5%86%B5"><span class="toc-text">s1 重新加入组，并查看情况</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-text">结语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E5%9C%B0%E5%9D%80"><span class="toc-text">参考地址</span></a></li></ol>
+</div>
+            </main>
+            <aside class="right-column">
+              <div class="sticky-widescreen">
+  
+  
+    <article class="card card-content toc-card">
+      <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>目录
+</div>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%84%E5%A4%8D%E5%88%B6%E8%83%8C%E6%99%AF"><span class="toc-text">组复制背景</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%82%E6%AD%A5%E5%A4%8D%E5%88%B6"><span class="toc-text">异步复制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%8A%E5%90%8C%E6%AD%A5%E5%A4%8D%E5%88%B6"><span class="toc-text">半同步复制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%84%E5%A4%8D%E5%88%B6"><span class="toc-text">组复制</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="toc-text">环境准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-text">安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9-hostname"><span class="toc-text">修改 hostname</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E5%90%AF%E7%AB%AF%E5%8F%A3"><span class="toc-text">开启端口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E9%97%AD-selinux"><span class="toc-text">关闭 selinux</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B0%83%E6%95%B4-mysql-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-text">调整 mysql 配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%90%8C%E6%AD%A5%E8%B4%A6%E5%8F%B7"><span class="toc-text">创建同步账号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A0%E5%85%A5%E7%BB%84%E5%A4%8D%E5%88%B6%E9%80%9A%E9%81%93"><span class="toc-text">加入组复制通道</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E7%BB%84%E5%A4%8D%E5%88%B6"><span class="toc-text">启动组复制</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E7%BB%84"><span class="toc-text">启动组</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%8A%82%E7%82%B9%E5%8A%A0%E5%85%A5"><span class="toc-text">节点加入</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%8A%82%E7%82%B9%E9%80%80%E5%87%BA"><span class="toc-text">节点退出</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81"><span class="toc-text">验证</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E9%9B%86%E7%BE%A4%E6%83%85%E5%86%B5"><span class="toc-text">查看集群情况</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E4%B8%BB%E8%8A%82%E7%82%B9"><span class="toc-text">查看主节点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A8%A1%E6%8B%9F%E4%B8%BB%E4%BB%8E%E5%88%87%E6%8D%A2"><span class="toc-text">模拟主从切换</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#s1-%E9%80%80%E5%87%BA%E5%B9%B6%E6%9F%A5%E7%9C%8B%E6%83%85%E5%86%B5"><span class="toc-text">s1 退出并查看情况</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#s2-%E6%88%96-s3-%E6%9F%A5%E7%9C%8B%E8%8A%82%E7%82%B9%E6%83%85%E5%86%B5"><span class="toc-text">s2 或 s3 查看节点情况</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#s1-%E9%87%8D%E6%96%B0%E5%8A%A0%E5%85%A5%E7%BB%84%EF%BC%8C%E5%B9%B6%E6%9F%A5%E7%9C%8B%E6%83%85%E5%86%B5"><span class="toc-text">s1 重新加入组，并查看情况</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-text">结语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E5%9C%B0%E5%9D%80"><span class="toc-text">参考地址</span></a></li></ol>
+    </article>
+  
+  
+  <article class="card card-content">
+    <div class="recent-posts-card">
+  <div class="recent-posts-header">
+    <i 
+      class="iconfont icon-wenzhang_huaban" 
+      style="padding-right: 2px;">
+    </i>最近文章
+  </div>
+  <div class="recent-posts-list">
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2022-09-08</div>
+        <a href="/mysql%E9%AB%98%E5%8F%AF%E7%94%A8.html"><div class="recent-posts-item-content">mysql 高可用</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2022-09-07</div>
+        <a href="/mysql-MGR%E6%90%AD%E5%BB%BA.html"><div class="recent-posts-item-content">mysql-MGR搭建</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2022-09-07</div>
+        <a href="/node%E7%89%88%E6%9C%AC%E5%88%87%E6%8D%A2.html"><div class="recent-posts-item-content">node 版本切换</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2022-09-07</div>
+        <a href="/mysql%E5%AE%89%E8%A3%85.html"><div class="recent-posts-item-content">mysql 安装</div></a>
+      </div>
+    
+  </div>
+</div>
+  </article>
+  
+  
+</div>
+            </aside>
+          </div>
+        </div>
+      </div>
+    </div>
+     
+    <footer class="footer">
+  <div class="footer-container">
+    <div>
+      <div class="footer-dsc">
+        <span>
+          Copyright ©
+          
+            2022
+          
+          
+        </span>
+        &nbsp;
+        <a 
+          href="/" 
+          class="footer-link">
+          Chun's Blog
+        </a>
+      </div>
+    </div>
+
+    
+      <div class="footer-dsc">
+        
+          Powered by
+          <a 
+            href="https://hexo.io/" 
+            class="footer-link" 
+            target="_blank" 
+            rel="nofollow noopener noreferrer">
+            &nbsp;Hexo
+          </a>
+        
+        
+          <span>&nbsp;|&nbsp;</span>
+        
+        
+          Theme -
+          <a 
+            href="https://github.com/theme-kaze" 
+            class="footer-link" 
+            target="_blank"
+            rel="nofollow noopener noreferrer">
+            &nbsp;Kaze
+          </a>
+        
+      </div>
+    
+    
+    
+      <div class="BbeiAn-info">
+        <a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">粤ICP备19001235号 </a>
+      </div>
+      
+    
+    
+</footer>
+ 
+    
+  <a 
+    role="button" 
+    id="scrollbutton" 
+    class="basebutton" 
+    aria-label="回到顶部">
+    <i class="iconfont icon-arrowleft button-icon"></i>
+  </a>
+
+<a 
+  role="button" 
+  id="menubutton"
+  aria-label="menu button"
+  class="basebutton">
+  <i class="iconfont icon-menu button-icon"></i>
+</a>
+<a 
+  role="button" 
+  id="popbutton" 
+  class="basebutton" 
+  aria-label="控制中心">
+  <i class="iconfont icon-expand button-icon"></i>
+</a>
+<a 
+  role="button" 
+  id="darkbutton" 
+  class="basebutton darkwidget" 
+  aria-label="夜色模式">
+  <i class="iconfont icon-weather button-icon"></i>
+</a>
+<a 
+  role="button" 
+  id="searchbutton" 
+  class="basebutton searchwidget" 
+  aria-label="搜索">
+  <i class="iconfont icon-search button-icon"></i>
+</a> 
+     
+     
+     
+      <script>
+  var addImgLayout = function () {
+    var img = document.querySelectorAll('.post-content img')
+    var i
+    for (i = 0; i < img.length; i++) {
+      var wrapper = document.createElement('a')
+      wrapper.setAttribute('href', img[i].getAttribute('data-src'))
+      wrapper.setAttribute('aria-label', 'illustration')
+      wrapper.style.cssText =
+        'width: 100%; display: flex; justify-content: center;'
+      if (img[i].alt) wrapper.dataset.caption = img[i].alt
+      wrapper.dataset.nolink = true
+      img[i].before(wrapper)
+      wrapper.append(img[i])
+      var divWrap = document.createElement('div')
+      divWrap.classList.add('gallery')
+      wrapper.before(divWrap)
+      divWrap.append(wrapper)
+    }
+    baguetteBox.run('.gallery')
+  }
+</script>
+<script>
+  loadScript(
+    "/js/lib/lightbox/baguetteBox.min.js",
+    addImgLayout
+  )
+</script>
+ 
+     
+     
+    <script src="/js/main.js"></script> 
+     
+    
+      <script>
+        var addLazyload = function () {
+          var observer = lozad('.lozad', {
+            load: function (el) {
+              el.srcset = el.getAttribute('data-src')
+            },
+            loaded: function (el) {
+              el.classList.add('loaded')
+            },
+          })
+          observer.observe()
+        }
+      </script>
+      <script>
+        loadScript('/js/lib/lozad.min.js', addLazyload)
+      </script>
+    
+    <script src="//instant.page/5.1.0" type="module"
+      integrity="sha384-by67kQnR+pyfy8yWP4kPO12fHKRLHZPfEsiSXR8u2IKcTdxD805MGUXBzVPnkLHw"></script>
+    
+      <script>
+        var googleAnalytics = function () {
+          window.dataLayer = window.dataLayer || []
+          function gtag() {
+            dataLayer.push(arguments)
+          }
+          gtag('js', new Date())
+          gtag('config', 'G-GZE49Y8JZ5')
+        }
+    </script>
+      <script>
+        loadScript(
+          'https://www.googletagmanager.com/gtag/js?id=' +
+            'G-GZE49Y8JZ5',
+          googleAnalytics
+        )
+      </script>
+    
+    
+      <script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.14.2/dist/algoliasearch.umd.js"></script>
+      <script>
+        setTimeout(() => {localAlgoliasearch(10)}, 0)
+      </script>
+    
+  </body>
+</html>
