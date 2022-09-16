@@ -51,7 +51,7 @@
         content="2022-09-07">
       <meta 
         property="og:article:modified_time" 
-        content="2022-09-09">
+        content="2022-09-14">
       <meta 
         property="og:article:author" 
         content="Chun">
@@ -299,7 +299,7 @@
   <a 
     class="author-posts-count" 
     href="/archives">
-    <span>16</span>
+    <span>18</span>
     <span>文章</span>
   </a>
   <a 
@@ -311,7 +311,7 @@
   <a 
     class="author-tags-count" 
     href="/tags">
-    <span>13</span>
+    <span>15</span>
     <span>标签</span>
   </a>
 </div>
@@ -328,7 +328,7 @@
     style="padding-right: 2px;">
   </i>目录
 </div>
-<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%84%E5%A4%8D%E5%88%B6%E8%83%8C%E6%99%AF"><span class="toc-text">组复制背景</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%82%E6%AD%A5%E5%A4%8D%E5%88%B6"><span class="toc-text">异步复制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%8A%E5%90%8C%E6%AD%A5%E5%A4%8D%E5%88%B6"><span class="toc-text">半同步复制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%84%E5%A4%8D%E5%88%B6"><span class="toc-text">组复制</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="toc-text">环境准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-text">安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9-hostname"><span class="toc-text">修改 hostname</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E5%90%AF%E7%AB%AF%E5%8F%A3"><span class="toc-text">开启端口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E9%97%AD-selinux"><span class="toc-text">关闭 selinux</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B0%83%E6%95%B4-mysql-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-text">调整 mysql 配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%90%8C%E6%AD%A5%E8%B4%A6%E5%8F%B7"><span class="toc-text">创建同步账号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A0%E5%85%A5%E7%BB%84%E5%A4%8D%E5%88%B6%E9%80%9A%E9%81%93"><span class="toc-text">加入组复制通道</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E7%BB%84%E5%A4%8D%E5%88%B6"><span class="toc-text">启动组复制</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E7%BB%84"><span class="toc-text">启动组</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%8A%82%E7%82%B9%E5%8A%A0%E5%85%A5"><span class="toc-text">节点加入</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%8A%82%E7%82%B9%E9%80%80%E5%87%BA"><span class="toc-text">节点退出</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81"><span class="toc-text">验证</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E9%9B%86%E7%BE%A4%E6%83%85%E5%86%B5"><span class="toc-text">查看集群情况</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E4%B8%BB%E8%8A%82%E7%82%B9"><span class="toc-text">查看主节点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A8%A1%E6%8B%9F%E4%B8%BB%E4%BB%8E%E5%88%87%E6%8D%A2"><span class="toc-text">模拟主从切换</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#s1-%E9%80%80%E5%87%BA%E5%B9%B6%E6%9F%A5%E7%9C%8B%E6%83%85%E5%86%B5"><span class="toc-text">s1 退出并查看情况</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#s2-%E6%88%96-s3-%E6%9F%A5%E7%9C%8B%E8%8A%82%E7%82%B9%E6%83%85%E5%86%B5"><span class="toc-text">s2 或 s3 查看节点情况</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#s1-%E9%87%8D%E6%96%B0%E5%8A%A0%E5%85%A5%E7%BB%84%EF%BC%8C%E5%B9%B6%E6%9F%A5%E7%9C%8B%E6%83%85%E5%86%B5"><span class="toc-text">s1 重新加入组，并查看情况</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-text">结语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E5%9C%B0%E5%9D%80"><span class="toc-text">参考地址</span></a></li></ol>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%84%E5%A4%8D%E5%88%B6%E8%83%8C%E6%99%AF"><span class="toc-text">组复制背景</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%82%E6%AD%A5%E5%A4%8D%E5%88%B6"><span class="toc-text">异步复制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%8A%E5%90%8C%E6%AD%A5%E5%A4%8D%E5%88%B6"><span class="toc-text">半同步复制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%84%E5%A4%8D%E5%88%B6"><span class="toc-text">组复制</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="toc-text">环境准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-text">安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9-hostname"><span class="toc-text">修改 hostname</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E5%90%AF%E7%AB%AF%E5%8F%A3"><span class="toc-text">开启端口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E9%97%AD-selinux"><span class="toc-text">关闭 selinux</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B0%83%E6%95%B4-mysql-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-text">调整 mysql 配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%90%8C%E6%AD%A5%E8%B4%A6%E5%8F%B7"><span class="toc-text">创建同步账号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A0%E5%85%A5%E7%BB%84%E5%A4%8D%E5%88%B6%E9%80%9A%E9%81%93"><span class="toc-text">加入组复制通道</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E7%BB%84%E5%A4%8D%E5%88%B6"><span class="toc-text">启动组复制</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E7%BB%84"><span class="toc-text">启动组</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%8A%82%E7%82%B9%E5%8A%A0%E5%85%A5"><span class="toc-text">节点加入</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%8A%82%E7%82%B9%E9%80%80%E5%87%BA"><span class="toc-text">节点退出</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81"><span class="toc-text">验证</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E9%9B%86%E7%BE%A4%E6%83%85%E5%86%B5"><span class="toc-text">查看集群情况</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E8%8A%82%E7%82%B9%E7%8A%B6%E6%80%81"><span class="toc-text">查看当前节点状态</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E4%B8%BB%E8%8A%82%E7%82%B9"><span class="toc-text">查看主节点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A8%A1%E6%8B%9F%E4%B8%BB%E4%BB%8E%E5%88%87%E6%8D%A2"><span class="toc-text">模拟主从切换</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#s1-%E9%80%80%E5%87%BA%E5%B9%B6%E6%9F%A5%E7%9C%8B%E6%83%85%E5%86%B5"><span class="toc-text">s1 退出并查看情况</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#s2-%E6%88%96-s3-%E6%9F%A5%E7%9C%8B%E8%8A%82%E7%82%B9%E6%83%85%E5%86%B5"><span class="toc-text">s2 或 s3 查看节点情况</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#s1-%E9%87%8D%E6%96%B0%E5%8A%A0%E5%85%A5%E7%BB%84%EF%BC%8C%E5%B9%B6%E6%9F%A5%E7%9C%8B%E6%83%85%E5%86%B5"><span class="toc-text">s1 重新加入组，并查看情况</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-text">结语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E5%9C%B0%E5%9D%80"><span class="toc-text">参考地址</span></a></li></ol>
       </div>
     </article>
   
@@ -346,7 +346,7 @@
       <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">
         <div class="categories-list-item">
           数据库
-          <span class="categories-list-item-badge">4</span>
+          <span class="categories-list-item-badge">5</span>
         </div>
       </a>
     
@@ -357,17 +357,17 @@
         </div>
       </a>
     
-      <a href="/categories/%E7%BC%96%E8%BE%91%E5%99%A8/">
+      <a href="/categories/java/">
         <div class="categories-list-item">
-          编辑器
+          java
           <span class="categories-list-item-badge">3</span>
         </div>
       </a>
     
-      <a href="/categories/java/">
+      <a href="/categories/%E7%BC%96%E8%BE%91%E5%99%A8/">
         <div class="categories-list-item">
-          java
-          <span class="categories-list-item-badge">2</span>
+          编辑器
+          <span class="categories-list-item-badge">3</span>
         </div>
       </a>
     
@@ -400,9 +400,9 @@
   <div class="tags-list">
     
       <a 
-        href="/tags/proxysql/" 
-        title="proxysql">
-        <div class="tags-list-item">proxysql</div>
+        href="/tags/centos/" 
+        title="centos">
+        <div class="tags-list-item">centos</div>
       </a>
     
       <a 
@@ -412,15 +412,9 @@
       </a>
     
       <a 
-        href="/tags/keepalived/" 
-        title="keepalived">
-        <div class="tags-list-item">keepalived</div>
-      </a>
-    
-      <a 
-        href="/tags/centos/" 
-        title="centos">
-        <div class="tags-list-item">centos</div>
+        href="/tags/idea/" 
+        title="idea">
+        <div class="tags-list-item">idea</div>
       </a>
     
       <a 
@@ -430,39 +424,27 @@
       </a>
     
       <a 
-        href="/tags/docker/" 
-        title="docker">
-        <div class="tags-list-item">docker</div>
+        href="/tags/keepalived/" 
+        title="keepalived">
+        <div class="tags-list-item">keepalived</div>
       </a>
     
       <a 
-        href="/tags/idea/" 
-        title="idea">
-        <div class="tags-list-item">idea</div>
+        href="/tags/jdk/" 
+        title="jdk">
+        <div class="tags-list-item">jdk</div>
       </a>
     
       <a 
-        href="/tags/jar/" 
-        title="jar">
-        <div class="tags-list-item">jar</div>
+        href="/tags/binlog/" 
+        title="binlog">
+        <div class="tags-list-item">binlog</div>
       </a>
     
       <a 
-        href="/tags/nginx/" 
-        title="nginx">
-        <div class="tags-list-item">nginx</div>
-      </a>
-    
-      <a 
-        href="/tags/node/" 
-        title="node">
-        <div class="tags-list-item">node</div>
-      </a>
-    
-      <a 
-        href="/tags/redis/" 
-        title="redis">
-        <div class="tags-list-item">redis</div>
+        href="/tags/springboot/" 
+        title="springboot">
+        <div class="tags-list-item">springboot</div>
       </a>
     
       <a 
@@ -472,9 +454,39 @@
       </a>
     
       <a 
-        href="/tags/springboot/" 
-        title="springboot">
-        <div class="tags-list-item">springboot</div>
+        href="/tags/redis/" 
+        title="redis">
+        <div class="tags-list-item">redis</div>
+      </a>
+    
+      <a 
+        href="/tags/node/" 
+        title="node">
+        <div class="tags-list-item">node</div>
+      </a>
+    
+      <a 
+        href="/tags/nginx/" 
+        title="nginx">
+        <div class="tags-list-item">nginx</div>
+      </a>
+    
+      <a 
+        href="/tags/jar/" 
+        title="jar">
+        <div class="tags-list-item">jar</div>
+      </a>
+    
+      <a 
+        href="/tags/docker/" 
+        title="docker">
+        <div class="tags-list-item">docker</div>
+      </a>
+    
+      <a 
+        href="/tags/proxysql/" 
+        title="proxysql">
+        <div class="tags-list-item">proxysql</div>
       </a>
     
   </div>
@@ -567,7 +579,7 @@
 
 <h3 id="组复制"><a href="#组复制" class="headerlink" title="组复制"></a>组复制</h3><p>组复制由多个节点组成，当其中一个节点提交事务，组内多数节点可用时，就允许执行事务。保证服务器的高可用，底层使用 Paxos 算法。</p>
 <p><img src="http://img.chunge666.top/202209091545611.png" alt="image-20220909154504555" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="http://img.chunge666.top/202209091545611.png" class="lozad post-image"></p>
-<div class="post-note note-danger"><p>使用组复制的 mysql 版本必须大于等于 <code>5.7.17</code></p></div>
+<div class="post-note note-danger"><p>使用组复制的 mysql 版本必须大于等于 <code>5.7.17</code>, 一个组最多 9 个节点</p></div>
 
 <h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><p>准备三台已安装mysql5.7，且可以互相访问的服务器，安装mysql5.7参考<a href="/mysql%E5%AE%89%E8%A3%85.html" title="mysql 安装">mysql 安装</a>。</p>
 <table>
@@ -640,6 +652,8 @@
 <h4 id="节点退出"><a href="#节点退出" class="headerlink" title="节点退出"></a>节点退出</h4><pre class="highlight"><code class="hljs sql">mysql<span class="hljs-operator">&gt;</span> STOP GROUP_REPLICATION;<br></code></pre>
 
 <h3 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h3><h4 id="查看集群情况"><a href="#查看集群情况" class="headerlink" title="查看集群情况"></a>查看集群情况</h4><pre class="highlight"><code class="hljs sql">mysql<span class="hljs-operator">&gt;</span> <span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">FROM</span> performance_schema.replication_group_members;<br></code></pre>
+
+<h4 id="查看当前节点状态"><a href="#查看当前节点状态" class="headerlink" title="查看当前节点状态"></a>查看当前节点状态</h4><pre class="highlight"><code class="hljs sql">mysql<span class="hljs-operator">&gt;</span> <span class="hljs-keyword">SELECT</span> <span class="hljs-operator">*</span> <span class="hljs-keyword">FROM</span> performance_schema.replication_group_member_stats;<br></code></pre>
 
 <h4 id="查看主节点"><a href="#查看主节点" class="headerlink" title="查看主节点"></a>查看主节点</h4><p>如下图可以看出s1是主库，s2、s3 是从库。</p>
 <pre class="highlight"><code class="hljs sql">mysql<span class="hljs-operator">&gt;</span> <span class="hljs-keyword">SHOW</span> STATUS <span class="hljs-keyword">LIKE</span> <span class="hljs-string">&#x27;group_replication_primary_member&#x27;</span>;<br></code></pre>
@@ -767,7 +781,7 @@
     style="padding-right: 2px;">
   </i>目录
 </div>
-<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%84%E5%A4%8D%E5%88%B6%E8%83%8C%E6%99%AF"><span class="toc-text">组复制背景</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%82%E6%AD%A5%E5%A4%8D%E5%88%B6"><span class="toc-text">异步复制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%8A%E5%90%8C%E6%AD%A5%E5%A4%8D%E5%88%B6"><span class="toc-text">半同步复制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%84%E5%A4%8D%E5%88%B6"><span class="toc-text">组复制</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="toc-text">环境准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-text">安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9-hostname"><span class="toc-text">修改 hostname</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E5%90%AF%E7%AB%AF%E5%8F%A3"><span class="toc-text">开启端口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E9%97%AD-selinux"><span class="toc-text">关闭 selinux</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B0%83%E6%95%B4-mysql-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-text">调整 mysql 配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%90%8C%E6%AD%A5%E8%B4%A6%E5%8F%B7"><span class="toc-text">创建同步账号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A0%E5%85%A5%E7%BB%84%E5%A4%8D%E5%88%B6%E9%80%9A%E9%81%93"><span class="toc-text">加入组复制通道</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E7%BB%84%E5%A4%8D%E5%88%B6"><span class="toc-text">启动组复制</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E7%BB%84"><span class="toc-text">启动组</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%8A%82%E7%82%B9%E5%8A%A0%E5%85%A5"><span class="toc-text">节点加入</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%8A%82%E7%82%B9%E9%80%80%E5%87%BA"><span class="toc-text">节点退出</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81"><span class="toc-text">验证</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E9%9B%86%E7%BE%A4%E6%83%85%E5%86%B5"><span class="toc-text">查看集群情况</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E4%B8%BB%E8%8A%82%E7%82%B9"><span class="toc-text">查看主节点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A8%A1%E6%8B%9F%E4%B8%BB%E4%BB%8E%E5%88%87%E6%8D%A2"><span class="toc-text">模拟主从切换</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#s1-%E9%80%80%E5%87%BA%E5%B9%B6%E6%9F%A5%E7%9C%8B%E6%83%85%E5%86%B5"><span class="toc-text">s1 退出并查看情况</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#s2-%E6%88%96-s3-%E6%9F%A5%E7%9C%8B%E8%8A%82%E7%82%B9%E6%83%85%E5%86%B5"><span class="toc-text">s2 或 s3 查看节点情况</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#s1-%E9%87%8D%E6%96%B0%E5%8A%A0%E5%85%A5%E7%BB%84%EF%BC%8C%E5%B9%B6%E6%9F%A5%E7%9C%8B%E6%83%85%E5%86%B5"><span class="toc-text">s1 重新加入组，并查看情况</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-text">结语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E5%9C%B0%E5%9D%80"><span class="toc-text">参考地址</span></a></li></ol>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%84%E5%A4%8D%E5%88%B6%E8%83%8C%E6%99%AF"><span class="toc-text">组复制背景</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%82%E6%AD%A5%E5%A4%8D%E5%88%B6"><span class="toc-text">异步复制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%8A%E5%90%8C%E6%AD%A5%E5%A4%8D%E5%88%B6"><span class="toc-text">半同步复制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%84%E5%A4%8D%E5%88%B6"><span class="toc-text">组复制</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="toc-text">环境准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-text">安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9-hostname"><span class="toc-text">修改 hostname</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E5%90%AF%E7%AB%AF%E5%8F%A3"><span class="toc-text">开启端口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E9%97%AD-selinux"><span class="toc-text">关闭 selinux</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B0%83%E6%95%B4-mysql-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-text">调整 mysql 配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%90%8C%E6%AD%A5%E8%B4%A6%E5%8F%B7"><span class="toc-text">创建同步账号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A0%E5%85%A5%E7%BB%84%E5%A4%8D%E5%88%B6%E9%80%9A%E9%81%93"><span class="toc-text">加入组复制通道</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E7%BB%84%E5%A4%8D%E5%88%B6"><span class="toc-text">启动组复制</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E7%BB%84"><span class="toc-text">启动组</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%8A%82%E7%82%B9%E5%8A%A0%E5%85%A5"><span class="toc-text">节点加入</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%8A%82%E7%82%B9%E9%80%80%E5%87%BA"><span class="toc-text">节点退出</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81"><span class="toc-text">验证</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E9%9B%86%E7%BE%A4%E6%83%85%E5%86%B5"><span class="toc-text">查看集群情况</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E8%8A%82%E7%82%B9%E7%8A%B6%E6%80%81"><span class="toc-text">查看当前节点状态</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E4%B8%BB%E8%8A%82%E7%82%B9"><span class="toc-text">查看主节点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A8%A1%E6%8B%9F%E4%B8%BB%E4%BB%8E%E5%88%87%E6%8D%A2"><span class="toc-text">模拟主从切换</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#s1-%E9%80%80%E5%87%BA%E5%B9%B6%E6%9F%A5%E7%9C%8B%E6%83%85%E5%86%B5"><span class="toc-text">s1 退出并查看情况</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#s2-%E6%88%96-s3-%E6%9F%A5%E7%9C%8B%E8%8A%82%E7%82%B9%E6%83%85%E5%86%B5"><span class="toc-text">s2 或 s3 查看节点情况</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#s1-%E9%87%8D%E6%96%B0%E5%8A%A0%E5%85%A5%E7%BB%84%EF%BC%8C%E5%B9%B6%E6%9F%A5%E7%9C%8B%E6%83%85%E5%86%B5"><span class="toc-text">s1 重新加入组，并查看情况</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-text">结语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E5%9C%B0%E5%9D%80"><span class="toc-text">参考地址</span></a></li></ol>
 </div>
             </main>
             <aside class="right-column">
@@ -781,7 +795,7 @@
     style="padding-right: 2px;">
   </i>目录
 </div>
-<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%84%E5%A4%8D%E5%88%B6%E8%83%8C%E6%99%AF"><span class="toc-text">组复制背景</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%82%E6%AD%A5%E5%A4%8D%E5%88%B6"><span class="toc-text">异步复制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%8A%E5%90%8C%E6%AD%A5%E5%A4%8D%E5%88%B6"><span class="toc-text">半同步复制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%84%E5%A4%8D%E5%88%B6"><span class="toc-text">组复制</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="toc-text">环境准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-text">安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9-hostname"><span class="toc-text">修改 hostname</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E5%90%AF%E7%AB%AF%E5%8F%A3"><span class="toc-text">开启端口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E9%97%AD-selinux"><span class="toc-text">关闭 selinux</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B0%83%E6%95%B4-mysql-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-text">调整 mysql 配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%90%8C%E6%AD%A5%E8%B4%A6%E5%8F%B7"><span class="toc-text">创建同步账号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A0%E5%85%A5%E7%BB%84%E5%A4%8D%E5%88%B6%E9%80%9A%E9%81%93"><span class="toc-text">加入组复制通道</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E7%BB%84%E5%A4%8D%E5%88%B6"><span class="toc-text">启动组复制</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E7%BB%84"><span class="toc-text">启动组</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%8A%82%E7%82%B9%E5%8A%A0%E5%85%A5"><span class="toc-text">节点加入</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%8A%82%E7%82%B9%E9%80%80%E5%87%BA"><span class="toc-text">节点退出</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81"><span class="toc-text">验证</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E9%9B%86%E7%BE%A4%E6%83%85%E5%86%B5"><span class="toc-text">查看集群情况</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E4%B8%BB%E8%8A%82%E7%82%B9"><span class="toc-text">查看主节点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A8%A1%E6%8B%9F%E4%B8%BB%E4%BB%8E%E5%88%87%E6%8D%A2"><span class="toc-text">模拟主从切换</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#s1-%E9%80%80%E5%87%BA%E5%B9%B6%E6%9F%A5%E7%9C%8B%E6%83%85%E5%86%B5"><span class="toc-text">s1 退出并查看情况</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#s2-%E6%88%96-s3-%E6%9F%A5%E7%9C%8B%E8%8A%82%E7%82%B9%E6%83%85%E5%86%B5"><span class="toc-text">s2 或 s3 查看节点情况</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#s1-%E9%87%8D%E6%96%B0%E5%8A%A0%E5%85%A5%E7%BB%84%EF%BC%8C%E5%B9%B6%E6%9F%A5%E7%9C%8B%E6%83%85%E5%86%B5"><span class="toc-text">s1 重新加入组，并查看情况</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-text">结语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E5%9C%B0%E5%9D%80"><span class="toc-text">参考地址</span></a></li></ol>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%84%E5%A4%8D%E5%88%B6%E8%83%8C%E6%99%AF"><span class="toc-text">组复制背景</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%82%E6%AD%A5%E5%A4%8D%E5%88%B6"><span class="toc-text">异步复制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%8A%E5%90%8C%E6%AD%A5%E5%A4%8D%E5%88%B6"><span class="toc-text">半同步复制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%84%E5%A4%8D%E5%88%B6"><span class="toc-text">组复制</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="toc-text">环境准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-text">安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9-hostname"><span class="toc-text">修改 hostname</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%80%E5%90%AF%E7%AB%AF%E5%8F%A3"><span class="toc-text">开启端口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E9%97%AD-selinux"><span class="toc-text">关闭 selinux</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B0%83%E6%95%B4-mysql-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-text">调整 mysql 配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%90%8C%E6%AD%A5%E8%B4%A6%E5%8F%B7"><span class="toc-text">创建同步账号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A0%E5%85%A5%E7%BB%84%E5%A4%8D%E5%88%B6%E9%80%9A%E9%81%93"><span class="toc-text">加入组复制通道</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E7%BB%84%E5%A4%8D%E5%88%B6"><span class="toc-text">启动组复制</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%AF%E5%8A%A8%E7%BB%84"><span class="toc-text">启动组</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%8A%82%E7%82%B9%E5%8A%A0%E5%85%A5"><span class="toc-text">节点加入</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%8A%82%E7%82%B9%E9%80%80%E5%87%BA"><span class="toc-text">节点退出</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81"><span class="toc-text">验证</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E9%9B%86%E7%BE%A4%E6%83%85%E5%86%B5"><span class="toc-text">查看集群情况</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E8%8A%82%E7%82%B9%E7%8A%B6%E6%80%81"><span class="toc-text">查看当前节点状态</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E4%B8%BB%E8%8A%82%E7%82%B9"><span class="toc-text">查看主节点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A8%A1%E6%8B%9F%E4%B8%BB%E4%BB%8E%E5%88%87%E6%8D%A2"><span class="toc-text">模拟主从切换</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#s1-%E9%80%80%E5%87%BA%E5%B9%B6%E6%9F%A5%E7%9C%8B%E6%83%85%E5%86%B5"><span class="toc-text">s1 退出并查看情况</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#s2-%E6%88%96-s3-%E6%9F%A5%E7%9C%8B%E8%8A%82%E7%82%B9%E6%83%85%E5%86%B5"><span class="toc-text">s2 或 s3 查看节点情况</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#s1-%E9%87%8D%E6%96%B0%E5%8A%A0%E5%85%A5%E7%BB%84%EF%BC%8C%E5%B9%B6%E6%9F%A5%E7%9C%8B%E6%83%85%E5%86%B5"><span class="toc-text">s1 重新加入组，并查看情况</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-text">结语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E5%9C%B0%E5%9D%80"><span class="toc-text">参考地址</span></a></li></ol>
     </article>
   
   
@@ -796,23 +810,23 @@
   <div class="recent-posts-list">
     
       <div class="recent-posts-item">
-        <div class="recent-posts-item-title">2022-09-08</div>
+        <div class="recent-posts-item-title">2022-09-16</div>
+        <a href="/jdk%E5%AE%89%E8%A3%85.html"><div class="recent-posts-item-content">jdk安装</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2022-09-14</div>
+        <a href="/mysqlbinlog%E5%A4%87%E4%BB%BD.html"><div class="recent-posts-item-content">mysqlbinlog备份</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2022-09-09</div>
         <a href="/mysql%E9%AB%98%E5%8F%AF%E7%94%A8.html"><div class="recent-posts-item-content">mysql 高可用</div></a>
       </div>
     
       <div class="recent-posts-item">
         <div class="recent-posts-item-title">2022-09-07</div>
         <a href="/mysql-MGR%E6%90%AD%E5%BB%BA.html"><div class="recent-posts-item-content">mysql-MGR搭建</div></a>
-      </div>
-    
-      <div class="recent-posts-item">
-        <div class="recent-posts-item-title">2022-09-07</div>
-        <a href="/node%E7%89%88%E6%9C%AC%E5%88%87%E6%8D%A2.html"><div class="recent-posts-item-content">node 版本切换</div></a>
-      </div>
-    
-      <div class="recent-posts-item">
-        <div class="recent-posts-item-title">2022-09-07</div>
-        <a href="/mysql%E5%AE%89%E8%A3%85.html"><div class="recent-posts-item-content">mysql 安装</div></a>
       </div>
     
   </div>
