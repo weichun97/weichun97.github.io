@@ -51,7 +51,7 @@
         content="2022-09-06">
       <meta 
         property="og:article:modified_time" 
-        content="2022-09-09">
+        content="2022-09-21">
       <meta 
         property="og:article:author" 
         content="Chun">
@@ -299,7 +299,7 @@
   <a 
     class="author-posts-count" 
     href="/archives">
-    <span>18</span>
+    <span>19</span>
     <span>文章</span>
   </a>
   <a 
@@ -328,7 +328,7 @@
     style="padding-right: 2px;">
   </i>目录
 </div>
-<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-text">安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8"><span class="toc-text">使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-text">参考链接</span></a></li></ol>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E6%8F%92%E4%BB%B6"><span class="toc-text">安装插件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8"><span class="toc-text">使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-text">参考链接</span></a></li></ol>
       </div>
     </article>
   
@@ -353,7 +353,7 @@
       <a href="/categories/linux/">
         <div class="categories-list-item">
           linux
-          <span class="categories-list-item-badge">5</span>
+          <span class="categories-list-item-badge">6</span>
         </div>
       </a>
     
@@ -418,6 +418,12 @@
       </a>
     
       <a 
+        href="/tags/nginx/" 
+        title="nginx">
+        <div class="tags-list-item">nginx</div>
+      </a>
+    
+      <a 
         href="/tags/yum/" 
         title="yum">
         <div class="tags-list-item">yum</div>
@@ -427,18 +433,6 @@
         href="/tags/keepalived/" 
         title="keepalived">
         <div class="tags-list-item">keepalived</div>
-      </a>
-    
-      <a 
-        href="/tags/jdk/" 
-        title="jdk">
-        <div class="tags-list-item">jdk</div>
-      </a>
-    
-      <a 
-        href="/tags/binlog/" 
-        title="binlog">
-        <div class="tags-list-item">binlog</div>
       </a>
     
       <a 
@@ -466,9 +460,9 @@
       </a>
     
       <a 
-        href="/tags/nginx/" 
-        title="nginx">
-        <div class="tags-list-item">nginx</div>
+        href="/tags/jdk/" 
+        title="jdk">
+        <div class="tags-list-item">jdk</div>
       </a>
     
       <a 
@@ -487,6 +481,12 @@
         href="/tags/proxysql/" 
         title="proxysql">
         <div class="tags-list-item">proxysql</div>
+      </a>
+    
+      <a 
+        href="/tags/binlog/" 
+        title="binlog">
+        <div class="tags-list-item">binlog</div>
       </a>
     
   </div>
@@ -533,7 +533,7 @@
     
     
       <span class="dot"></span>
-      <span>69 字</span>
+      <span>110 字</span>
     
   </div>
   
@@ -569,9 +569,10 @@
   <div 
     id="section" 
     class="post-content">
-    <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><pre class="highlight"><code class="hljs plaintext">yum install yum-plugin-downloadonly<br></code></pre>
+    <h2 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h2><p>centos 低版本没有 <code>downloadonly</code> 属性，需要下载 yum 插件来支持</p>
+<pre class="highlight"><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">centos5</span><br>[root@localhost ~]# yum install yum-downloadonly<br><span class="hljs-meta prompt_"># </span><span class="language-bash">centos6</span><br>[root@localhost ~]# yum install yum-plugin-downloadonly<br></code></pre>
 
-<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><pre class="highlight"><code class="hljs sh"><span class="hljs-comment"># 创建用来存 rpm 包的文件夹</span><br><span class="hljs-built_in">mkdir</span> /data/rpm -p<br><br><span class="hljs-comment"># 下载 keepalived 的 rpm 及依赖的 rpm 包到 /data/rpm m目录下</span><br>yum install –downloadonly –downloaddir=/data/rpm keepalived<br><br><span class="hljs-comment"># 安装 keepalived</span><br><span class="hljs-built_in">cd</span> /data/rpm/<br>yum localinstall *.rpm -y<br></code></pre>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><pre class="highlight"><code class="hljs sh"><span class="hljs-comment"># 创建用来存 rpm 包的文件夹</span><br>[root@localhost ~]<span class="hljs-comment"># mkdir /data/rpm -p</span><br><br><span class="hljs-comment"># 下载 keepalived 的 rpm 及依赖的 rpm 包到 /data/rpm m目录下</span><br>[root@localhost ~]<span class="hljs-comment"># yum install –-downloadonly –-downloaddir=/data/rpm keepalived</span><br><br><span class="hljs-comment"># 安装 keepalived</span><br>[root@localhost ~]<span class="hljs-comment"># cd /data/rpm/</span><br>[root@localhost ~]<span class="hljs-comment"># yum localinstall *.rpm -y</span><br></code></pre>
 
 
 
@@ -609,13 +610,13 @@
   
     <div class="nav-item-prev">
       <a 
-        href="/idea%E5%BF%AB%E6%8D%B7%E9%94%AE.html" 
+        href="/docker%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4.html" 
         class="nav-link">
         <i class="iconfont icon-left nav-prev-icon"></i>
         <div>
           <div class="nav-label">上一篇</div>
           
-            <div class="nav-title">idea 快捷键 </div>
+            <div class="nav-title">docker 常用命令 </div>
           
         </div>
       </a>
@@ -624,12 +625,12 @@
   
     <div class="nav-item-next">
       <a 
-        href="/docker%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4.html" 
+        href="/centos%E5%8D%87%E7%BA%A7openssh.html" 
         class="nav-link">
         <div>
           <div class="nav-label">下一篇</div>
           
-            <div class="nav-title">docker 常用命令 </div>
+            <div class="nav-title">centos 升级 openssh </div>
           
         </div>
         <i class="iconfont icon-right nav-next-icon"></i>
@@ -683,7 +684,7 @@
     style="padding-right: 2px;">
   </i>目录
 </div>
-<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-text">安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8"><span class="toc-text">使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-text">参考链接</span></a></li></ol>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E6%8F%92%E4%BB%B6"><span class="toc-text">安装插件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8"><span class="toc-text">使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-text">参考链接</span></a></li></ol>
 </div>
             </main>
             <aside class="right-column">
@@ -697,7 +698,7 @@
     style="padding-right: 2px;">
   </i>目录
 </div>
-<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-text">安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8"><span class="toc-text">使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-text">参考链接</span></a></li></ol>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E6%8F%92%E4%BB%B6"><span class="toc-text">安装插件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8"><span class="toc-text">使用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-text">参考链接</span></a></li></ol>
     </article>
   
   
@@ -712,6 +713,11 @@
   <div class="recent-posts-list">
     
       <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2022-09-21</div>
+        <a href="/nginx%E5%AE%89%E8%A3%85.html"><div class="recent-posts-item-content">nginx安装</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
         <div class="recent-posts-item-title">2022-09-16</div>
         <a href="/jdk%E5%AE%89%E8%A3%85.html"><div class="recent-posts-item-content">jdk安装</div></a>
       </div>
@@ -724,11 +730,6 @@
       <div class="recent-posts-item">
         <div class="recent-posts-item-title">2022-09-09</div>
         <a href="/mysql%E9%AB%98%E5%8F%AF%E7%94%A8.html"><div class="recent-posts-item-content">mysql 高可用</div></a>
-      </div>
-    
-      <div class="recent-posts-item">
-        <div class="recent-posts-item-title">2022-09-07</div>
-        <a href="/mysql-MGR%E6%90%AD%E5%BB%BA.html"><div class="recent-posts-item-content">mysql-MGR搭建</div></a>
       </div>
     
   </div>

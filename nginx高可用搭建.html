@@ -51,7 +51,7 @@
         content="2022-09-06">
       <meta 
         property="og:article:modified_time" 
-        content="2022-09-09">
+        content="2022-09-22">
       <meta 
         property="og:article:author" 
         content="Chun">
@@ -299,7 +299,7 @@
   <a 
     class="author-posts-count" 
     href="/archives">
-    <span>18</span>
+    <span>19</span>
     <span>文章</span>
   </a>
   <a 
@@ -328,7 +328,7 @@
     style="padding-right: 2px;">
   </i>目录
 </div>
-<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E4%BF%A1%E6%81%AF"><span class="toc-text">环境信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#keepalived-%E9%85%8D%E7%BD%AE"><span class="toc-text">keepalived 配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#master"><span class="toc-text">master</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-text">参考链接</span></a></li></ol>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="toc-text">环境准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-keepalived"><span class="toc-text">安装 keepalived</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE-keepalived"><span class="toc-text">配置 keepalived</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#node1-%E4%B8%BB"><span class="toc-text">node1(主)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#node2-%E4%BB%8E"><span class="toc-text">node2(从)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E5%90%AF%E9%98%B2%E7%81%AB%E5%A2%99"><span class="toc-text">开启防火墙</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E9%97%AD-selinux"><span class="toc-text">关闭 selinux</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%B4%E6%97%B6%E5%85%B3%E9%97%AD"><span class="toc-text">临时关闭</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B0%B8%E4%B9%85%E5%85%B3%E9%97%AD"><span class="toc-text">永久关闭</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%98%B2%E7%81%AB%E5%A2%99%E5%BC%80%E6%94%BE-VRRP"><span class="toc-text">防火墙开放 VRRP</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86"><span class="toc-text">服务管理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81"><span class="toc-text">验证</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81-keepalived"><span class="toc-text">验证 keepalived</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-text">参考链接</span></a></li></ol>
       </div>
     </article>
   
@@ -353,7 +353,7 @@
       <a href="/categories/linux/">
         <div class="categories-list-item">
           linux
-          <span class="categories-list-item-badge">5</span>
+          <span class="categories-list-item-badge">6</span>
         </div>
       </a>
     
@@ -418,6 +418,12 @@
       </a>
     
       <a 
+        href="/tags/nginx/" 
+        title="nginx">
+        <div class="tags-list-item">nginx</div>
+      </a>
+    
+      <a 
         href="/tags/yum/" 
         title="yum">
         <div class="tags-list-item">yum</div>
@@ -427,18 +433,6 @@
         href="/tags/keepalived/" 
         title="keepalived">
         <div class="tags-list-item">keepalived</div>
-      </a>
-    
-      <a 
-        href="/tags/jdk/" 
-        title="jdk">
-        <div class="tags-list-item">jdk</div>
-      </a>
-    
-      <a 
-        href="/tags/binlog/" 
-        title="binlog">
-        <div class="tags-list-item">binlog</div>
       </a>
     
       <a 
@@ -466,9 +460,9 @@
       </a>
     
       <a 
-        href="/tags/nginx/" 
-        title="nginx">
-        <div class="tags-list-item">nginx</div>
+        href="/tags/jdk/" 
+        title="jdk">
+        <div class="tags-list-item">jdk</div>
       </a>
     
       <a 
@@ -487,6 +481,12 @@
         href="/tags/proxysql/" 
         title="proxysql">
         <div class="tags-list-item">proxysql</div>
+      </a>
+    
+      <a 
+        href="/tags/binlog/" 
+        title="binlog">
+        <div class="tags-list-item">binlog</div>
       </a>
     
   </div>
@@ -533,7 +533,7 @@
     
     
       <span class="dot"></span>
-      <span>136 字</span>
+      <span>644 字</span>
     
   </div>
   
@@ -569,25 +569,69 @@
   <div 
     id="section" 
     class="post-content">
-    <h2 id="环境信息"><a href="#环境信息" class="headerlink" title="环境信息"></a>环境信息</h2><table>
+    <h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><table>
 <thead>
 <tr>
+<th>服务器简称</th>
 <th>ip</th>
+<th>系统</th>
 <th>软件</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>192.168.1.201</td>
-<td>nginx、keepalived</td>
+<td>node1</td>
+<td>192.168.31.200</td>
+<td>centos7.9</td>
+<td>nginx</td>
 </tr>
 <tr>
-<td>192.168.1.202</td>
-<td>nginx、keepalived</td>
+<td>node2</td>
+<td>192.168.31.201</td>
+<td>centos7.9</td>
+<td>nginx</td>
 </tr>
 </tbody></table>
-<h2 id="keepalived-配置"><a href="#keepalived-配置" class="headerlink" title="keepalived 配置"></a>keepalived 配置</h2><h3 id="master"><a href="#master" class="headerlink" title="master"></a>master</h3><p>主节点配置</p>
-<pre class="highlight"><code class="hljs plaintext">global_defs &#123;<br>  # Keepalived process identifier<br>  router_id nginx<br>&#125;<br><br># Script to check whether Nginx is running or not<br>vrrp_script check_nginx &#123;<br>  script &quot;/bin/check_nginx.sh&quot;<br>  interval 2<br>  weight 50<br>&#125;<br><br># state: MASTER(主)/BACKUP(备)<br># interface: 网卡，ip add 命令查看<br># virtual_router_id: vrrp_instance的唯一ID<br>vrrp_instance VI_01 &#123;<br>  state MASTER<br>  interface enp0s3<br>  virtual_router_id 151<br>  priority 110<br><br>  # 虚拟ip<br>  virtual_ipaddress &#123;<br>    192.168.31.50/24<br>  &#125;<br>  # 调用的脚本<br>  track_script &#123;<br>    check_nginx<br>  &#125;<br>  authentication &#123;<br>    auth_type AH<br>    auth_pass secret<br>  &#125;<br>&#125;<br></code></pre>
+<p>nginx安装参考 <a href="/nginx%E5%AE%89%E8%A3%85.html" title="nginx安装">nginx安装</a></p>
+<h2 id="安装-keepalived"><a href="#安装-keepalived" class="headerlink" title="安装 keepalived"></a>安装 keepalived</h2><p>在 node1 和 node2 都安装 keepalived</p>
+<pre class="highlight"><code class="hljs shell">[root@localhost ~]# yum install keepalived -y<br></code></pre>
 
+<h2 id="配置-keepalived"><a href="#配置-keepalived" class="headerlink" title="配置 keepalived"></a>配置 keepalived</h2><p>修改服务器的 <code>/etc/keepalived/keepalived.conf</code> 配置文件</p>
+<h3 id="node1-主"><a href="#node1-主" class="headerlink" title="node1(主)"></a>node1(主)</h3><pre class="highlight"><code class="hljs shell">global_defs &#123;<br><span class="hljs-meta prompt_">  # </span><span class="language-bash">root 用户执行脚本</span><br>  script_user root<br>&#125;<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">定义检测 nginx 是否正常运行的脚本</span><br>vrrp_script check_nginx &#123;<br><span class="hljs-meta prompt_">  # </span><span class="language-bash">检测脚本</span><br>  script &quot;/bin/systemctl status nginx.service&quot;<br><span class="hljs-meta prompt_">  # </span><span class="language-bash">interval: 定时心跳间隔(秒)</span><br>  interval 2<br><span class="hljs-meta prompt_">  # </span><span class="language-bash">fall: 失败重试次数</span><br>  fall 2<br><span class="hljs-meta prompt_">  # </span><span class="language-bash">rise: 服务关闭后需要连续几次响应才认为服务重新启动的次数</span><br>  rise 2<br>&#125;<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">virtual_router_id: vrrp_instance的唯一ID</span><br>vrrp_instance VI_01 &#123;<br><span class="hljs-meta prompt_">  # </span><span class="language-bash">* MASTER(主)/BACKUP(备) *</span><br>  state MASTER<br><span class="hljs-meta prompt_">  # </span><span class="language-bash">interface: 网卡，ip add 命令查看</span><br>  interface enp0s3<br><span class="hljs-meta prompt_">  # </span><span class="language-bash">vrrp_instance的唯一ID</span><br>  virtual_router_id 151<br><span class="hljs-meta prompt_">  # </span><span class="language-bash">* 权重，主节点要高于从节点 *</span><br>  priority 110<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_">  # </span><span class="language-bash">虚拟ip</span><br>  virtual_ipaddress &#123;<br>    192.168.31.50/24<br>  &#125;<br><span class="hljs-meta prompt_">  # </span><span class="language-bash">调用的脚本</span><br>  track_script &#123;<br>    check_nginx<br>  &#125;<br>  authentication &#123;<br>    auth_type PASS<br>    auth_pass 123456<br>  &#125;<br>&#125;<br></code></pre>
+
+<h3 id="node2-从"><a href="#node2-从" class="headerlink" title="node2(从)"></a>node2(从)</h3><pre class="highlight"><code class="hljs shell">global_defs &#123;<br><span class="hljs-meta prompt_">  # </span><span class="language-bash">root 用户执行脚本</span><br>  script_user root<br>&#125;<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">定义检测 nginx 是否正常运行的脚本</span><br>vrrp_script check_nginx &#123;<br><span class="hljs-meta prompt_">  # </span><span class="language-bash">检测脚本</span><br>  script &quot;/bin/systemctl status nginx.service&quot;<br><span class="hljs-meta prompt_">  # </span><span class="language-bash">interval: 定时心跳间隔(秒)</span><br>  interval 2<br><span class="hljs-meta prompt_">  # </span><span class="language-bash">fall: 失败重试次数</span><br>  fall 2<br><span class="hljs-meta prompt_">  # </span><span class="language-bash">rise: 服务关闭后需要连续几次响应才认为服务重新启动的次数</span><br>  rise 2<br>&#125;<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">virtual_router_id: vrrp_instance的唯一ID</span><br>vrrp_instance VI_01 &#123;<br><span class="hljs-meta prompt_">  # </span><span class="language-bash">* MASTER(主)/BACKUP(备) *</span><br>  state BACKUP<br><span class="hljs-meta prompt_">  # </span><span class="language-bash">interface: 网卡，可以通过 <span class="hljs-string">&#x27;ip add&#x27;</span> 命令查看</span><br>  interface enp0s3<br><span class="hljs-meta prompt_">  # </span><span class="language-bash">vrrp_instance的唯一ID</span><br>  virtual_router_id 151<br><span class="hljs-meta prompt_">  # </span><span class="language-bash">* 权重，主节点要高于从节点 *</span><br>  priority 100<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_">  # </span><span class="language-bash">虚拟ip</span><br>  virtual_ipaddress &#123;<br>    192.168.31.50/24<br>  &#125;<br><span class="hljs-meta prompt_">  # </span><span class="language-bash">调用的脚本</span><br>  track_script &#123;<br>    check_nginx<br>  &#125;<br>  authentication &#123;<br>    auth_type PASS<br>    auth_pass 123456<br>  &#125;<br>&#125;<br></code></pre>
+
+<div class="post-note note-info"><p>注释前后带 * 号包围的表示主从配置不一致</p></div>
+
+<h2 id="开启防火墙"><a href="#开启防火墙" class="headerlink" title="开启防火墙"></a>开启防火墙</h2><h3 id="关闭-selinux"><a href="#关闭-selinux" class="headerlink" title="关闭 selinux"></a>关闭 selinux</h3><p>如果开启了 <code>selinux</code>，需要关闭</p>
+<h4 id="临时关闭"><a href="#临时关闭" class="headerlink" title="临时关闭"></a>临时关闭</h4><pre class="highlight"><code class="hljs shell">[root@localhost ~]# setenforce 0<br></code></pre>
+
+<h4 id="永久关闭"><a href="#永久关闭" class="headerlink" title="永久关闭"></a>永久关闭</h4><p>修改 <code>/etc/selinux/config</code> ，将 <code>SELINUX</code> 设置为 <code>disabled</code></p>
+<h3 id="防火墙开放-VRRP"><a href="#防火墙开放-VRRP" class="headerlink" title="防火墙开放 VRRP"></a>防火墙开放 VRRP</h3><p>如果开启了 <code>firewall</code> ，需要开放 <code>VRRP</code>，运行以下命令开启</p>
+<pre class="highlight"><code class="hljs shell">[root@localhost ~]# firewall-cmd --add-rich-rule=&#x27;rule protocol value=&quot;vrrp&quot; accept&#x27; --permanent<br>[root@localhost ~]# firewall-cmd --reload<br></code></pre>
+
+<h2 id="服务管理"><a href="#服务管理" class="headerlink" title="服务管理"></a>服务管理</h2><p>启动</p>
+<pre class="highlight"><code class="hljs shell">[root@localhost ~]# service keepalived start<br></code></pre>
+
+<p>关闭</p>
+<pre class="highlight"><code class="hljs shell">[root@localhost ~]# service keepalived stop<br></code></pre>
+
+<p>重启</p>
+<pre class="highlight"><code class="hljs shell">[root@localhost ~]# service keepalived restart<br></code></pre>
+
+<h2 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h2><h3 id="验证-keepalived"><a href="#验证-keepalived" class="headerlink" title="验证 keepalived"></a>验证 keepalived</h3><ol>
+<li><p>运行 <code>ip add</code> 查看是否生成 vip，可以看到 vip 指向了 <code>node1</code> 服务器</p>
+<pre class="highlight"><code class="hljs shell">[root@localhost ~]# ip add<br></code></pre></li>
+</ol>
+<p><img src="http://img.chunge666.top/202209211733732.png" alt="image-20220921173318633" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="http://img.chunge666.top/202209211733732.png" class="lozad post-image"></p>
+<ol start="2">
+<li><p>关闭 node1 上的 nginx 后再次查看，可以看到 vip 指向了 <code>node2</code> 服务器</p>
+<pre class="highlight"><code class="hljs shell">[root@localhost ~]# service nginx stop<br></code></pre>
+
+<p><img src="http://img.chunge666.top/202209211906933.png" alt="image-20220921190628787" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="http://img.chunge666.top/202209211906933.png" class="lozad post-image"></p>
+</li>
+<li><p>node1 重新启动 nginx 后再次查看，可以看到 vip 重新指向了 <code>node1</code> 服务器</p>
+<pre class="highlight"><code class="hljs shell">[root@localhost ~]# service nginx start<br></code></pre></li>
+</ol>
 <h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p>nginx+keepalived高可用搭建： <a target="_blank" rel="noopener" href="https://www.linuxtechi.com/setup-highly-available-nginx-keepalived-linux/">https://www.linuxtechi.com/setup-highly-available-nginx-keepalived-linux/</a></p>
 
   </div>
@@ -695,7 +739,7 @@
     style="padding-right: 2px;">
   </i>目录
 </div>
-<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E4%BF%A1%E6%81%AF"><span class="toc-text">环境信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#keepalived-%E9%85%8D%E7%BD%AE"><span class="toc-text">keepalived 配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#master"><span class="toc-text">master</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-text">参考链接</span></a></li></ol>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="toc-text">环境准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-keepalived"><span class="toc-text">安装 keepalived</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE-keepalived"><span class="toc-text">配置 keepalived</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#node1-%E4%B8%BB"><span class="toc-text">node1(主)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#node2-%E4%BB%8E"><span class="toc-text">node2(从)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E5%90%AF%E9%98%B2%E7%81%AB%E5%A2%99"><span class="toc-text">开启防火墙</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E9%97%AD-selinux"><span class="toc-text">关闭 selinux</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%B4%E6%97%B6%E5%85%B3%E9%97%AD"><span class="toc-text">临时关闭</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B0%B8%E4%B9%85%E5%85%B3%E9%97%AD"><span class="toc-text">永久关闭</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%98%B2%E7%81%AB%E5%A2%99%E5%BC%80%E6%94%BE-VRRP"><span class="toc-text">防火墙开放 VRRP</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86"><span class="toc-text">服务管理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81"><span class="toc-text">验证</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81-keepalived"><span class="toc-text">验证 keepalived</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-text">参考链接</span></a></li></ol>
 </div>
             </main>
             <aside class="right-column">
@@ -709,7 +753,7 @@
     style="padding-right: 2px;">
   </i>目录
 </div>
-<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E4%BF%A1%E6%81%AF"><span class="toc-text">环境信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#keepalived-%E9%85%8D%E7%BD%AE"><span class="toc-text">keepalived 配置</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#master"><span class="toc-text">master</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-text">参考链接</span></a></li></ol>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="toc-text">环境准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-keepalived"><span class="toc-text">安装 keepalived</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE-keepalived"><span class="toc-text">配置 keepalived</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#node1-%E4%B8%BB"><span class="toc-text">node1(主)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#node2-%E4%BB%8E"><span class="toc-text">node2(从)</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E5%90%AF%E9%98%B2%E7%81%AB%E5%A2%99"><span class="toc-text">开启防火墙</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E9%97%AD-selinux"><span class="toc-text">关闭 selinux</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%B4%E6%97%B6%E5%85%B3%E9%97%AD"><span class="toc-text">临时关闭</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B0%B8%E4%B9%85%E5%85%B3%E9%97%AD"><span class="toc-text">永久关闭</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%98%B2%E7%81%AB%E5%A2%99%E5%BC%80%E6%94%BE-VRRP"><span class="toc-text">防火墙开放 VRRP</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86"><span class="toc-text">服务管理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81"><span class="toc-text">验证</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AA%8C%E8%AF%81-keepalived"><span class="toc-text">验证 keepalived</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-text">参考链接</span></a></li></ol>
     </article>
   
   
@@ -724,6 +768,11 @@
   <div class="recent-posts-list">
     
       <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2022-09-21</div>
+        <a href="/nginx%E5%AE%89%E8%A3%85.html"><div class="recent-posts-item-content">nginx安装</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
         <div class="recent-posts-item-title">2022-09-16</div>
         <a href="/jdk%E5%AE%89%E8%A3%85.html"><div class="recent-posts-item-content">jdk安装</div></a>
       </div>
@@ -736,11 +785,6 @@
       <div class="recent-posts-item">
         <div class="recent-posts-item-title">2022-09-09</div>
         <a href="/mysql%E9%AB%98%E5%8F%AF%E7%94%A8.html"><div class="recent-posts-item-content">mysql 高可用</div></a>
-      </div>
-    
-      <div class="recent-posts-item">
-        <div class="recent-posts-item-title">2022-09-07</div>
-        <a href="/mysql-MGR%E6%90%AD%E5%BB%BA.html"><div class="recent-posts-item-content">mysql-MGR搭建</div></a>
       </div>
     
   </div>

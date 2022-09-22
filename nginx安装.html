@@ -24,24 +24,44 @@
   <link 
     rel="icon" 
     href="/">
-  <title>分类</title>
+  <title>nginx安装</title>
   
     
       <meta 
         property="og:title" 
-        content="分类">
+        content="nginx安装">
     
     
       <meta 
         property="og:url" 
-        content="http://blog.chunge666.top/categories/%E5%89%8D%E7%AB%AF/index.html">
+        content="http://blog.chunge666.top/nginx%E5%AE%89%E8%A3%85.html">
     
     
       <meta 
         property="og:img" 
-        content="https://cdn.jsdelivr.net/gh/weichun97/img/img/20220905150341.jpg">
+        content="http://img.chunge666.top/202209211109343.jpg">
     
     
+    
+      <meta 
+        property="og:type" 
+        content="article">
+      <meta 
+        property="og:article:published_time" 
+        content="2022-09-21">
+      <meta 
+        property="og:article:modified_time" 
+        content="2022-09-22">
+      <meta 
+        property="og:article:author" 
+        content="Chun">
+      
+        
+          <meta 
+            property="og:article:tag" 
+            content="nginx">
+        
+      
     
   
   
@@ -58,6 +78,8 @@
   <link rel="stylesheet" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css">
   
   
+  
+    <link rel="stylesheet" href="/js/lib/lightbox/baguetteBox.min.css">
   
   <script>
     function loadScript(url, cb) {
@@ -294,6 +316,18 @@
                <div class="sticky-tablet">
   
   
+    <article class="display-when-two-columns spacer">
+      <div class="card card-content toc-card">
+        <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>目录
+</div>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#yum-%E5%AE%89%E8%A3%85"><span class="toc-text">yum 安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E4%BE%9D%E8%B5%96"><span class="toc-text">安装依赖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0-yum-%E6%BA%90"><span class="toc-text">添加 yum 源</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-text">安装</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86"><span class="toc-text">服务管理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-text">参考链接</span></a></li></ol>
+      </div>
+    </article>
+  
   
   <article class="card card-content categories-widget">
     <div class="categories-card">
@@ -456,161 +490,205 @@
   </article>
   
   
-    <article class="card card-content widescreen-archive archive-widget">
-      <div class="archive-card">
-  <div class="archive-card-header">
-    <i 
-      class="iconfont icon-wodebaobiao" 
-      style="padding-right: 2px;">
-    </i>归档
-  </div>
-  <div class="archive-card-list">
-    
-    
-    
-      
-        
-        
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-          <a 
-            href="/archives/2022" 
-            class="archive-card-list-item">
-            2022
-            <span class="archive-card-list-item-badge">17</span>
-          </a>
-        
-        
-        
-      
-    
-      
-        
-          <a 
-            href="/archives/2019" 
-            class="archive-card-list-item">
-            2019
-            <span class="archive-card-list-item-badge">1</span>
-          </a>
-        
-        
-        
-      
-    
-    
-      <a 
-        href="/archives/2018" 
-        class="archive-card-list-item">
-        2018
-        <span class="archive-card-list-item-badge">1</span>
-      </a>
-    
-  </div>
-</div>
-    </article>
-  
 </div>
             </aside>
             <main class="main-column">
               
-<div class="card card-content category-page-card">
-  <div class="categories-page-title">分类&nbsp-&nbsp前端</div>
-</div>
-<div class="archive-timeline">
-  
-  
+  <div class="image-wrapper">
+    <img 
+      src="http://img.chunge666.top/202209211109343.jpg" 
+      data-src="http://img.chunge666.top/202209211109343.jpg"
+      srcset="data:image/svg+xml,%3Csvg%20xmlns=&#39;http://www.w3.org/2000/svg&#39;%20viewBox=&#39;0%200%20300%20300&#39;%3E%3C/svg%3E"
+      class="image lozad"
+      alt="nginx安装 thumbnail">
+  </div>
+
+<article class="card card-content">
+  <header>
+    <h1 class="post-title">
+      nginx安装
+    </h1>
+  </header>
+  <div class="post-meta post-show-meta">
+    <time datetime="2022-09-21T03:00:17.000Z">
+      <i 
+        class="iconfont icon-calendar" 
+        style="margin-right: 2px;">
+      </i>
+      <span>2022-09-21</span>
+    </time>
     
-      <div class="archive-timeline-tag"><span>2022</span></div>
+      <span class="dot"></span>
+      
+        <a 
+          href="/categories/linux/" 
+          class="post-meta-link">
+          linux
+        </a>
       
     
-    <div class="archive-timeline-item">
-      <div class="archive-timeline-post">
-        <div class="card card-content">
-          <div class="archive-timeline-post-date">2022-09-07</div>
-          <div class="archive-timeline-post-content">
-            <a 
-              href="/node%E7%89%88%E6%9C%AC%E5%88%87%E6%8D%A2.html" 
-              class="archive-timeline-post-item">
-              node 版本切换
-            </a>
-          </div>
-        </div>
+    
+      <span class="dot"></span>
+      <span>154 字</span>
+    
+  </div>
+  
+    <div 
+      class="post-meta post-show-meta" 
+      style="margin-top: -10px;">
+      <div style="display: flex; align-items: center;">
+        <i 
+          class="iconfont icon-biaoqian" 
+          style="margin-right: 2px; font-size: 1.15rem;">
+        </i>
+        
+          
+          <a 
+            href="/tags/nginx/" 
+            class="post-meta-link">
+            nginx
+          </a>
+        
       </div>
+    </div>
+  
+  </header>
+  <div 
+    id="section" 
+    class="post-content">
+    <h2 id="yum-安装"><a href="#yum-安装" class="headerlink" title="yum 安装"></a>yum 安装</h2><h3 id="安装依赖"><a href="#安装依赖" class="headerlink" title="安装依赖"></a>安装依赖</h3><pre class="highlight"><code class="hljs shell">[root@localhost ~]# yum install yum-utils -y<br></code></pre>
+
+<h3 id="添加-yum-源"><a href="#添加-yum-源" class="headerlink" title="添加 yum 源"></a>添加 yum 源</h3><p>创建 <code>/etc/yum.repos.d/nginx.repo</code> 文件，内容如下</p>
+<pre class="highlight"><code class="hljs shell">[nginx-stable]<br>name=nginx stable repo<br>baseurl=http://nginx.org/packages/centos/$releasever/$basearch/<br>gpgcheck=0<br>enabled=1<br>gpgkey=https://nginx.org/keys/nginx_signing.key<br>module_hotfixes=true<br><br>[nginx-mainline]<br>name=nginx mainline repo<br>baseurl=http://nginx.org/packages/mainline/centos/$releasever/$basearch/<br>gpgcheck=0<br>enabled=0<br>gpgkey=https://nginx.org/keys/nginx_signing.key<br>module_hotfixes=true<br></code></pre>
+
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><pre class="highlight"><code class="hljs shell">[root@localhost ~]# yum install nginx -y<br></code></pre>
+
+
+
+<h2 id="服务管理"><a href="#服务管理" class="headerlink" title="服务管理"></a>服务管理</h2><p>启动</p>
+<pre class="highlight"><code class="hljs shell">[root@localhost ~]# service nginx start<br></code></pre>
+
+<p>停止</p>
+<pre class="highlight"><code class="hljs shell">[root@localhost ~]# service nginx stop<br></code></pre>
+
+<p>重启</p>
+<pre class="highlight"><code class="hljs shell">[root@localhost ~]# service nginx restart<br></code></pre>
+
+<p>热启动</p>
+<pre class="highlight"><code class="hljs shell">[root@localhost ~]# nginx -s reload<br></code></pre>
+
+
+
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p>nginx官方安装说明文档：<a target="_blank" rel="noopener" href="https://nginx.org/en/linux_packages.html#RHEL-CentOS">https://nginx.org/en/linux_packages.html#RHEL-CentOS</a></p>
+<p>nginx官方下载地址：<a target="_blank" rel="noopener" href="https://nginx.org/en/download.html">https://nginx.org/en/download.html</a></p>
+
+  </div>
+  <div>
+    
+      <div 
+        class="post-note note-warning copyright" 
+        style="margin-top: 42px">
+        <p>
+          <span style="font-weight: bold;">作者：</span><a 
+            target="_blank" 
+            rel="nofollow noopener noreferrer" 
+            href="/about">
+            Chun
+          </a>
+        </p>
+        <p>
+          <span style="font-weight: bold;">文章链接：</span><a 
+            target="_blank" 
+            rel="nofollow noopener noreferrer" 
+            href="http://blog.chunge666.top/nginx%E5%AE%89%E8%A3%85.html">
+            http://blog.chunge666.top/nginx%E5%AE%89%E8%A3%85.html
+          </a>
+        </p>
+        <p><span style="font-weight: bold;">版权声明：</span>本博客所有文章除特别声明外，均采用<a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0 协议</a>。转载请注明出处！</p>
+      </div>
+    
+  </div>
+</article>
+<div class="nav">
+  
+  
+    <div class="nav-item-next">
+      <a 
+        href="/jdk%E5%AE%89%E8%A3%85.html" 
+        class="nav-link">
+        <div>
+          <div class="nav-label">下一篇</div>
+          
+            <div class="nav-title">jdk安装 </div>
+          
+        </div>
+        <i class="iconfont icon-right nav-next-icon"></i>
+      </a>
     </div>
   
 </div>
 
+  <div 
+    class="card card-content comment-card" 
+    style="margin-top: 16px;">
+    <div class="comment-card-title">评论</div>
+    
+  <div id="vcomments"></div>
+  
+  <script>
+    loadScript("//unpkg.com/valine/dist/Valine.min.js");
+    var oldLoadVa = window.onload;
+    window.onload = function () {
+      oldLoadVa && oldLoadVa();
+      new Valine({
+        el: '#vcomments',
+        appId: 'Fb12FgxcTGFydqPfZAOKsZkb-gzGzoHsz',
+        appKey: 'OIQyDCrjzjWbBV6vCqiXKAUJ',
+        placeholder: 'Just go go',
+        path: window.location.pathname,
+        avatar: 'mp',
+        meta: ["nick","mail","link"],
+        pageSize: '10',
+        lang: '',
+        visitor: 'false',
+        highlight: true,
+        recordIP: false,
+        
+        
+        
+        enableQQ: 'false',
+        requiredFields: [],
+      });
+    };
+  </script>
+
+  </div>
+
+<div 
+  class="card card-content toc-card" 
+  id="mobiletoc">
+  <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>目录
+</div>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#yum-%E5%AE%89%E8%A3%85"><span class="toc-text">yum 安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E4%BE%9D%E8%B5%96"><span class="toc-text">安装依赖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0-yum-%E6%BA%90"><span class="toc-text">添加 yum 源</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-text">安装</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86"><span class="toc-text">服务管理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-text">参考链接</span></a></li></ol>
+</div>
             </main>
             <aside class="right-column">
               <div class="sticky-widescreen">
   
+  
+    <article class="card card-content toc-card">
+      <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>目录
+</div>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#yum-%E5%AE%89%E8%A3%85"><span class="toc-text">yum 安装</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E4%BE%9D%E8%B5%96"><span class="toc-text">安装依赖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0-yum-%E6%BA%90"><span class="toc-text">添加 yum 源</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-text">安装</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%8D%E5%8A%A1%E7%AE%A1%E7%90%86"><span class="toc-text">服务管理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-text">参考链接</span></a></li></ol>
+    </article>
   
   
   <article class="card card-content">
@@ -647,126 +725,6 @@
 </div>
   </article>
   
-  
-    <article class="card card-content">
-      <div class="archive-card">
-  <div class="archive-card-header">
-    <i 
-      class="iconfont icon-wodebaobiao" 
-      style="padding-right: 2px;">
-    </i>归档
-  </div>
-  <div class="archive-card-list">
-    
-    
-    
-      
-        
-        
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-      
-    
-      
-        
-          <a 
-            href="/archives/2022" 
-            class="archive-card-list-item">
-            2022
-            <span class="archive-card-list-item-badge">17</span>
-          </a>
-        
-        
-        
-      
-    
-      
-        
-          <a 
-            href="/archives/2019" 
-            class="archive-card-list-item">
-            2019
-            <span class="archive-card-list-item-badge">1</span>
-          </a>
-        
-        
-        
-      
-    
-    
-      <a 
-        href="/archives/2018" 
-        class="archive-card-list-item">
-        2018
-        <span class="archive-card-list-item-badge">1</span>
-      </a>
-    
-  </div>
-</div>
-    </article>
   
 </div>
             </aside>
@@ -871,6 +829,36 @@
 </a> 
      
      
+     
+      <script>
+  var addImgLayout = function () {
+    var img = document.querySelectorAll('.post-content img')
+    var i
+    for (i = 0; i < img.length; i++) {
+      var wrapper = document.createElement('a')
+      wrapper.setAttribute('href', img[i].getAttribute('data-src'))
+      wrapper.setAttribute('aria-label', 'illustration')
+      wrapper.style.cssText =
+        'width: 100%; display: flex; justify-content: center;'
+      if (img[i].alt) wrapper.dataset.caption = img[i].alt
+      wrapper.dataset.nolink = true
+      img[i].before(wrapper)
+      wrapper.append(img[i])
+      var divWrap = document.createElement('div')
+      divWrap.classList.add('gallery')
+      wrapper.before(divWrap)
+      divWrap.append(wrapper)
+    }
+    baguetteBox.run('.gallery')
+  }
+</script>
+<script>
+  loadScript(
+    "/js/lib/lightbox/baguetteBox.min.js",
+    addImgLayout
+  )
+</script>
+ 
      
      
     <script src="/js/main.js"></script> 
