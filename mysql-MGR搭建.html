@@ -51,7 +51,7 @@
         content="2022-09-07">
       <meta 
         property="og:article:modified_time" 
-        content="2022-09-26">
+        content="2022-09-28">
       <meta 
         property="og:article:author" 
         content="Chun">
@@ -299,7 +299,7 @@
   <a 
     class="author-posts-count" 
     href="/archives">
-    <span>18</span>
+    <span>19</span>
     <span>文章</span>
   </a>
   <a 
@@ -353,7 +353,7 @@
       <a href="/categories/linux/">
         <div class="categories-list-item">
           linux
-          <span class="categories-list-item-badge">6</span>
+          <span class="categories-list-item-badge">7</span>
         </div>
       </a>
     
@@ -406,6 +406,12 @@
       </a>
     
       <a 
+        href="/tags/nginx/" 
+        title="nginx">
+        <div class="tags-list-item">nginx</div>
+      </a>
+    
+      <a 
         href="/tags/idea/" 
         title="idea">
         <div class="tags-list-item">idea</div>
@@ -415,12 +421,6 @@
         href="/tags/mysql/" 
         title="mysql">
         <div class="tags-list-item">mysql</div>
-      </a>
-    
-      <a 
-        href="/tags/nginx/" 
-        title="nginx">
-        <div class="tags-list-item">nginx</div>
       </a>
     
       <a 
@@ -623,6 +623,8 @@
 
 <h3 id="创建同步账号"><a href="#创建同步账号" class="headerlink" title="创建同步账号"></a>创建同步账号</h3><p>所有节点创建同步账号</p>
 <pre class="highlight"><code class="hljs sql"># 临时关闭 binlog,防止污染<br>mysql<span class="hljs-operator">&gt;</span> <span class="hljs-keyword">SET</span> SQL_LOG_BIN<span class="hljs-operator">=</span><span class="hljs-number">0</span>;<br># 创建rpl_user账户，此账户用于实现主从数据同步 <br>mysql<span class="hljs-operator">&gt;</span> <span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">USER</span> rpl_user@<span class="hljs-string">&#x27;%&#x27;</span> IDENTIFIED <span class="hljs-keyword">BY</span> <span class="hljs-string">&#x27;As123456!&#x27;</span>;<br><br># 赋予主从同步权限 <br>mysql<span class="hljs-operator">&gt;</span> <span class="hljs-keyword">GRANT</span> REPLICATION SLAVE <span class="hljs-keyword">ON</span> <span class="hljs-operator">*</span>.<span class="hljs-operator">*</span> <span class="hljs-keyword">TO</span> rpl_user@<span class="hljs-string">&#x27;%&#x27;</span>;<br><br># 让刚才的修改生效 <br>mysql<span class="hljs-operator">&gt;</span> FLUSH PRIVILEGES;<br><br># 开启 binlog<br>mysql<span class="hljs-operator">&gt;</span> <span class="hljs-keyword">SET</span> SQL_LOG_BIN<span class="hljs-operator">=</span><span class="hljs-number">1</span>;<br></code></pre>
+
+<div class="post-note note-danger"><p>如果忘记关闭 binlog 记录，导致 binlog 日志污染的话，加入组复制会失败。可以使用 <code>reset master</code> 命令重置 binlog 日志</p></div>
 
 <h3 id="加入组复制通道"><a href="#加入组复制通道" class="headerlink" title="加入组复制通道"></a>加入组复制通道</h3><p>所有节点使用刚刚创建的同步账号，加入组复制通道</p>
 <pre class="highlight"><code class="hljs sql">mysql<span class="hljs-operator">&gt;</span> CHANGE MASTER <span class="hljs-keyword">TO</span> MASTER_USER<span class="hljs-operator">=</span><span class="hljs-string">&#x27;rpl_user&#x27;</span>, MASTER_PASSWORD<span class="hljs-operator">=</span><span class="hljs-string">&#x27;As123456!&#x27;</span> <span class="hljs-keyword">FOR</span> CHANNEL <span class="hljs-string">&#x27;group_replication_recovery&#x27;</span>;<br></code></pre>
@@ -827,6 +829,11 @@
   <div class="recent-posts-list">
     
       <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2022-09-28</div>
+        <a href="/nginx%E6%97%A5%E5%BF%97%E6%8C%89%E5%A4%A9%E4%BF%9D%E5%AD%98.html"><div class="recent-posts-item-content">nginx日志按天保存</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
         <div class="recent-posts-item-title">2022-09-27</div>
         <a href="/mysql%E9%AB%98%E5%8F%AF%E7%94%A8.html"><div class="recent-posts-item-content">mysql 高可用</div></a>
       </div>
@@ -839,11 +846,6 @@
       <div class="recent-posts-item">
         <div class="recent-posts-item-title">2022-09-16</div>
         <a href="/jdk%E5%AE%89%E8%A3%85.html"><div class="recent-posts-item-content">jdk安装</div></a>
-      </div>
-    
-      <div class="recent-posts-item">
-        <div class="recent-posts-item-title">2022-09-07</div>
-        <a href="/mysql-MGR%E6%90%AD%E5%BB%BA.html"><div class="recent-posts-item-content">mysql-MGR搭建</div></a>
       </div>
     
   </div>
