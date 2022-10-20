@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+  <meta charset="UTF-8">
+  <meta 
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <meta 
+    http-equiv="X-UA-Compatible" 
+    content="ie=edge">
+  <meta 
+    name="theme-color" 
+    content="#fff" 
+    id="theme-color">
+  <meta 
+    name="description" 
+    content="chunge&#39;s blog">
+  
+    <meta property="algolia:search" 
+      data-application-id="OBXVQ9OU0H" 
+      data-api-key="d858255d29c33cd3b57e6d8a56d94535" 
+      data-index-name="hexo">
+  
+  <link 
+    rel="icon" 
+    href="/">
+  <title>springboot国际化</title>
+  
+    
+      <meta 
+        property="og:title" 
+        content="springboot国际化">
+    
+    
+      <meta 
+        property="og:url" 
+        content="http://blog.chunge666.top/springboot%E5%9B%BD%E9%99%85%E5%8C%96.html">
+    
+    
+      <meta 
+        property="og:img" 
+        content="http://img.chunge666.top/202210201827537.jpg">
+    
+    
+    
+      <meta 
+        property="og:type" 
+        content="article">
+      <meta 
+        property="og:article:published_time" 
+        content="2022-10-20">
+      <meta 
+        property="og:article:modified_time" 
+        content="2022-10-20">
+      <meta 
+        property="og:article:author" 
+        content="Chun">
+      
+        
+          <meta 
+            property="og:article:tag" 
+            content="springboot">
+        
+      
+    
+  
+  
+  <link rel="preload" href="//at.alicdn.com/t/font_1946621_i1kgafibvw.css" as="style" >
+  <link rel="preload" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css" as="style" >
+  <link rel="preload" href="/css/main.css" as="style" >
+  
+  <link rel="modulepreload" href="//instant.page/5.1.0">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1946621_i1kgafibvw.css">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css">
+  
+  
+  
+    <link rel="stylesheet" href="/js/lib/lightbox/baguetteBox.min.css">
+  
+  <script>
+    function loadScript(url, cb) {
+      var script = document.createElement('script');
+      script.src = url;
+      if (cb) script.onload = cb;
+      script.async = true;
+      document.body.appendChild(script);
+    }
+    function loadCSS(href, data, attr) {
+      var sheet = document.createElement('link');
+      sheet.ref = 'stylesheet';
+      sheet.href = href;
+      sheet.dataset[data] = attr;
+      document.head.appendChild(sheet);
+    }
+    function changeCSS(cssFile, data, attr) {
+      var oldlink = document.querySelector(data);
+      var newlink = document.createElement("link");
+      newlink.setAttribute("rel", "stylesheet");
+      newlink.setAttribute("href", cssFile);
+      newlink.dataset.prism = attr;
+      document.head.replaceChild(newlink, oldlink);
+    }
+  </script>
+  
+    
+  
+  <script>
+    // control reverse button
+    var reverseDarkList = {
+      dark: 'light',
+      light: 'dark'
+    };
+    var themeColor = {
+      dark: '#1c1c1e',
+      light: '#fff'
+    }
+    // get the data of css prefers-color-scheme
+    var getCssMediaQuery = function() {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    };
+    // reverse current darkmode setting function
+    var reverseDarkModeSetting = function() {
+      var setting = localStorage.getItem('user-color-scheme');
+      if(reverseDarkList[setting]) {
+        setting = reverseDarkList[setting];
+      } else if(setting === null) {
+        setting = reverseDarkList[getCssMediaQuery()];
+      } else {
+        return;
+      }
+      localStorage.setItem('user-color-scheme', setting);
+      return setting;
+    };
+    // apply current darkmode setting
+  </script>
+  
+    <script>
+      var setDarkmode = function(mode) {
+      var setting = mode || localStorage.getItem('user-color-scheme');
+      if(setting === getCssMediaQuery()) {
+        document.documentElement.removeAttribute('data-user-color-scheme');
+        localStorage.removeItem('user-color-scheme');
+        document.getElementById('theme-color').content = themeColor[setting];
+        document.getElementById('theme-color').dataset.mode = setting;
+      } else if(reverseDarkList[setting]) {
+        document.documentElement.setAttribute('data-user-color-scheme', setting);
+        document.getElementById('theme-color').content = themeColor[setting];
+        document.getElementById('theme-color').dataset.mode = setting;
+      } else {
+        document.documentElement.removeAttribute('data-user-color-scheme');
+        localStorage.removeItem('user-color-scheme');
+        document.getElementById('theme-color').content = themeColor[getCssMediaQuery()];
+        document.getElementById('theme-color').dataset.mode = getCssMediaQuery();
+      }
+    };
+    setDarkmode();
+    </script>
+  
+  
+  
+    <link rel="preload" href="/js/lib/lightbox/baguetteBox.min.js" as="script">
+    <link rel="preload" href="/js/lib/lightbox/baguetteBox.min.css" as="style" >
+  
+  
+    <link rel="preload" href="/js/lib/lozad.min.js" as="script">
+  
+  
+  
+  
+  
+    
+    <link rel="prefetch" href="//unpkg.com/valine/dist/Valine.min.js" as="script">
+  
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+  <body>
+    <div class="wrapper">
+       
+      <nav class="navbar">
+  <div class="navbar-logo">
+    <a class="navbar-logo-main" href="/">
+      
+      <span class="navbar-logo-dsc">Chun's Blog</span>
+      </a>
+  </div>
+  <div class="navbar-menu">
+    
+      <a 
+        href="/" 
+        class="navbar-menu-item">
+        
+          首页
+        
+      </a>
+    
+      <a 
+        href="/archives" 
+        class="navbar-menu-item">
+        
+          归档
+        
+      </a>
+    
+      <a 
+        href="/tags" 
+        class="navbar-menu-item">
+        
+          标签
+        
+      </a>
+    
+      <a 
+        href="/categories" 
+        class="navbar-menu-item">
+        
+          分类
+        
+      </a>
+    
+      <a 
+        href="/about" 
+        class="navbar-menu-item">
+        
+          关于
+        
+      </a>
+    
+      <a 
+        href="/links" 
+        class="navbar-menu-item">
+        
+          友链
+        
+      </a>
+    
+    <button 
+      class="navbar-menu-item darknavbar navbar-menu-btn" 
+      aria-label="Toggle dark mode"
+      id="dark">
+      <i class="iconfont icon-weather"></i>
+    </button>
+    <button 
+      class="navbar-menu-item searchnavbar navbar-menu-btn" 
+      aria-label="Toggle search"
+      id="search">
+      <!-- <i 
+        class="iconfont icon-search" 
+        style="font-size: 1.2rem; font-weight: 400;">
+      </i> -->
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img"
+        class="iconify iconify--ion" width="28" height="28" preserveAspectRatio="xMidYMid meet" viewBox="0 0 512 512">
+        <path fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="28"
+          d="M256 80a176 176 0 1 0 176 176A176 176 0 0 0 256 80Z"></path>
+        <path fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="28"
+          d="M232 160a72 72 0 1 0 72 72a72 72 0 0 0-72-72Z"></path>
+        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="28"
+          d="M283.64 283.64L336 336"></path>
+      </svg>
+    </button>
+  </div>
+</nav> 
+      
+      <div 
+        id="local-search" 
+        style="display: none">
+        <input
+          class="navbar-menu-item"
+          id="search-input"
+          placeholder="请输入搜索内容..." />
+        <div id="search-content"></div>
+      </div>
+      
+      <div class="section-wrap">
+        <div class="container">
+          <div class="columns">
+            <aside class="left-column">
+              
+              <div class="card card-author">
+                
+  <img 
+    src="https://cdn.jsdelivr.net/gh/weichun97/img/img/20220905150341.jpg" 
+    class="author-img"
+    width="88"
+    height="88"
+    alt="author avatar">
+
+<p class="author-name">Chun</p>
+<p class="author-description"></p>
+<div class="author-message">
+  <a 
+    class="author-posts-count" 
+    href="/archives">
+    <span>22</span>
+    <span>文章</span>
+  </a>
+  <a 
+    class="author-categories-count" 
+    href="/categories">
+    <span>6</span>
+    <span>分类</span>
+  </a>
+  <a 
+    class="author-tags-count" 
+    href="/tags">
+    <span>14</span>
+    <span>标签</span>
+  </a>
+</div>
+
+              </div>
+               <div class="sticky-tablet">
+  
+  
+    <article class="display-when-two-columns spacer">
+      <div class="card card-content toc-card">
+        <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>目录
+</div>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E7%BD%AE%E5%87%86%E5%A4%87"><span class="toc-number">2.</span> <span class="toc-text">前置准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8"><span class="toc-number">3.</span> <span class="toc-text">简单使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MessageSource"><span class="toc-number">3.1.</span> <span class="toc-text">MessageSource</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B5%84%E6%BA%90%E6%96%87%E4%BB%B6"><span class="toc-number">3.2.</span> <span class="toc-text">资源文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8"><span class="toc-number">3.3.</span> <span class="toc-text">使用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#web%E7%8E%AF%E5%A2%83%E4%B8%8B%E4%BD%BF%E7%94%A8"><span class="toc-number">4.</span> <span class="toc-text">web环境下使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#LocaleResolver"><span class="toc-number">4.1.</span> <span class="toc-text">LocaleResolver</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#I18nUtils"><span class="toc-number">4.2.</span> <span class="toc-text">I18nUtils</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-1"><span class="toc-number">4.3.</span> <span class="toc-text">使用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-number">5.</span> <span class="toc-text">参考链接</span></a></li></ol>
+      </div>
+    </article>
+  
+  
+  <article class="card card-content categories-widget">
+    <div class="categories-card">
+  <div class="categories-header">
+    <i 
+      class="iconfont icon-fenlei" 
+      style="padding-right: 2px;">
+    </i>分类
+  </div>
+  <div class="categories-list">
+    
+      <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">
+        <div class="categories-list-item">
+          数据库
+          <span class="categories-list-item-badge">4</span>
+        </div>
+      </a>
+    
+      <a href="/categories/linux/">
+        <div class="categories-list-item">
+          linux
+          <span class="categories-list-item-badge">9</span>
+        </div>
+      </a>
+    
+      <a href="/categories/%E7%BC%96%E8%BE%91%E5%99%A8/">
+        <div class="categories-list-item">
+          编辑器
+          <span class="categories-list-item-badge">3</span>
+        </div>
+      </a>
+    
+      <a href="/categories/java/">
+        <div class="categories-list-item">
+          java
+          <span class="categories-list-item-badge">4</span>
+        </div>
+      </a>
+    
+      <a href="/categories/%E5%89%8D%E7%AB%AF/">
+        <div class="categories-list-item">
+          前端
+          <span class="categories-list-item-badge">1</span>
+        </div>
+      </a>
+    
+      <a href="/categories/%E5%85%B6%E4%BB%96/">
+        <div class="categories-list-item">
+          其他
+          <span class="categories-list-item-badge">1</span>
+        </div>
+      </a>
+    
+  </div>
+</div>
+  </article>
+  
+  <article class="card card-content tags-widget">
+    <div class="tags-card">
+  <div class="tags-header">
+    <i 
+      class="iconfont icon-biaoqian" 
+      style="padding-right: 2px;">
+    </i>热门标签
+  </div>
+  <div class="tags-list">
+    
+      <a 
+        href="/tags/centos/" 
+        title="centos">
+        <div class="tags-list-item">centos</div>
+      </a>
+    
+      <a 
+        href="/tags/nginx/" 
+        title="nginx">
+        <div class="tags-list-item">nginx</div>
+      </a>
+    
+      <a 
+        href="/tags/idea/" 
+        title="idea">
+        <div class="tags-list-item">idea</div>
+      </a>
+    
+      <a 
+        href="/tags/mysql/" 
+        title="mysql">
+        <div class="tags-list-item">mysql</div>
+      </a>
+    
+      <a 
+        href="/tags/springboot/" 
+        title="springboot">
+        <div class="tags-list-item">springboot</div>
+      </a>
+    
+      <a 
+        href="/tags/yum/" 
+        title="yum">
+        <div class="tags-list-item">yum</div>
+      </a>
+    
+      <a 
+        href="/tags/docker/" 
+        title="docker">
+        <div class="tags-list-item">docker</div>
+      </a>
+    
+      <a 
+        href="/tags/keepalived/" 
+        title="keepalived">
+        <div class="tags-list-item">keepalived</div>
+      </a>
+    
+      <a 
+        href="/tags/xml/" 
+        title="xml">
+        <div class="tags-list-item">xml</div>
+      </a>
+    
+      <a 
+        href="/tags/redis/" 
+        title="redis">
+        <div class="tags-list-item">redis</div>
+      </a>
+    
+      <a 
+        href="/tags/node/" 
+        title="node">
+        <div class="tags-list-item">node</div>
+      </a>
+    
+      <a 
+        href="/tags/jdk/" 
+        title="jdk">
+        <div class="tags-list-item">jdk</div>
+      </a>
+    
+      <a 
+        href="/tags/jar/" 
+        title="jar">
+        <div class="tags-list-item">jar</div>
+      </a>
+    
+      <a 
+        href="/tags/proxysql/" 
+        title="proxysql">
+        <div class="tags-list-item">proxysql</div>
+      </a>
+    
+  </div>
+</div>
+  </article>
+  
+  
+</div>
+            </aside>
+            <main class="main-column">
+              
+  <div class="image-wrapper">
+    <img 
+      src="http://img.chunge666.top/202210201827537.jpg" 
+      data-src="http://img.chunge666.top/202210201827537.jpg"
+      srcset="data:image/svg+xml,%3Csvg%20xmlns=&#39;http://www.w3.org/2000/svg&#39;%20viewBox=&#39;0%200%20300%20300&#39;%3E%3C/svg%3E"
+      class="image lozad"
+      alt="springboot国际化 thumbnail">
+  </div>
+
+<article class="card card-content">
+  <header>
+    <h1 class="post-title">
+      springboot国际化
+    </h1>
+  </header>
+  <div class="post-meta post-show-meta">
+    <time datetime="2022-10-20T08:35:48.000Z">
+      <i 
+        class="iconfont icon-calendar" 
+        style="margin-right: 2px;">
+      </i>
+      <span>2022-10-20</span>
+    </time>
+    
+      <span class="dot"></span>
+      
+        <a 
+          href="/categories/java/" 
+          class="post-meta-link">
+          java
+        </a>
+      
+    
+    
+      <span class="dot"></span>
+      <span>1.1k 字</span>
+    
+  </div>
+  
+    <div 
+      class="post-meta post-show-meta" 
+      style="margin-top: -10px;">
+      <div style="display: flex; align-items: center;">
+        <i 
+          class="iconfont icon-biaoqian" 
+          style="margin-right: 2px; font-size: 1.15rem;">
+        </i>
+        
+          
+          <a 
+            href="/tags/springboot/" 
+            class="post-meta-link">
+            springboot
+          </a>
+        
+      </div>
+    </div>
+  
+  </header>
+  <div 
+    id="section" 
+    class="post-content">
+    <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>springboot 默认支持了国际化, 自动注入 <code>MessageSource</code> 到容器中, 通过 <code>getMessage</code> 方法可以读取 <code>messages.properties</code> 中的数据.</p>
+<h2 id="前置准备"><a href="#前置准备" class="headerlink" title="前置准备"></a>前置准备</h2><p>jdk: 1.8</p>
+<p>springboot: 2.3.2.RELEASE</p>
+<h2 id="简单使用"><a href="#简单使用" class="headerlink" title="简单使用"></a>简单使用</h2><h3 id="MessageSource"><a href="#MessageSource" class="headerlink" title="MessageSource"></a>MessageSource</h3><p>读取国际化的 bean, springboot 默认已配置，可直接注入使用。</p>
+<pre class="highlight"><code class="hljs java"><span class="hljs-meta">@Resource</span><br><span class="hljs-keyword">private</span> MessageSource messageSource;<br></code></pre>
+
+<h3 id="资源文件"><a href="#资源文件" class="headerlink" title="资源文件"></a>资源文件</h3><p>存放国际化翻译的文件，使用 <code>spring.messages.basename</code> 指定读取的资源文件名，默认值 <code>messages</code>, 通过 <code>_语言标识</code> 来对应不同语言。</p>
+<p>下面是测试使用的资源文件：</p>
+<p>默认 <code>messages.properties</code></p>
+<pre class="highlight"><code class="hljs properties"><span class="hljs-attr">test</span>=<span class="hljs-string">测试</span><br><span class="hljs-attr">noUser</span>=<span class="hljs-string">用户[&#123;0&#125;]不存在。</span><br><span class="hljs-attr">common</span>=<span class="hljs-string">通用</span><br></code></pre>
+
+<p>简体中文(中国大陆) <code>messages_zh_CN.properties</code></p>
+<pre class="highlight"><code class="hljs properties"><span class="hljs-attr">test</span>=<span class="hljs-string">测试</span><br><span class="hljs-attr">noUser</span>=<span class="hljs-string">用户[&#123;0&#125;]不存在。</span><br></code></pre>
+
+<p>繁体中文(中国台湾) <code>messages_zh_TW.properties</code></p>
+<pre class="highlight"><code class="hljs properties"><span class="hljs-attr">test</span>=<span class="hljs-string">測試</span><br><span class="hljs-attr">noUser</span>=<span class="hljs-string">用戶[&#123;0&#125;]不存在。</span><br></code></pre>
+
+<p>英语(美国) <code>messages_en_US.properties</code></p>
+<pre class="highlight"><code class="hljs properties"><span class="hljs-attr">test</span>=<span class="hljs-string">test</span><br><span class="hljs-attr">noUser</span>=<span class="hljs-string">user [&#123;0&#125;] not exists.</span><br></code></pre>
+
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p>无占位符</p>
+<pre class="highlight"><code class="hljs java"><span class="hljs-comment">// 结果: test</span><br>messageSource.getMessage(<span class="hljs-string">&quot;test&quot;</span>, <span class="hljs-literal">null</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Locale</span>(<span class="hljs-string">&quot;en&quot;</span>, <span class="hljs-string">&quot;US&quot;</span>));<br></code></pre>
+
+<p>有占位符</p>
+<pre class="highlight"><code class="hljs java"><span class="hljs-comment">// 结果: 用户[张三]不存在。</span><br>messageSource.getMessage(<span class="hljs-string">&quot;noUser&quot;</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>[]&#123;<span class="hljs-string">&quot;张三&quot;</span>&#125;, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Locale</span>(<span class="hljs-string">&quot;zh&quot;</span>, <span class="hljs-string">&quot;CN&quot;</span>));<br></code></pre>
+
+<p>读取默认文件</p>
+<pre class="highlight"><code class="hljs java"><span class="hljs-comment">// 结果: 通用</span><br>messageSource.getMessage(<span class="hljs-string">&quot;common&quot;</span>, <span class="hljs-literal">null</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Locale</span>(<span class="hljs-string">&quot;en&quot;</span>, <span class="hljs-string">&quot;US&quot;</span>));<br></code></pre>
+
+<p>默认值</p>
+<pre class="highlight"><code class="hljs java"><span class="hljs-comment">// 结果: 默认值</span><br>messageSource.getMessage(<span class="hljs-string">&quot;apple&quot;</span>, <span class="hljs-literal">null</span>, <span class="hljs-string">&quot;默认值&quot;</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Locale</span>(<span class="hljs-string">&quot;en&quot;</span>, <span class="hljs-string">&quot;US&quot;</span>));<br></code></pre>
+
+<h2 id="web环境下使用"><a href="#web环境下使用" class="headerlink" title="web环境下使用"></a>web环境下使用</h2><p>web环境下一般是用户自己手动指定的<code>语言环境</code>(下文使用 <code>Locale</code> 代替)，我们可以通过用户的请求参数自动来获取 <code>Locale</code>. 省去每次手动选择  <code>Locale</code> 这个步骤</p>
+<h3 id="LocaleResolver"><a href="#LocaleResolver" class="headerlink" title="LocaleResolver"></a>LocaleResolver</h3><p><code>LocaleResolver</code> 接口的作用是通过 <code>resolveLocale</code> 方法解析 <code>request</code> 请求获取用户的 <code>Locale</code>、然后存放到 <code>LocaleContextHolder</code> 中，<code>LocaleContextHolder</code>是使用 <code>ThreadLocal</code> 保存 <code>Locale</code>的，所以不同请求之间不会发生冲突。</p>
+<p>下面的例子中的 <code>ParamLocaleResolver</code> 是用来通过解析 url 链接上的 <code>lang</code> 字段来作为 <code>Locale</code>, 可以自行扩展，使用 <code>header</code>、<code>cookie</code> 等方式获取</p>
+<pre class="highlight"><code class="hljs java"><span class="hljs-keyword">import</span> org.springframework.context.annotation.Bean;<br><span class="hljs-keyword">import</span> org.springframework.context.annotation.Configuration;<br><span class="hljs-keyword">import</span> org.springframework.util.StringUtils;<br><span class="hljs-keyword">import</span> org.springframework.web.servlet.LocaleResolver;<br><br><span class="hljs-keyword">import</span> javax.servlet.http.HttpServletRequest;<br><span class="hljs-keyword">import</span> javax.servlet.http.HttpServletResponse;<br><span class="hljs-keyword">import</span> java.util.Locale;<br><br><span class="hljs-meta">@Configuration</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">I18nConfig</span> &#123;<br><br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-keyword">public</span> LocaleResolver <span class="hljs-title function_">localeResolver</span><span class="hljs-params">()</span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ParamLocaleResolver</span>();<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 读取请求参数的国际化解析器</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ParamLocaleResolver</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">LocaleResolver</span> &#123;<br><br>        <span class="hljs-comment">/**</span><br><span class="hljs-comment">         * 国际化的请求参数</span><br><span class="hljs-comment">         */</span><br>        <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">String</span> <span class="hljs-variable">PARAM</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;lang&quot;</span>;<br><br>        <span class="hljs-meta">@Override</span><br>        <span class="hljs-keyword">public</span> Locale <span class="hljs-title function_">resolveLocale</span><span class="hljs-params">(HttpServletRequest request)</span> &#123;<br>            <span class="hljs-type">String</span> <span class="hljs-variable">l</span> <span class="hljs-operator">=</span> request.getParameter(PARAM);<br>            <span class="hljs-type">Locale</span> <span class="hljs-variable">locale</span> <span class="hljs-operator">=</span> Locale.getDefault();<br>            <span class="hljs-keyword">if</span>(!StringUtils.isEmpty(l))&#123;<br>                String[] split = l.split(<span class="hljs-string">&quot;_&quot;</span>);<br>                <span class="hljs-keyword">if</span>(split.length != <span class="hljs-number">2</span>)&#123;<br>                    <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">RuntimeException</span>(<span class="hljs-string">&quot;语言格式错误&quot;</span>);<br>                &#125;<br>                locale = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Locale</span>(split[<span class="hljs-number">0</span>], split[<span class="hljs-number">1</span>]);<br>            &#125;<br>            <span class="hljs-keyword">return</span> locale;<br>        &#125;<br><br>        <span class="hljs-meta">@Override</span><br>        <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">setLocale</span><span class="hljs-params">(HttpServletRequest request, HttpServletResponse response, Locale locale)</span> &#123;<br><br>        &#125;<br>    &#125;<br>&#125;<br></code></pre>
+
+<h3 id="I18nUtils"><a href="#I18nUtils" class="headerlink" title="I18nUtils"></a>I18nUtils</h3><p>国际化工具类，只是用来简化 <code>MessageSource</code> 的操作，用 <code>MessageSource</code> 效果一样。</p>
+<pre class="highlight"><code class="hljs java"><span class="hljs-keyword">import</span> org.springframework.context.MessageSource;<br><span class="hljs-keyword">import</span> org.springframework.context.i18n.LocaleContextHolder;<br><span class="hljs-keyword">import</span> org.springframework.stereotype.Component;<br><br><span class="hljs-keyword">import</span> javax.annotation.Resource;<br><span class="hljs-keyword">import</span> java.util.Locale;<br><br><span class="hljs-meta">@Component</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">I18nUtils</span> &#123;<br><br>    <span class="hljs-meta">@Resource</span><br>    <span class="hljs-keyword">private</span> MessageSource messageSource;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 读取无参, 无默认值的</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> code</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span></span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">getMessage</span><span class="hljs-params">(String code)</span>&#123;<br>        <span class="hljs-keyword">return</span> messageSource.getMessage(code, <span class="hljs-literal">null</span>, LocaleContextHolder.getLocale());<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 读取无参, 无默认值的, 手动指定语言</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> code</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span></span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">getMessage</span><span class="hljs-params">(String code, Locale locale)</span>&#123;<br>        <span class="hljs-keyword">return</span> messageSource.getMessage(code, <span class="hljs-literal">null</span>, locale);<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 读取无参, 有默认值的</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> code</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span></span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">getMessage</span><span class="hljs-params">(String code, String defaultValue)</span>&#123;<br>        <span class="hljs-keyword">return</span> messageSource.getMessage(code, <span class="hljs-literal">null</span>, defaultValue, LocaleContextHolder.getLocale());<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 读取无参, 有默认值的, 手动指定语言</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> code</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span></span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">getMessage</span><span class="hljs-params">(String code, String defaultValue, Locale locale)</span>&#123;<br>        <span class="hljs-keyword">return</span> messageSource.getMessage(code, <span class="hljs-literal">null</span>, defaultValue, locale);<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 读取有参, 无默认值的</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> code</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span></span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">getMessage</span><span class="hljs-params">(String code, Object[] args)</span>&#123;<br>        <span class="hljs-keyword">return</span> messageSource.getMessage(code, args, LocaleContextHolder.getLocale());<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 读取有参, 无默认值的, 手动指定语言</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> code</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span></span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">getMessage</span><span class="hljs-params">(String code, Object[] args, Locale locale)</span>&#123;<br>        <span class="hljs-keyword">return</span> messageSource.getMessage(code, args, locale);<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 读取有参，有默认值的</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> code</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span></span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">getMessage</span><span class="hljs-params">(String code, Object[] args, String defaultValue)</span>&#123;<br>        <span class="hljs-keyword">return</span> messageSource.getMessage(code, args, defaultValue, LocaleContextHolder.getLocale());<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 读取有参，有默认值的, 手动指定语言</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@param</span> code</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span></span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">getMessage</span><span class="hljs-params">(String code, Object[] args, String defaultValue, Locale locale)</span>&#123;<br>        <span class="hljs-keyword">return</span> messageSource.getMessage(code, args, defaultValue, locale);<br>    &#125;<br>&#125;<br></code></pre>
+
+<h3 id="使用-1"><a href="#使用-1" class="headerlink" title="使用"></a>使用</h3><p>注入工具类</p>
+<pre class="highlight"><code class="hljs java"><span class="hljs-meta">@Resource</span><br><span class="hljs-keyword">private</span> I18nUtils i18nUtils;<br></code></pre>
+
+<p>无占位符</p>
+<pre class="highlight"><code class="hljs java"><span class="hljs-comment">// 结果: test</span><br>i18nUtils.getMessage(<span class="hljs-string">&quot;test&quot;</span>);<br></code></pre>
+
+<p>有占位符</p>
+<pre class="highlight"><code class="hljs java"><span class="hljs-comment">// 结果: 用户[张三]不存在。</span><br>i18nUtils.getMessage(<span class="hljs-string">&quot;noUser&quot;</span>, <span class="hljs-keyword">new</span> <span class="hljs-title class_">Object</span>[]&#123;<span class="hljs-string">&quot;张三&quot;</span>&#125;);<br></code></pre>
+
+<p>读取默认文件</p>
+<pre class="highlight"><code class="hljs java"><span class="hljs-comment">// 结果: 通用</span><br>i18nUtils.getMessage(<span class="hljs-string">&quot;common&quot;</span>);<br></code></pre>
+
+<p>默认值</p>
+<pre class="highlight"><code class="hljs java"><span class="hljs-comment">// 结果: 默认值</span><br>i18nUtils.getMessage(<span class="hljs-string">&quot;apple&quot;</span>, <span class="hljs-string">&quot;默认值&quot;</span>);<br></code></pre>
+
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p>官方文档: <a target="_blank" rel="noopener" href="https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#context-functionality-messagesource">https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#context-functionality-messagesource</a></p>
+<p>baeldung: <a target="_blank" rel="noopener" href="https://www.baeldung.com/spring-boot-internationalization">https://www.baeldung.com/spring-boot-internationalization</a></p>
+
+  </div>
+  <div>
+    
+      <div 
+        class="post-note note-warning copyright" 
+        style="margin-top: 42px">
+        <p>
+          <span style="font-weight: bold;">作者：</span><a 
+            target="_blank" 
+            rel="nofollow noopener noreferrer" 
+            href="/about">
+            Chun
+          </a>
+        </p>
+        <p>
+          <span style="font-weight: bold;">文章链接：</span><a 
+            target="_blank" 
+            rel="nofollow noopener noreferrer" 
+            href="http://blog.chunge666.top/springboot%E5%9B%BD%E9%99%85%E5%8C%96.html">
+            http://blog.chunge666.top/springboot%E5%9B%BD%E9%99%85%E5%8C%96.html
+          </a>
+        </p>
+        <p><span style="font-weight: bold;">版权声明：</span>本博客所有文章除特别声明外，均采用<a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="external nofollow">CC BY-NC-SA 4.0 协议</a>。转载请注明出处！</p>
+      </div>
+    
+  </div>
+</article>
+<div class="nav">
+  
+  
+    <div class="nav-item-next">
+      <a 
+        href="/centos%E5%AE%89%E8%A3%85docker.html" 
+        class="nav-link">
+        <div>
+          <div class="nav-label">下一篇</div>
+          
+            <div class="nav-title">centos安装docker </div>
+          
+        </div>
+        <i class="iconfont icon-right nav-next-icon"></i>
+      </a>
+    </div>
+  
+</div>
+
+  <div 
+    class="card card-content comment-card" 
+    style="margin-top: 16px;">
+    <div class="comment-card-title">评论</div>
+    
+  <div id="vcomments"></div>
+  
+  <script>
+    loadScript("//unpkg.com/valine/dist/Valine.min.js");
+    var oldLoadVa = window.onload;
+    window.onload = function () {
+      oldLoadVa && oldLoadVa();
+      new Valine({
+        el: '#vcomments',
+        appId: 'Fb12FgxcTGFydqPfZAOKsZkb-gzGzoHsz',
+        appKey: 'OIQyDCrjzjWbBV6vCqiXKAUJ',
+        placeholder: 'Just go go',
+        path: window.location.pathname,
+        avatar: 'mp',
+        meta: ["nick","mail","link"],
+        pageSize: '10',
+        lang: '',
+        visitor: 'false',
+        highlight: true,
+        recordIP: false,
+        
+        
+        
+        enableQQ: 'false',
+        requiredFields: [],
+      });
+    };
+  </script>
+
+  </div>
+
+<div 
+  class="card card-content toc-card" 
+  id="mobiletoc">
+  <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>目录
+</div>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E7%BD%AE%E5%87%86%E5%A4%87"><span class="toc-number">2.</span> <span class="toc-text">前置准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8"><span class="toc-number">3.</span> <span class="toc-text">简单使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MessageSource"><span class="toc-number">3.1.</span> <span class="toc-text">MessageSource</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B5%84%E6%BA%90%E6%96%87%E4%BB%B6"><span class="toc-number">3.2.</span> <span class="toc-text">资源文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8"><span class="toc-number">3.3.</span> <span class="toc-text">使用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#web%E7%8E%AF%E5%A2%83%E4%B8%8B%E4%BD%BF%E7%94%A8"><span class="toc-number">4.</span> <span class="toc-text">web环境下使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#LocaleResolver"><span class="toc-number">4.1.</span> <span class="toc-text">LocaleResolver</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#I18nUtils"><span class="toc-number">4.2.</span> <span class="toc-text">I18nUtils</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-1"><span class="toc-number">4.3.</span> <span class="toc-text">使用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-number">5.</span> <span class="toc-text">参考链接</span></a></li></ol>
+</div>
+            </main>
+            <aside class="right-column">
+              <div class="sticky-widescreen">
+  
+  
+    <article class="card card-content toc-card">
+      <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>目录
+</div>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E7%BD%AE%E5%87%86%E5%A4%87"><span class="toc-number">2.</span> <span class="toc-text">前置准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8"><span class="toc-number">3.</span> <span class="toc-text">简单使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MessageSource"><span class="toc-number">3.1.</span> <span class="toc-text">MessageSource</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B5%84%E6%BA%90%E6%96%87%E4%BB%B6"><span class="toc-number">3.2.</span> <span class="toc-text">资源文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8"><span class="toc-number">3.3.</span> <span class="toc-text">使用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#web%E7%8E%AF%E5%A2%83%E4%B8%8B%E4%BD%BF%E7%94%A8"><span class="toc-number">4.</span> <span class="toc-text">web环境下使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#LocaleResolver"><span class="toc-number">4.1.</span> <span class="toc-text">LocaleResolver</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#I18nUtils"><span class="toc-number">4.2.</span> <span class="toc-text">I18nUtils</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-1"><span class="toc-number">4.3.</span> <span class="toc-text">使用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-number">5.</span> <span class="toc-text">参考链接</span></a></li></ol>
+    </article>
+  
+  
+  <article class="card card-content">
+    <div class="recent-posts-card">
+  <div class="recent-posts-header">
+    <i 
+      class="iconfont icon-wenzhang_huaban" 
+      style="padding-right: 2px;">
+    </i>最近文章
+  </div>
+  <div class="recent-posts-list">
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2022-10-20</div>
+        <a href="/springboot%E5%9B%BD%E9%99%85%E5%8C%96.html"><div class="recent-posts-item-content">springboot国际化</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2022-10-12</div>
+        <a href="/centos%E5%AE%89%E8%A3%85docker.html"><div class="recent-posts-item-content">centos安装docker</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2022-10-10</div>
+        <a href="/nginx%E5%B9%B3%E6%BB%91%E5%8D%87%E7%BA%A7.html"><div class="recent-posts-item-content">nginx平滑升级</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2022-09-28</div>
+        <a href="/nginx%E6%97%A5%E5%BF%97%E6%8C%89%E5%A4%A9%E4%BF%9D%E5%AD%98.html"><div class="recent-posts-item-content">nginx日志按天保存</div></a>
+      </div>
+    
+  </div>
+</div>
+  </article>
+  
+  
+</div>
+            </aside>
+          </div>
+        </div>
+      </div>
+    </div>
+     
+    <footer class="footer">
+  <div class="footer-container">
+    <div>
+      <div class="footer-dsc">
+        <span>
+          Copyright ©
+          
+            2022
+          
+          
+        </span>
+        &nbsp;
+        <a 
+          href="/" 
+          class="footer-link">
+          Chun's Blog
+        </a>
+      </div>
+    </div>
+
+    
+      <div class="footer-dsc">
+        
+          Powered by
+          <a 
+            href="https://hexo.io/" 
+            class="footer-link" 
+            target="_blank" 
+            rel="nofollow noopener noreferrer">
+            &nbsp;Hexo
+          </a>
+        
+        
+          <span>&nbsp;|&nbsp;</span>
+        
+        
+          Theme -
+          <a 
+            href="https://github.com/theme-kaze" 
+            class="footer-link" 
+            target="_blank"
+            rel="nofollow noopener noreferrer">
+            &nbsp;Kaze
+          </a>
+        
+      </div>
+    
+    
+    
+      <div class="BbeiAn-info">
+        <a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">粤ICP备19001235号 </a>
+      </div>
+      
+    
+    
+</footer>
+ 
+    
+  <a 
+    role="button" 
+    id="scrollbutton" 
+    class="basebutton" 
+    aria-label="回到顶部">
+    <i class="iconfont icon-arrowleft button-icon"></i>
+  </a>
+
+<a 
+  role="button" 
+  id="menubutton"
+  aria-label="menu button"
+  class="basebutton">
+  <i class="iconfont icon-menu button-icon"></i>
+</a>
+<a 
+  role="button" 
+  id="popbutton" 
+  class="basebutton" 
+  aria-label="控制中心">
+  <i class="iconfont icon-expand button-icon"></i>
+</a>
+<a 
+  role="button" 
+  id="darkbutton" 
+  class="basebutton darkwidget" 
+  aria-label="夜色模式">
+  <i class="iconfont icon-weather button-icon"></i>
+</a>
+<a 
+  role="button" 
+  id="searchbutton" 
+  class="basebutton searchwidget" 
+  aria-label="搜索">
+  <i class="iconfont icon-search button-icon"></i>
+</a> 
+     
+     
+     
+      <script>
+  var addImgLayout = function () {
+    var img = document.querySelectorAll('.post-content img')
+    var i
+    for (i = 0; i < img.length; i++) {
+      var wrapper = document.createElement('a')
+      wrapper.setAttribute('href', img[i].getAttribute('data-src'))
+      wrapper.setAttribute('aria-label', 'illustration')
+      wrapper.style.cssText =
+        'width: 100%; display: flex; justify-content: center;'
+      if (img[i].alt) wrapper.dataset.caption = img[i].alt
+      wrapper.dataset.nolink = true
+      img[i].before(wrapper)
+      wrapper.append(img[i])
+      var divWrap = document.createElement('div')
+      divWrap.classList.add('gallery')
+      wrapper.before(divWrap)
+      divWrap.append(wrapper)
+    }
+    baguetteBox.run('.gallery')
+  }
+</script>
+<script>
+  loadScript(
+    "/js/lib/lightbox/baguetteBox.min.js",
+    addImgLayout
+  )
+</script>
+ 
+     
+     
+    <script src="/js/main.js"></script> 
+     
+    
+      <script>
+        var addLazyload = function () {
+          var observer = lozad('.lozad', {
+            load: function (el) {
+              el.srcset = el.getAttribute('data-src')
+            },
+            loaded: function (el) {
+              el.classList.add('loaded')
+            },
+          })
+          observer.observe()
+        }
+      </script>
+      <script>
+        loadScript('/js/lib/lozad.min.js', addLazyload)
+      </script>
+    
+    <script src="//instant.page/5.1.0" type="module"
+      integrity="sha384-by67kQnR+pyfy8yWP4kPO12fHKRLHZPfEsiSXR8u2IKcTdxD805MGUXBzVPnkLHw"></script>
+    
+      <script>
+        var googleAnalytics = function () {
+          window.dataLayer = window.dataLayer || []
+          function gtag() {
+            dataLayer.push(arguments)
+          }
+          gtag('js', new Date())
+          gtag('config', 'G-GZE49Y8JZ5')
+        }
+    </script>
+      <script>
+        loadScript(
+          'https://www.googletagmanager.com/gtag/js?id=' +
+            'G-GZE49Y8JZ5',
+          googleAnalytics
+        )
+      </script>
+    
+    
+      <script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.14.2/dist/algoliasearch.umd.js"></script>
+      <script>
+        setTimeout(() => {localAlgoliasearch(10)}, 0)
+      </script>
+    
+  </body>
+</html>
