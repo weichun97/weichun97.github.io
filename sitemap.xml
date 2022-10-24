@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://blog.chunge666.top/xtrabackup%E5%A4%87%E4%BB%BD.html</loc>
+    
+    <lastmod>2022-10-24</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://blog.chunge666.top/springboot%E5%9B%BD%E9%99%85%E5%8C%96.html</loc>
     
     <lastmod>2022-10-20</lastmod>

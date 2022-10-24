@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+  <meta charset="UTF-8">
+  <meta 
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <meta 
+    http-equiv="X-UA-Compatible" 
+    content="ie=edge">
+  <meta 
+    name="theme-color" 
+    content="#fff" 
+    id="theme-color">
+  <meta 
+    name="description" 
+    content="chunge&#39;s blog">
+  
+    <meta property="algolia:search" 
+      data-application-id="OBXVQ9OU0H" 
+      data-api-key="d858255d29c33cd3b57e6d8a56d94535" 
+      data-index-name="hexo">
+  
+  <link 
+    rel="icon" 
+    href="/">
+  <title>xtrabackup备份</title>
+  
+    
+      <meta 
+        property="og:title" 
+        content="xtrabackup备份">
+    
+    
+      <meta 
+        property="og:url" 
+        content="http://blog.chunge666.top/xtrabackup%E5%A4%87%E4%BB%BD.html">
+    
+    
+      <meta 
+        property="og:img" 
+        content="http://img.chunge666.top/202210241824746.png">
+    
+    
+    
+      <meta 
+        property="og:type" 
+        content="article">
+      <meta 
+        property="og:article:published_time" 
+        content="2022-10-21">
+      <meta 
+        property="og:article:modified_time" 
+        content="2022-10-24">
+      <meta 
+        property="og:article:author" 
+        content="Chun">
+      
+        
+          <meta 
+            property="og:article:tag" 
+            content="mysql">
+        
+      
+    
+  
+  
+  <link rel="preload" href="//at.alicdn.com/t/font_1946621_i1kgafibvw.css" as="style" >
+  <link rel="preload" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css" as="style" >
+  <link rel="preload" href="/css/main.css" as="style" >
+  
+  <link rel="modulepreload" href="//instant.page/5.1.0">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1946621_i1kgafibvw.css">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css">
+  
+  
+  
+    <link rel="stylesheet" href="/js/lib/lightbox/baguetteBox.min.css">
+  
+  <script>
+    function loadScript(url, cb) {
+      var script = document.createElement('script');
+      script.src = url;
+      if (cb) script.onload = cb;
+      script.async = true;
+      document.body.appendChild(script);
+    }
+    function loadCSS(href, data, attr) {
+      var sheet = document.createElement('link');
+      sheet.ref = 'stylesheet';
+      sheet.href = href;
+      sheet.dataset[data] = attr;
+      document.head.appendChild(sheet);
+    }
+    function changeCSS(cssFile, data, attr) {
+      var oldlink = document.querySelector(data);
+      var newlink = document.createElement("link");
+      newlink.setAttribute("rel", "stylesheet");
+      newlink.setAttribute("href", cssFile);
+      newlink.dataset.prism = attr;
+      document.head.replaceChild(newlink, oldlink);
+    }
+  </script>
+  
+    
+  
+  <script>
+    // control reverse button
+    var reverseDarkList = {
+      dark: 'light',
+      light: 'dark'
+    };
+    var themeColor = {
+      dark: '#1c1c1e',
+      light: '#fff'
+    }
+    // get the data of css prefers-color-scheme
+    var getCssMediaQuery = function() {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    };
+    // reverse current darkmode setting function
+    var reverseDarkModeSetting = function() {
+      var setting = localStorage.getItem('user-color-scheme');
+      if(reverseDarkList[setting]) {
+        setting = reverseDarkList[setting];
+      } else if(setting === null) {
+        setting = reverseDarkList[getCssMediaQuery()];
+      } else {
+        return;
+      }
+      localStorage.setItem('user-color-scheme', setting);
+      return setting;
+    };
+    // apply current darkmode setting
+  </script>
+  
+    <script>
+      var setDarkmode = function(mode) {
+      var setting = mode || localStorage.getItem('user-color-scheme');
+      if(setting === getCssMediaQuery()) {
+        document.documentElement.removeAttribute('data-user-color-scheme');
+        localStorage.removeItem('user-color-scheme');
+        document.getElementById('theme-color').content = themeColor[setting];
+        document.getElementById('theme-color').dataset.mode = setting;
+      } else if(reverseDarkList[setting]) {
+        document.documentElement.setAttribute('data-user-color-scheme', setting);
+        document.getElementById('theme-color').content = themeColor[setting];
+        document.getElementById('theme-color').dataset.mode = setting;
+      } else {
+        document.documentElement.removeAttribute('data-user-color-scheme');
+        localStorage.removeItem('user-color-scheme');
+        document.getElementById('theme-color').content = themeColor[getCssMediaQuery()];
+        document.getElementById('theme-color').dataset.mode = getCssMediaQuery();
+      }
+    };
+    setDarkmode();
+    </script>
+  
+  
+  
+    <link rel="preload" href="/js/lib/lightbox/baguetteBox.min.js" as="script">
+    <link rel="preload" href="/js/lib/lightbox/baguetteBox.min.css" as="style" >
+  
+  
+    <link rel="preload" href="/js/lib/lozad.min.js" as="script">
+  
+  
+  
+  
+  
+    
+    <link rel="prefetch" href="//unpkg.com/valine/dist/Valine.min.js" as="script">
+  
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+  <body>
+    <div class="wrapper">
+       
+      <nav class="navbar">
+  <div class="navbar-logo">
+    <a class="navbar-logo-main" href="/">
+      
+      <span class="navbar-logo-dsc">Chun's Blog</span>
+      </a>
+  </div>
+  <div class="navbar-menu">
+    
+      <a 
+        href="/" 
+        class="navbar-menu-item">
+        
+          首页
+        
+      </a>
+    
+      <a 
+        href="/archives" 
+        class="navbar-menu-item">
+        
+          归档
+        
+      </a>
+    
+      <a 
+        href="/tags" 
+        class="navbar-menu-item">
+        
+          标签
+        
+      </a>
+    
+      <a 
+        href="/categories" 
+        class="navbar-menu-item">
+        
+          分类
+        
+      </a>
+    
+      <a 
+        href="/about" 
+        class="navbar-menu-item">
+        
+          关于
+        
+      </a>
+    
+      <a 
+        href="/links" 
+        class="navbar-menu-item">
+        
+          友链
+        
+      </a>
+    
+    <button 
+      class="navbar-menu-item darknavbar navbar-menu-btn" 
+      aria-label="Toggle dark mode"
+      id="dark">
+      <i class="iconfont icon-weather"></i>
+    </button>
+    <button 
+      class="navbar-menu-item searchnavbar navbar-menu-btn" 
+      aria-label="Toggle search"
+      id="search">
+      <!-- <i 
+        class="iconfont icon-search" 
+        style="font-size: 1.2rem; font-weight: 400;">
+      </i> -->
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img"
+        class="iconify iconify--ion" width="28" height="28" preserveAspectRatio="xMidYMid meet" viewBox="0 0 512 512">
+        <path fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="28"
+          d="M256 80a176 176 0 1 0 176 176A176 176 0 0 0 256 80Z"></path>
+        <path fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="28"
+          d="M232 160a72 72 0 1 0 72 72a72 72 0 0 0-72-72Z"></path>
+        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="28"
+          d="M283.64 283.64L336 336"></path>
+      </svg>
+    </button>
+  </div>
+</nav> 
+      
+      <div 
+        id="local-search" 
+        style="display: none">
+        <input
+          class="navbar-menu-item"
+          id="search-input"
+          placeholder="请输入搜索内容..." />
+        <div id="search-content"></div>
+      </div>
+      
+      <div class="section-wrap">
+        <div class="container">
+          <div class="columns">
+            <aside class="left-column">
+              
+              <div class="card card-author">
+                
+  <img 
+    src="https://cdn.jsdelivr.net/gh/weichun97/img/img/20220905150341.jpg" 
+    class="author-img"
+    width="88"
+    height="88"
+    alt="author avatar">
+
+<p class="author-name">Chun</p>
+<p class="author-description"></p>
+<div class="author-message">
+  <a 
+    class="author-posts-count" 
+    href="/archives">
+    <span>23</span>
+    <span>文章</span>
+  </a>
+  <a 
+    class="author-categories-count" 
+    href="/categories">
+    <span>6</span>
+    <span>分类</span>
+  </a>
+  <a 
+    class="author-tags-count" 
+    href="/tags">
+    <span>14</span>
+    <span>标签</span>
+  </a>
+</div>
+
+              </div>
+               <div class="sticky-tablet">
+  
+  
+    <article class="display-when-two-columns spacer">
+      <div class="card card-content toc-card">
+        <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>目录
+</div>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E7%BD%AE%E5%87%86%E5%A4%87"><span class="toc-number">2.</span> <span class="toc-text">前置准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-number">3.</span> <span class="toc-text">安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9D%83%E9%99%90%E8%A6%81%E6%B1%82"><span class="toc-number">4.</span> <span class="toc-text">权限要求</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%87%E4%BB%BD"><span class="toc-number">5.</span> <span class="toc-text">备份</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%A8%E9%87%8F%E5%A4%87%E4%BB%BD"><span class="toc-number">5.1.</span> <span class="toc-text">全量备份</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BC%80%E5%A7%8B%E5%A4%87%E4%BB%BD"><span class="toc-number">5.1.1.</span> <span class="toc-text">开始备份</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%A8%E9%87%8F%E5%A4%87%E4%BB%BD%E9%A2%84%E5%A4%84%E7%90%86"><span class="toc-number">5.1.2.</span> <span class="toc-text">全量备份预处理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%81%A2%E5%A4%8D%E5%A4%87%E4%BB%BD"><span class="toc-number">5.1.3.</span> <span class="toc-text">恢复备份</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A2%9E%E9%87%8F%E5%A4%87%E4%BB%BD"><span class="toc-number">5.2.</span> <span class="toc-text">增量备份</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%A2%9E%E9%87%8F%E5%A4%87%E4%BB%BD"><span class="toc-number">5.2.1.</span> <span class="toc-text">创建增量备份</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A2%9E%E9%87%8F%E5%A4%87%E4%BB%BD%E9%A2%84%E5%A4%84%E7%90%86"><span class="toc-number">5.2.2.</span> <span class="toc-text">增量备份预处理</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%8B%E7%BC%A9"><span class="toc-number">5.3.</span> <span class="toc-text">压缩</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%89%8D%E7%BD%AE%E5%87%86%E5%A4%87-1"><span class="toc-number">5.3.1.</span> <span class="toc-text">前置准备</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8E%8B%E7%BC%A9%E5%A4%87%E4%BB%BD"><span class="toc-number">5.3.2.</span> <span class="toc-text">压缩备份</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A7%A3%E5%8E%8B%E7%BC%A9"><span class="toc-number">5.3.3.</span> <span class="toc-text">解压缩</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A0%E5%AF%86"><span class="toc-number">5.4.</span> <span class="toc-text">加密</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%87%E4%BB%BD%E8%84%9A%E6%9C%AC"><span class="toc-number">6.</span> <span class="toc-text">备份脚本</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ST-percona-backup-sh"><span class="toc-number">6.1.</span> <span class="toc-text">ST_percona_backup.sh</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ST-percona-prepare-sh"><span class="toc-number">6.2.</span> <span class="toc-text">ST_percona_prepare.sh</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ST-percona-restore-sh"><span class="toc-number">6.3.</span> <span class="toc-text">ST_percona_restore.sh</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-number">7.</span> <span class="toc-text">参考链接</span></a></li></ol>
+      </div>
+    </article>
+  
+  
+  <article class="card card-content categories-widget">
+    <div class="categories-card">
+  <div class="categories-header">
+    <i 
+      class="iconfont icon-fenlei" 
+      style="padding-right: 2px;">
+    </i>分类
+  </div>
+  <div class="categories-list">
+    
+      <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">
+        <div class="categories-list-item">
+          数据库
+          <span class="categories-list-item-badge">4</span>
+        </div>
+      </a>
+    
+      <a href="/categories/linux/">
+        <div class="categories-list-item">
+          linux
+          <span class="categories-list-item-badge">10</span>
+        </div>
+      </a>
+    
+      <a href="/categories/%E7%BC%96%E8%BE%91%E5%99%A8/">
+        <div class="categories-list-item">
+          编辑器
+          <span class="categories-list-item-badge">3</span>
+        </div>
+      </a>
+    
+      <a href="/categories/java/">
+        <div class="categories-list-item">
+          java
+          <span class="categories-list-item-badge">4</span>
+        </div>
+      </a>
+    
+      <a href="/categories/%E5%89%8D%E7%AB%AF/">
+        <div class="categories-list-item">
+          前端
+          <span class="categories-list-item-badge">1</span>
+        </div>
+      </a>
+    
+      <a href="/categories/%E5%85%B6%E4%BB%96/">
+        <div class="categories-list-item">
+          其他
+          <span class="categories-list-item-badge">1</span>
+        </div>
+      </a>
+    
+  </div>
+</div>
+  </article>
+  
+  <article class="card card-content tags-widget">
+    <div class="tags-card">
+  <div class="tags-header">
+    <i 
+      class="iconfont icon-biaoqian" 
+      style="padding-right: 2px;">
+    </i>热门标签
+  </div>
+  <div class="tags-list">
+    
+      <a 
+        href="/tags/centos/" 
+        title="centos">
+        <div class="tags-list-item">centos</div>
+      </a>
+    
+      <a 
+        href="/tags/nginx/" 
+        title="nginx">
+        <div class="tags-list-item">nginx</div>
+      </a>
+    
+      <a 
+        href="/tags/mysql/" 
+        title="mysql">
+        <div class="tags-list-item">mysql</div>
+      </a>
+    
+      <a 
+        href="/tags/idea/" 
+        title="idea">
+        <div class="tags-list-item">idea</div>
+      </a>
+    
+      <a 
+        href="/tags/springboot/" 
+        title="springboot">
+        <div class="tags-list-item">springboot</div>
+      </a>
+    
+      <a 
+        href="/tags/yum/" 
+        title="yum">
+        <div class="tags-list-item">yum</div>
+      </a>
+    
+      <a 
+        href="/tags/docker/" 
+        title="docker">
+        <div class="tags-list-item">docker</div>
+      </a>
+    
+      <a 
+        href="/tags/keepalived/" 
+        title="keepalived">
+        <div class="tags-list-item">keepalived</div>
+      </a>
+    
+      <a 
+        href="/tags/xml/" 
+        title="xml">
+        <div class="tags-list-item">xml</div>
+      </a>
+    
+      <a 
+        href="/tags/redis/" 
+        title="redis">
+        <div class="tags-list-item">redis</div>
+      </a>
+    
+      <a 
+        href="/tags/node/" 
+        title="node">
+        <div class="tags-list-item">node</div>
+      </a>
+    
+      <a 
+        href="/tags/jdk/" 
+        title="jdk">
+        <div class="tags-list-item">jdk</div>
+      </a>
+    
+      <a 
+        href="/tags/jar/" 
+        title="jar">
+        <div class="tags-list-item">jar</div>
+      </a>
+    
+      <a 
+        href="/tags/proxysql/" 
+        title="proxysql">
+        <div class="tags-list-item">proxysql</div>
+      </a>
+    
+  </div>
+</div>
+  </article>
+  
+  
+</div>
+            </aside>
+            <main class="main-column">
+              
+  <div class="image-wrapper">
+    <img 
+      src="http://img.chunge666.top/202210241824746.png" 
+      data-src="http://img.chunge666.top/202210241824746.png"
+      srcset="data:image/svg+xml,%3Csvg%20xmlns=&#39;http://www.w3.org/2000/svg&#39;%20viewBox=&#39;0%200%20300%20300&#39;%3E%3C/svg%3E"
+      class="image lozad"
+      alt="xtrabackup备份 thumbnail">
+  </div>
+
+<article class="card card-content">
+  <header>
+    <h1 class="post-title">
+      xtrabackup备份
+    </h1>
+  </header>
+  <div class="post-meta post-show-meta">
+    <time datetime="2022-10-21T04:00:43.000Z">
+      <i 
+        class="iconfont icon-calendar" 
+        style="margin-right: 2px;">
+      </i>
+      <span>2022-10-21</span>
+    </time>
+    
+      <span class="dot"></span>
+      
+        <a 
+          href="/categories/linux/" 
+          class="post-meta-link">
+          linux
+        </a>
+      
+    
+    
+      <span class="dot"></span>
+      <span>5.1k 字</span>
+    
+  </div>
+  
+    <div 
+      class="post-meta post-show-meta" 
+      style="margin-top: -10px;">
+      <div style="display: flex; align-items: center;">
+        <i 
+          class="iconfont icon-biaoqian" 
+          style="margin-right: 2px; font-size: 1.15rem;">
+        </i>
+        
+          
+          <a 
+            href="/tags/mysql/" 
+            class="post-meta-link">
+            mysql
+          </a>
+        
+      </div>
+    </div>
+  
+  </header>
+  <div 
+    id="section" 
+    class="post-content">
+    <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Percona XtraBackup 是一款开源、免费的 MySQL 热备份软件，提供定时备份、增量备份等功能。</p>
+<h2 id="前置准备"><a href="#前置准备" class="headerlink" title="前置准备"></a>前置准备</h2><p>系统: centos7.9</p>
+<p>已安装软件: mysql5.7</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>percona 需要和 mysql 版本对应，此处使用 <code>mysql5.7</code>，需要安装 <code>percona-xtrabackup-24</code></p>
+<p>安装仓库</p>
+<pre class="highlight"><code class="hljs shell">[root@localhost ~] yum install https://repo.percona.com/yum/percona-release-latest.noarch.rpm<br></code></pre>
+
+<p>测试仓库</p>
+<pre class="highlight"><code class="hljs shell">[root@localhost ~] yum list | grep percona<br></code></pre>
+
+<p>激活仓库</p>
+<pre class="highlight"><code class="hljs shell">[root@localhost ~] percona-release enable-only tools release<br></code></pre>
+
+<p>安装</p>
+<pre class="highlight"><code class="hljs shell">[root@localhost ~] yum install percona-xtrabackup-24<br></code></pre>
+
+<h2 id="权限要求"><a href="#权限要求" class="headerlink" title="权限要求"></a>权限要求</h2><p>系统权限：需要系统账号有对应目录的读写权限，用来备份 mysql 文件，一般直接用 root 用户即可。</p>
+<p>mysql账号权限：</p>
+<pre class="highlight"><code class="hljs mysql">mysql&gt; CREATE USER &#x27;bkpuser&#x27;@&#x27;%&#x27; IDENTIFIED BY &#x27;As123456!&#x27;;<br>mysql&gt; GRANT RELOAD, LOCK TABLES, PROCESS, REPLICATION CLIENT ON *.* TO &#x27;bkpuser&#x27;@&#x27;%&#x27;;<br>mysql&gt; FLUSH PRIVILEGES;<br></code></pre>
+
+<h2 id="备份"><a href="#备份" class="headerlink" title="备份"></a>备份</h2><p>此部分用来了解原理及基础的使用方法，如果想要直接使用的话，可以直接查看<a href="#%E5%A4%87%E4%BB%BD%E8%84%9A%E6%9C%AC">备份脚本</a>部分</p>
+<h3 id="全量备份"><a href="#全量备份" class="headerlink" title="全量备份"></a>全量备份</h3><h4 id="开始备份"><a href="#开始备份" class="headerlink" title="开始备份"></a>开始备份</h4><pre class="highlight"><code class="hljs shell">[root@localhost ~] xtrabackup --backup --user=bkpuser --password=As123456! --target-dir=/data/backups/base<br>...<br>xtrabackup: Transaction log of lsn (26970807) to (137343534) was copied.<br>160906 10:19:18 completed OK!<br></code></pre>
+
+<ul>
+<li>–backup: 表示备份操作</li>
+<li>–user: mysql的用户名(即<a href="#%E6%9D%83%E9%99%90%E8%A6%81%E6%B1%82">权限要求</a>配置的 <code>bkpuser</code>)</li>
+<li>–password: mysql 的密码</li>
+<li>–target-dir: 备份文件存在的文件夹</li>
+</ul>
+<h4 id="全量备份预处理"><a href="#全量备份预处理" class="headerlink" title="全量备份预处理"></a>全量备份预处理</h4><p>由于数据是在不同的时间备份的，数据可能会被更改，所以在执行恢复前需要对数据预处理，执行：</p>
+<pre class="highlight"><code class="hljs shell">[root@localhost ~] xtrabackup --prepare --target-dir=/data/backups/base<br>...<br>InnoDB: Shutdown completed; log sequence number 2755624<br>221021 16:59:23 completed OK!<br></code></pre>
+
+<ul>
+<li>–prepare: 表示预处理操作</li>
+<li>–target-dir: 需要预处理数据的文件夹</li>
+</ul>
+<h4 id="恢复备份"><a href="#恢复备份" class="headerlink" title="恢复备份"></a>恢复备份</h4><p>恢复备份前必须先进行预处理，mysql 必须停止，并且 mysql 的 datadir 目录为空。</p>
+<pre class="highlight"><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">关闭 mysql 服务</span><br>[root@localhost ~] service mysqld stop<br><span class="hljs-meta prompt_"># </span><span class="language-bash">删除 mysql 的 datadir，一定要谨慎，别删错了</span><br>[root@localhost ~] rm -rf /var/lib/mysql/<br><span class="hljs-meta prompt_"># </span><span class="language-bash">恢复备份文件，如果想要恢复备份后删除备份文件，可以将 `--copy-back` 替换为 `--move-back`(其实手动copy过去也可以, 不一定要通过 xtrabackup 命令)</span><br>[root@localhost ~] xtrabackup --copy-back --target-dir=/data/backups/base<br><span class="hljs-meta prompt_"># </span><span class="language-bash">由于 /var/lib/mysql/ 被删除了，所以这里需要给文件夹重新赋权限，如果开启了selinux, 也需要关闭, 不然会启动mysql失败。</span><br>[root@localhost ~] chown -R mysql:mysql /var/lib/mysql/<br><span class="hljs-meta prompt_"># </span><span class="language-bash">重新启动</span><br>[root@localhost ~] service mysqld start<br></code></pre>
+
+<h3 id="增量备份"><a href="#增量备份" class="headerlink" title="增量备份"></a>增量备份</h3><p>增量备份的原理，是因为每个 <code>InnoDB</code> 页面都包含一个日志序列号 (<code>LSN</code>)。 <code>LSN</code> 是整个数据库的系统版本号。每个页面的 <code>LSN</code> 显示它最近的更改时间。</p>
+<h4 id="创建增量备份"><a href="#创建增量备份" class="headerlink" title="创建增量备份"></a>创建增量备份</h4><p>全量备份的 <code>target-dir</code> 目录下会生成一个 <code>xtrabackup_checkpoints</code> 文件，里面包含的 <code>to_lsn</code> ，就是全量备份结束时的 <code>LSN</code>, 文件格式如下:</p>
+<pre class="highlight"><code class="hljs properties"><span class="hljs-attr">backup_type</span> = <span class="hljs-string">full-prepared</span><br><span class="hljs-attr">from_lsn</span> = <span class="hljs-string">0</span><br><span class="hljs-attr">to_lsn</span> = <span class="hljs-string">2755117</span><br><span class="hljs-attr">last_lsn</span> = <span class="hljs-string">2755126</span><br><span class="hljs-attr">compact</span> = <span class="hljs-string">0</span><br><span class="hljs-attr">recover_binlog_info</span> = <span class="hljs-string">0</span><br><span class="hljs-attr">flushed_lsn</span> = <span class="hljs-string">2755126</span><br></code></pre>
+
+<p>基于之前做的全量备份，我们可以使用如下命令做第一次增量备份</p>
+<pre class="highlight"><code class="hljs shell">[root@localhost ~] xtrabackup --backup --user=bkpuser --password=As123456! --target-dir=/data/backups/inc1 --incremental-basedir=/data/backups/base<br></code></pre>
+
+<ul>
+<li>–target-dir: 此次增量备份保存数据的文件夹</li>
+<li>–incremental-basedir: 基于哪次备份的文件夹做增量备份</li>
+</ul>
+<p>查看第一次增量备份的 <code>/data/backups/inc1/xtrabackup_checkpoints</code> 文件,会发现<code>from_lsn</code>就是全量备份里面的 <code>to_lsn</code></p>
+<pre class="highlight"><code class="hljs properties"><span class="hljs-attr">backup_type</span> = <span class="hljs-string">incremental</span><br><span class="hljs-attr">from_lsn</span> = <span class="hljs-string">2755117</span><br><span class="hljs-attr">to_lsn</span> = <span class="hljs-string">2755757</span><br><span class="hljs-attr">last_lsn</span> = <span class="hljs-string">2755766</span><br><span class="hljs-attr">compact</span> = <span class="hljs-string">0</span><br><span class="hljs-attr">recover_binlog_info</span> = <span class="hljs-string">0</span><br><span class="hljs-attr">flushed_lsn</span> = <span class="hljs-string">2755766</span><br></code></pre>
+
+<p>如果想基于第一次增量备份的数据做第二次增量备份，使用以下命令</p>
+<pre class="highlight"><code class="hljs shell">[root@localhost ~] xtrabackup --backup --user=bkpuser --password=As123456! --target-dir=/data/backups/inc2 --incremental-basedir=/data/backups/inc1<br></code></pre>
+
+<p>查看第二次增量备份的 <code>/data/backups/inc1/xtrabackup_checkpoints</code> 文件</p>
+<pre class="highlight"><code class="hljs properties"><span class="hljs-attr">backup_type</span> = <span class="hljs-string">incremental</span><br><span class="hljs-attr">from_lsn</span> = <span class="hljs-string">2755757</span><br><span class="hljs-attr">to_lsn</span> = <span class="hljs-string">2762910</span><br><span class="hljs-attr">last_lsn</span> = <span class="hljs-string">2762919</span><br><span class="hljs-attr">compact</span> = <span class="hljs-string">0</span><br><span class="hljs-attr">recover_binlog_info</span> = <span class="hljs-string">0</span><br><span class="hljs-attr">flushed_lsn</span> = <span class="hljs-string">2762919</span><br></code></pre>
+
+<h4 id="增量备份预处理"><a href="#增量备份预处理" class="headerlink" title="增量备份预处理"></a>增量备份预处理</h4><p>增量备份的预处理方式与全量备份的不同。</p>
+<ol>
+<li><p>全量备份预处理会包含两个步骤，一是提交事务并且针对日志文件中的数据进行重放；二是未提交的事务进行回滚。</p>
+</li>
+<li><p>增量备份预处理要跳过第二个步骤，因为未提交的事务可能会在下一个增量备份中提交，我们可以使用 <code>--apply-log-only</code>来避免日志回滚，如果没有使用此参数的话，后面的增量备份可能会无法使用。</p>
+</li>
+</ol>
+<p>基于前面的操作，我们现在有这些备份文件</p>
+<pre class="highlight"><code class="hljs plaintext">/data/backups/base<br>/data/backups/inc1<br>/data/backups/inc2<br></code></pre>
+
+<p>首先预处理之前的全量备份，但是要阻止日志回滚</p>
+<pre class="highlight"><code class="hljs shell">[root@localhost ~]# xtrabackup --prepare --apply-log-only --target-dir=/data/backups/base<br>...<br>InnoDB: Shutdown completed; log sequence number 2755756<br>InnoDB: Number of pools: 1<br>221021 18:20:37 completed OK!<br></code></pre>
+
+<p>接着预处理第一次增量备份，此时会把增量的数据添加到全量备份(<code>/data/backups/base</code>)中。此时使用 <code>/data/backups/base</code> 恢复备份会就是第一次增量备份时的数据。</p>
+<pre class="highlight"><code class="hljs shell">[root@localhost ~]# xtrabackup --prepare --apply-log-only --target-dir=/data/backups/base --incremental-dir=/data/backups/inc1<br>...<br>InnoDB: Number of pools: 1<br>xtrabackup: xtrabackup_logfile detected: size=8388608, start_lsn=(2755757)<br>...<br>221021 18:23:59 completed OK!<br></code></pre>
+
+<div class="post-note note-danger"><p>增量备份不能预处理两次,即使用 <code>--incremental-basedir</code> 备份的数据，因为会重复执行sql</p></div>
+
+<p>接着预处理第二次增量备份，此时使用 <code>/data/backups/base</code> 恢复备份就是第二次增量备份时的数据</p>
+<pre class="highlight"><code class="hljs shell">[root@localhost ~]# xtrabackup --prepare --apply-log-only --target-dir=/data/backups/base --incremental-dir=/data/backups/inc2<br>...<br>221021 18:24:45 completed OK!<br></code></pre>
+
+<h3 id="压缩"><a href="#压缩" class="headerlink" title="压缩"></a>压缩</h3><p>mysql 数据量过大时会导致备份速度慢，这时可以使用压缩功能来加快备份时间</p>
+<h4 id="前置准备-1"><a href="#前置准备-1" class="headerlink" title="前置准备"></a>前置准备</h4><p>压缩功能基于 <code>qpress</code> 工具实现的，且需要通过 <code>percona-release</code> 配置此工具</p>
+<pre class="highlight"><code class="hljs shell">[root@localhost ~]# percona-release enable tools<br>[root@localhost ~]# yum install -y qpress<br></code></pre>
+
+<h4 id="压缩备份"><a href="#压缩备份" class="headerlink" title="压缩备份"></a>压缩备份</h4><p>使用 <code>--compress</code> 即可实现压缩功能,备份后的文件都是以 qp 结尾的</p>
+<pre class="highlight"><code class="hljs shell">[root@localhost ~]# xtrabackup --backup --user=bkpuser --password=As123456! --compress --target-dir=/data/compressed/<br></code></pre>
+
+<p>结合 <code>--compress-threads</code> 进行多线程压缩</p>
+<pre class="highlight"><code class="hljs shell">[root@localhost ~]# xtrabackup --backup --user=bkpuser --password=As123456! --compress --compress-threads=4 --target-dir=/data/compressed/<br>...<br>221024 11:00:11 [00] Compressing /data/compressed/backup-my.cnf.qp<br>221024 11:00:11 [00]        ...done<br>221024 11:00:11 [00] Compressing /data/compressed/xtrabackup_info.qp<br>221024 11:00:11 [00]        ...done<br>xtrabackup: Transaction log of lsn (2756164) to (2756173) was copied.<br>221024 11:00:12 completed OK!<br></code></pre>
+
+<h4 id="解压缩"><a href="#解压缩" class="headerlink" title="解压缩"></a>解压缩</h4><p>先使用 <code>--decompress</code> 解压缩文件，压缩后的文件没有 <code>.qp</code> 后缀。解压后默认不会删除压缩文件，如果要删除，可以使用 <code>--remove-original</code> 属性。即使不删除，使用 <code>--copy-back</code> 或 <code>--move-back</code> 也不会移动压缩文件。加压缩后与普通备份的文件一样，先预处理后恢复备份。</p>
+<pre class="highlight"><code class="hljs shell">[root@localhost ~]# xtrabackup --decompress --target-dir=/data/compressed/<br></code></pre>
+
+<h3 id="加密"><a href="#加密" class="headerlink" title="加密"></a>加密</h3><p>自行查看文档，本文不讨论，文档地址：<a target="_blank" rel="noopener" href="https://docs.percona.com/percona-xtrabackup/2.4/backup_scenarios/encrypted_backup.html">https://docs.percona.com/percona-xtrabackup/2.4/backup_scenarios/encrypted_backup.html</a></p>
+<h2 id="备份脚本"><a href="#备份脚本" class="headerlink" title="备份脚本"></a>备份脚本</h2><p>为了简化上面的备份步骤，可以自行编辑 shell 脚本。下面提供一套每天定时备份,最多保留7天备份的脚本。</p>
+<h3 id="ST-percona-backup-sh"><a href="#ST-percona-backup-sh" class="headerlink" title="ST_percona_backup.sh"></a>ST_percona_backup.sh</h3><p>此脚本可以在线热备份数据库，每天备份一次，如果一天运行多次，则只有第一次会生效，最多会生成1个全量备份和6个增量备份(可通过days配置)。配置在定时任务中，每天至少执行两次。</p>
+<p>执行示例: <code>sh /percona/ST_percona_backup.sh</code></p>
+<pre class="highlight"><code class="hljs shell"><span class="hljs-meta prompt_">#</span><span class="language-bash">!/bin/bash</span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">Script <span class="hljs-keyword">for</span> SecureTransport - Online MySQL backup with Parcona XtraBackup</span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">Created by Genata 2019</span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">Make sure to have enough free space <span class="hljs-keyword">for</span> backups.</span><br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">my.cnf 配置文件的目录，</span><br>FDH=/etc/my.cnf<br><span class="hljs-meta prompt_"># </span><span class="language-bash">xtrabackup 的执行目录</span><br>hd=/usr/bin/<br><span class="hljs-meta prompt_"># </span><span class="language-bash">日志文件</span><br>ld=/percona/logs<br><span class="hljs-meta prompt_"># </span><span class="language-bash">备份存放的文件夹</span><br>bd=/percona/backup<br><span class="hljs-meta prompt_"># </span><span class="language-bash">保存多少天的增量数据</span><br>days=6<br><span class="hljs-meta prompt_"># </span><span class="language-bash">多线程的线程数</span><br>pp=4<br><span class="hljs-meta prompt_"># </span><span class="language-bash">mysql 的账号密码</span><br>dbuser=bkpuser<br>dbpass=As123456!<br>hn=`uname -n`<br><br>if [ ! -d &quot;$ld&quot; ]; then<br>    mkdir -p $ld<br>fi<br>echo &quot;[`date -Iseconds`]&quot; Backup start... &gt;&gt;$ld/ST_percona_backup.log<br>date -Iseconds &gt;$ld/e_backup_percona<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">Get current <span class="hljs-built_in">date</span> <span class="hljs-keyword">in</span> format YYYY-MM-DD</span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">Created directory structure is:</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">-YYYY-MM-DD</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">  |-full</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">  |-inc1</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">  |-inc2</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">  ...</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">  |-incN</span><br><span class="hljs-meta prompt_">#</span><span class="language-bash"><span class="hljs-built_in">where</span> N=days configured. Set days=6 <span class="hljs-keyword">for</span> weekly cycle.</span><br><br>bp=`date +%F`<br>if [ -d &quot;$bd/$bp&quot; ]; then<br>  if [ -d &quot;$bd/$bp/full&quot; ]; then<br>    echo &quot;[`date -Iseconds`]&quot; Full backup for today $bp already exist. Exiting. &gt;&gt;$ld/ST_percona_backup.log<br>    echo &quot;[`date -Iseconds`]&quot; Backup done. &gt;&gt;$ld/ST_percona_backup.log<br>    rm $ld/e_backup_percona 2&gt;/dev/null<br>    exit 0<br>  else<br>    echo &quot;[`date -Iseconds`]&quot; Full backup for today do not exist. Removing $&#123;bp&#125;. &gt;&gt;$ld/ST_percona_backup.log<br>    rm -r -f &quot;$bd/$bp&quot;<br>    bp=&quot;&quot;<br>  fi<br>else<br>  bp=&quot;&quot;<br>fi<br><br>for i in `seq 1 $days`; do<br>  bp1=`date -d &quot;-$i day&quot; +%F`<br>  if [ -d &quot;$bd/$bp1&quot; ]; then<br>    bp=$bp1<br>    bi=$i<br>    break<br>  fi<br>done<br>if [ -z &quot;$bp&quot; ]; then<br><span class="hljs-meta prompt_">  #</span><span class="language-bash">Perform Full backup</span><br>  bp=`date +%F`<br>  echo &quot;[`date -Iseconds`]&quot; Will create full backup $bd/$bp/full &gt;&gt;$ld/ST_percona_backup.log<br>  mkdir -p $bd/$bp<br>  echo &quot;[`date -Iseconds`]&quot; Start full backup $bd/$bp/full &gt;&gt;$ld/ST_percona_xtrabackup.log<br><span class="hljs-meta prompt_">  $</span><span class="language-bash">&#123;hd&#125;xtrabackup --defaults-file=<span class="hljs-variable">$FDH</span> --backup --user=<span class="hljs-variable">$dbuser</span> --password=<span class="hljs-variable">$dbpass</span> --parallel=<span class="hljs-variable">$pp</span> --target-dir=<span class="hljs-variable">$bd</span>/<span class="hljs-variable">$bp</span>/full &gt;&gt;<span class="hljs-variable">$ld</span>/ST_percona_xtrabackup.<span class="hljs-built_in">log</span> 2&gt;&amp;1</span><br>  pxe=$?<br>  if [ $pxe -eq 0 ]; then<br>    echo &quot;[`date -Iseconds`]&quot; Backup created sucessfully. Hostname: $hn &gt;&gt;$ld/ST_percona_backup.log<br>	echo $hn &gt;$bd/$bp/full/backup_hostname<br>  else<br>    rm -r -f &quot;$bd/$bp/full&quot;<br>    echo &quot;[`date -Iseconds`]&quot; Error creating backup. xtrabackup exit code: $pxe &gt;&gt;$ld/ST_percona_backup.log<br>  fi<br>else<br><span class="hljs-meta prompt_">  #</span><span class="language-bash">Perform Incremental backup</span><br>  if [ -d &quot;$bd/$bp/full&quot; ]; then<br>    if [ -d &quot;$bd/$bp/inc$bi&quot; ]; then<br>      echo &quot;[`date -Iseconds`]&quot; Incremental backup for today already exist. Exiting. &gt;&gt;$ld/ST_percona_backup.log<br>      echo &quot;[`date -Iseconds`]&quot; Backup done. &gt;&gt;$ld/ST_percona_backup.log<br>      rm $ld/e_backup_percona 2&gt;/dev/null<br>      exit 0<br>    else<br>      if [ &quot;$bi&quot; -eq &quot;1&quot; ]; then<br>        #Perform first incremental from full backup<br>        echo &quot;[`date -Iseconds`]&quot; Will create incremental backup $bd/$bp/inc$bi from $bd/$bp/full &gt;&gt;$ld/ST_percona_backup.log<br>        mkdir -p $bd/$bp/inc$bi<br>        echo &quot;[`date -Iseconds`]&quot; Start incremental backup $bd/$bp/inc$bi from $bd/$bp/full &gt;&gt;$ld/ST_percona_xtrabackup.log<br>        $&#123;hd&#125;xtrabackup --defaults-file=$FDH --backup --user=$dbuser --password=$dbpass --parallel=$pp --target-dir=$bd/$bp/inc$bi --incremental-basedir=$bd/$bp/full &gt;&gt;$ld/ST_percona_xtrabackup.log 2&gt;&amp;1<br>        pxe=$?<br>        if [ $pxe -eq 0 ]; then<br>          echo &quot;[`date -Iseconds`]&quot; Backup created sucessfully. Hostname: $hn &gt;&gt;$ld/ST_percona_backup.log<br>		  echo $bd/$bp/inc$bi/backup_hostname<br>        else<br>          rm -r -f &quot;$bd/$bp/inc$bi&quot;<br>          echo &quot;[`date -Iseconds`]&quot; Error creating backup. xtrabackup exit code: $pxe &gt;&gt;$ld/ST_percona_backup.log<br>        fi<br>      else<br>        bi1=$((bi -1))<br>        if [ -d &quot;$bd/$bp/inc$bi1&quot; ]; then<br>          #Perform N -th incremental from N-1 -th backup<br>          echo &quot;[`date -Iseconds`]&quot; Will create incremental backup $bd/$bp/inc$bi from $bd/$bp/inc$bi1 &gt;&gt;$ld/ST_percona_backup.log<br>          mkdir -p $bd/$bp/inc$bi<br>          echo &quot;[`date -Iseconds`]&quot; Start incremental backup $bd/$bp/inc$bi from $bd/$bp/inc$bi1 &gt;&gt;$ld/ST_percona_xtrabackup.log<br>          $&#123;hd&#125;xtrabackup --defaults-file=$FDH --backup --user=$dbuser --password=$dbpass --parallel=$pp --target-dir=$bd/$bp/inc$bi --incremental-basedir=$bd/$bp/inc$bi1 &gt;&gt;$ld/ST_percona_xtrabackup.log 2&gt;&amp;1<br>          pxe=$?<br>          if [ $pxe -eq 0 ]; then<br>            echo &quot;[`date -Iseconds`]&quot; Backup created sucessfully. Hostname: $hn &gt;&gt;$ld/ST_percona_backup.log<br>			echo $bd/$bp/inc$bi/backup_hostname<br>          else<br>            rm -r -f &quot;$bd/$bp/inc$bi&quot;<br>            echo &quot;[`date -Iseconds`]&quot; Error creating backup. xtrabackup exit code: $pxe &gt;&gt;$ld/ST_percona_backup.log<br>          fi<br>        else<br>          #Searching for previous backup.<br>          echo &quot;[`date -Iseconds`]&quot; Incremental backup &quot;$bd/$bp/inc$bi1&quot; do not exist. Searching for previous backup. &gt;&gt;$ld/ST_percona_backup.log<br>          bd1=`ls -1trd $bd/$bp/inc* 2&gt;/dev/null | tail -1`<br>          if [ -z &quot;$bd1&quot; ]; then<br>            #Perform first incremental from full backup<br>            echo &quot;[`date -Iseconds`]&quot; Will create incremental backup $bd/$bp/inc$bi from $bd/$bp/full &gt;&gt;$ld/ST_percona_backup.log<br>            mkdir -p $bd/$bp/inc$bi<br>            echo &quot;[`date -Iseconds`]&quot; Start incremental backup $bd/$bp/inc$bi from $bd/$bp/full &gt;&gt;$ld/ST_percona_xtrabackup.log<br>            $&#123;hd&#125;xtrabackup --defaults-file=$FDH --backup --user=$dbuser --password=$dbpass --parallel=$pp --target-dir=$bd/$bp/inc$bi --incremental-basedir=$bd/$bp/full &gt;&gt;$ld/ST_percona_xtrabackup.log 2&gt;&amp;1<br>            pxe=$?<br>            if [ $pxe -eq 0 ]; then<br>              echo &quot;[`date -Iseconds`]&quot; Backup created sucessfully. Hostname: $hn &gt;&gt;$ld/ST_percona_backup.log<br>			  echo $bd/$bp/inc$bi/backup_hostname<br>            else<br>              rm -r -f &quot;$bd/$bp/inc$bi&quot;<br>              echo &quot;[`date -Iseconds`]&quot; Error creating backup. xtrabackup exit code: $pxe &gt;&gt;$ld/ST_percona_backup.log<br>            fi<br>          else<br>            #Perform N -th incremental from N-1 -th backup<br>            echo &quot;[`date -Iseconds`]&quot; Will create incremental backup $bd/$bp/inc$bi from $bd1 &gt;&gt;$ld/ST_percona_backup.log<br>            mkdir -p $bd/$bp/inc$bi<br>            echo &quot;[`date -Iseconds`]&quot; Start incremental backup $bd/$bp/inc$bi from $bd1 &gt;&gt;$ld/ST_percona_xtrabackup.log<br>            $&#123;hd&#125;xtrabackup --defaults-file=$FDH --backup --user=$dbuser --password=$dbpass --parallel=$pp --target-dir=$bd/$bp/inc$bi --incremental-basedir=$bd1 &gt;&gt;$ld/ST_percona_xtrabackup.log 2&gt;&amp;1<br>            pxe=$?<br>            if [ $pxe -eq 0 ]; then<br>              echo &quot;[`date -Iseconds`]&quot; Backup created sucessfully. Hostname: $hn &gt;&gt;$ld/ST_percona_backup.log<br>			  echo $bd/$bp/inc$bi/backup_hostname<br>            else<br>              rm -r -f &quot;$bd/$bp/inc$bi&quot;<br>              echo &quot;[`date -Iseconds`]&quot; Error creating backup. xtrabackup exit code: $pxe &gt;&gt;$ld/ST_percona_backup.log<br>            fi<br>          fi<br>        fi<br>      fi<br>    fi<br>  else<br>    echo &quot;[`date -Iseconds`]&quot; Full backup for $bp do not exist. Removing $&#123;bp&#125;. Please run this script again. Exiting. &gt;&gt;$ld/ST_percona_backup.log<br>    rm -r -f &quot;$bd/$bp&quot;<br>    echo &quot;[`date -Iseconds`]&quot; Backup done. &gt;&gt;$ld/_ST_percona_backup.log<br>    rm $ld/e_backup_percona 2&gt;/dev/null<br>    exit 2<br>  fi<br>fi<br>echo &quot;[`date -Iseconds`]&quot; Backup done. &gt;&gt;$ld/ST_percona_backup.log<br>rm $ld/e_backup_percona 2&gt;/dev/null<br><br>exit $pxe<br></code></pre>
+
+<h3 id="ST-percona-prepare-sh"><a href="#ST-percona-prepare-sh" class="headerlink" title="ST_percona_prepare.sh"></a>ST_percona_prepare.sh</h3><p>此脚本是针对上面的备份文件做预处理的。此脚本包含一个日期参数用来指定恢复哪一天的备份数据。它会根据指定的日期自动的合并全量备份和增量备份，预处理后的文件默认存放在 <code>$bd/prep</code> 文件夹中。 此脚本比较耗时，可以每天定时执行，也可以在需要恢复数据前再手动执行。</p>
+<p>执行示例: <code>sh /percona/ST_percona_prepare.sh 2022-10-24</code></p>
+<pre class="highlight"><code class="hljs shell"><span class="hljs-meta prompt_">#</span><span class="language-bash">!/bin/bash</span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">Script <span class="hljs-keyword">for</span> SecureTransport - Prepare online MySQL backup <span class="hljs-keyword">for</span> restore with Parcona XtraBackup</span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">Created by Genata 2019</span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">Prepare can be <span class="hljs-keyword">done</span> on another machine as long as script has full access to backups.</span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">Note that prepare always use a copy of original directories. Make sure to have enough free space <span class="hljs-keyword">for</span> prepare.</span> <br><br>if [ -z &quot;$1&quot; ]; then<br>  echo &quot;Usage: $(basename $0) &lt;Restore date&gt;&quot;<br>  exit 1<br>fi<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">xtrabackup 文件目录</span><br>hd=/usr/bin/<br><span class="hljs-meta prompt_"># </span><span class="language-bash">日志目录</span><br>ld=/percona/logs<br><span class="hljs-meta prompt_"># </span><span class="language-bash">备份的文件夹目录</span><br>bd=/percona/backup<br><span class="hljs-meta prompt_"># </span><span class="language-bash">增量备份的天数</span><br>days=6<br><span class="hljs-meta prompt_"># </span><span class="language-bash">多线程数量</span><br>pp=4<br><span class="hljs-meta prompt_">#</span><span class="language-bash">The next value is used instead of buffer_pool_size. Recomended to use 1G or 2G or 4G based on the available memory.</span> <br>um=1G<br><br>rd=`date -d &quot;$1&quot; +%F 2&gt;/dev/null`<br>cr=$?<br>if [ &quot;$cr&quot; -gt 0 ]; then<br>  echo Invalid restore date<br>  exit $cr<br>fi<br><br>bp=$rd<br>if [ -d &quot;$bd/$bp&quot; ]; then<br>  echo Prepare full backup from $bp<br>  echo &quot;[`date -Iseconds`]&quot; Prepare full backup start... &gt;&gt;$ld/ST_percona_prepare.log<br>  rm -r -f &quot;$bd/prep&quot;<br>  rm &quot;$bd/prep_date&quot; 2&gt;/dev/null<br>  cp -r &quot;$bd/$bp/full&quot; &quot;$bd/prep&quot;<br>  echo $&#123;hd&#125;xtrabackup --prepare --use-memory=$um --target-dir=&quot;$bd/prep&quot; &gt;&gt;$ld/ST_percona_prepare.log<br><span class="hljs-meta prompt_">  $</span><span class="language-bash">&#123;hd&#125;xtrabackup --prepare --use-memory=<span class="hljs-variable">$um</span> --target-dir=<span class="hljs-string">&quot;<span class="hljs-variable">$bd</span>/prep&quot;</span> &gt;&gt;<span class="hljs-variable">$ld</span>/ST_percona_prep_xtrabackup.<span class="hljs-built_in">log</span> 2&gt;&amp;1</span><br>  pxe=$?<br>  if [ $pxe -eq 0 ]; then<br>    echo $&#123;hd&#125;xtrabackup --prepare --use-memory=$um --target-dir=&quot;$bd/prep&quot; &gt;&gt;$ld/ST_percona_prepare.log<br>    $&#123;hd&#125;xtrabackup --prepare --use-memory=$um --target-dir=&quot;$bd/prep&quot; &gt;&gt;$ld/ST_percona_prep_xtrabackup.log 2&gt;&amp;1<br>    pxe=$?<br>    if [ $pxe -eq 0 ]; then<br>      echo Full backup $rd prepared sucessfully.<br>      echo &quot;[`date -Iseconds`]&quot; Full backup $rd prepared sucessfully. &gt;&gt;$ld/ST_percona_prepare.log<br>      echo $rd &gt; &quot;$bd/prep_date&quot;<br>    else<br>      rm -r -f &quot;$bd/prep&quot;<br>      rm &quot;$bd/prep_date&quot; 2&gt;/dev/null<br>      echo Error preparing full backup. xtrabackup exit code: $pxe<br>      echo &quot;[`date -Iseconds`]&quot; Error preparing full backup. xtrabackup exit code: $pxe &gt;&gt;$ld/ST_percona_prepare.log<br>    fi<br>  else<br>    rm -r -f &quot;$bd/prep&quot;<br>    rm &quot;$bd/prep_date&quot; 2&gt;/dev/null<br>    echo Error preparing full backup. xtrabackup exit code: $pxe<br>    echo &quot;[`date -Iseconds`]&quot; Error preparing full backup. xtrabackup exit code: $pxe &gt;&gt;$ld/ST_percona_prepare.log<br>  fi<br>  echo &quot;[`date -Iseconds`]&quot; Prepare full backup done. &gt;&gt;$ld/ST_percona_prepare.log<br>  exit $pxe<br>else<br>  bp=&quot;&quot;<br>fi<br><br>for i in `seq 1 $days`; do<br>  bp1=`date -d &quot;$rd -$i day&quot; +%F`<br>  if [ -d &quot;$bd/$bp1&quot; ]; then<br>    bp=$bp1<br>    bi=$i<br>    break<br>  fi<br>done<br><br>if [ -z &quot;$bp&quot; ]; then<br>  echo Could not find backup from $rd<br>  echo &quot;[`date -Iseconds`]&quot; Could not find backup from $rd &gt;&gt;$ld/ST_percona_prepare.log<br>  exit 2<br>else<br>  if [ -d &quot;$bd/$bp/inc$bi&quot; ]; then<br>    if [ -d &quot;$bd/$bp/full&quot; ]; then<br>      echo Prepare full backup from $bp and inc $bi<br>      echo &quot;[`date -Iseconds`]&quot; Prepare incremental backup start... &gt;&gt;$ld/ST_percona_prepare.log<br>      rm -r -f &quot;$bd/prep&quot;<br>      rm &quot;$bd/prep_date&quot; 2&gt;/dev/null<br>      cp -r &quot;$bd/$bp/full&quot; &quot;$bd/prep&quot;<br>      echo $&#123;hd&#125;xtrabackup --prepare --apply-log-only --use-memory=$um --target-dir=&quot;$bd/prep&quot; &gt;&gt;$ld/ST_percona_prepare.log<br>      $&#123;hd&#125;xtrabackup --prepare --apply-log-only --use-memory=$um --target-dir=&quot;$bd/prep&quot; &gt;&gt;$ld/ST_percona_prep_xtrabackup.log 2&gt;&amp;1<br>      pxe=$?<br>      if [ $pxe -eq 0 ]; then<br>        echo &quot;[`date -Iseconds`]&quot; Incremental backup step full prepared sucessfully. &gt;&gt;$ld/ST_percona_prepare.log<br>      else<br>        rm -r -f &quot;$bd/prep&quot;<br>        rm &quot;$bd/prep_date&quot; 2&gt;/dev/null<br>        echo Error preparing incremental backup step full. xtrabackup exit code: $pxe<br>        echo &quot;[`date -Iseconds`]&quot; Error preparing incremental backup step full. xtrabackup exit code: $pxe &gt;&gt;$ld/ST_percona_prepare.log<br>        echo &quot;[`date -Iseconds`]&quot; Prepare incremental backup done. &gt;&gt;$ld/ST_percona_prepare.log<br>        exit $pxe<br>      fi<br>      if [ &quot;$bi&quot; -gt &quot;1&quot; ]; then<br>        for i in `seq 1 $((bi-1))`; do<br>          if [ -d &quot;$bd/$bp/inc$i&quot; ]; then<br>            rm -r -f &quot;$bd/inc&quot; 2&gt;/dev/null<br>            cp -r &quot;$bd/$bp/inc$i&quot; &quot;$bd/inc&quot;<br>            echo $&#123;hd&#125;xtrabackup --prepare --apply-log-only --use-memory=$um --target-dir=&quot;$bd/prep&quot; --incremental-dir=$bd/inc \#$bp/inc$i &gt;&gt;$ld/ST_percona_prepare.log<br>            $&#123;hd&#125;xtrabackup --prepare --apply-log-only --use-memory=$um --target-dir=&quot;$bd/prep&quot; --incremental-dir=$bd/inc &gt;&gt;$ld/ST_percona_prep_xtrabackup.log 2&gt;&amp;1<br>            pxe=$?<br>            if [ $pxe -eq 0 ]; then<br>              echo Incremental backup step inc$i prepared sucessfully.<br>              echo &quot;[`date -Iseconds`]&quot; Incremental backup step inc$i prepared sucessfully. &gt;&gt;$ld/ST_percona_prepare.log<br>            else<br>              rm -r -f &quot;$bd/prep&quot;<br>              rm &quot;$bd/prep_date&quot; 2&gt;/dev/null<br>              rm -r -f &quot;$bd/inc&quot;<br>              echo Error preparing incremental backup step inc$i. xtrabackup exit code: $pxe<br>              echo &quot;[`date -Iseconds`]&quot; Error preparing incremental backup step inc$i. xtrabackup exit code: $pxe &gt;&gt;$ld/ST_percona_prepare.log<br>              echo &quot;[`date -Iseconds`]&quot; Prepare incremental backup done. &gt;&gt;$ld/ST_percona_prepare.log<br>              exit $pxe<br>            fi<br>          fi<br>        done<br>      fi<br>      rm -r -f &quot;$bd/inc&quot; 2&gt;/dev/null<br>      cp -r &quot;$bd/$bp/inc$bi&quot; &quot;$bd/inc&quot;<br>      echo $&#123;hd&#125;xtrabackup --prepare --use-memory=$um --target-dir=&quot;$bd/prep&quot; --incremental-dir=$bd/inc \#$bp/inc$bi &gt;&gt;$ld/ST_percona_prepare.log<br>      $&#123;hd&#125;xtrabackup --prepare --use-memory=$um --target-dir=&quot;$bd/prep&quot; --incremental-dir=$bd/inc &gt;&gt;$ld/ST_percona_prep_xtrabackup.log 2&gt;&amp;1<br>      pxe=$?<br>      if [ $pxe -eq 0 ]; then<br>        echo Incremental backup step inc$bi prepared sucessfully.<br>        echo &quot;[`date -Iseconds`]&quot; Incremental backup step inc$bi prepared sucessfully. &gt;&gt;$ld/ST_percona_prepare.log<br>        rm -r -f &quot;$bd/inc&quot;<br>      else<br>        rm -r -f &quot;$bd/prep&quot;<br>        rm &quot;$bd/prep_date&quot; 2&gt;/dev/null<br>        rm -r -f &quot;$bd/inc&quot;<br>        echo Error preparing incremental backup step inc$bi. xtrabackup exit code: $pxe<br>        echo &quot;[`date -Iseconds`]&quot; Error preparing incremental backup step inc$bi. xtrabackup exit code: $pxe &gt;&gt;$ld/ST_percona_prepare.log<br>        echo &quot;[`date -Iseconds`]&quot; Prepare incremental backup done. &gt;&gt;$ld/ST_percona_prepare.log<br>        exit $pxe<br>      fi<br>      echo All increments were merged sucessfully.<br>      echo &quot;[`date -Iseconds`]&quot; All increments were merged sucessfully. &gt;&gt;$ld/ST_percona_prepare.log<br>      echo $&#123;hd&#125;xtrabackup --prepare --use-memory=$um --target-dir=&quot;$bd/prep&quot; &gt;&gt;$ld/ST_percona_prepare.log<br>      $&#123;hd&#125;xtrabackup --prepare --use-memory=$um --target-dir=&quot;$bd/prep&quot; &gt;&gt;$ld/ST_percona_prep_xtrabackup.log 2&gt;&amp;1<br>      pxe=$?<br>      if [ $pxe -eq 0 ]; then<br>        echo Incremental backup $rd prepared sucessfully.<br>        echo &quot;[`date -Iseconds`]&quot; Incremental backup $rd prepared sucessfully. &gt;&gt;$ld/ST_percona_prepare.log<br>        echo $rd &gt; &quot;$bd/prep_date&quot;<br>      else<br>        rm -r -f &quot;$bd/prep&quot;<br>        rm &quot;$bd/prep_date&quot; 2&gt;/dev/null<br>        echo Error preparing incremental backup. xtrabackup exit code: $pxe<br>        echo &quot;[`date -Iseconds`]&quot; Error preparing incremental backup. xtrabackup exit code: $pxe &gt;&gt;$ld/ST_percona_prepare.log<br>      fi<br>      echo &quot;[`date -Iseconds`]&quot; Prepare incremental backup done. &gt;&gt;$ld/ST_percona_prepare.log<br>      exit $pxe<br>    else<br>      echo Could not find full backup in $bp<br>      echo &quot;[`date -Iseconds`]&quot; Could not find full backup in $bp &gt;&gt;$ld/ST_percona_prepare.log<br>      exit 2<br>    fi<br>  else<br>    echo Could not find backup from $rd<br>    echo &quot;[`date -Iseconds`]&quot; Could not find backup from $rd &gt;&gt;$ld/ST_percona_prepare.log<br>    exit 2<br>  fi<br>fi<br><br>exit 0<br></code></pre>
+
+<h3 id="ST-percona-restore-sh"><a href="#ST-percona-restore-sh" class="headerlink" title="ST_percona_restore.sh"></a>ST_percona_restore.sh</h3><p>恢复脚本，此脚本的功能是删除mysql的datadir目录，并将上一步预处理后的文件(<code>$bd/prep</code>目录)复制到mysql的datadir目录，如果恢复失败，则会使用之前创建的备份恢复原数据库。此脚本不会在恢复数据完成后重新启动mysql服务，需要手动启动。mysql的datadir目录的文件夹权限可能也需要重新配置。</p>
+<pre class="highlight"><code class="hljs shell"><span class="hljs-meta prompt_">#</span><span class="language-bash">!/bin/bash</span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">Script <span class="hljs-keyword">for</span> SecureTransport - Restore online MySQL backup with Parcona XtraBackup</span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">Created by Genata 2019</span><br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">my.cnf 配置文件</span><br>FDH=/etc/my.cnf<br><span class="hljs-meta prompt_"># </span><span class="language-bash">xtrabackup 执行文件目录</span><br>hd=/usr/bin/<br><span class="hljs-meta prompt_"># </span><span class="language-bash">日志文件地址</span><br>ld=/percona/logs<br><span class="hljs-meta prompt_"># </span><span class="language-bash">备份文件目录</span><br>bd=/percona/backup<br><br>mdd=`cat &quot;$FDH&quot; |grep datadir | cut -d &quot;=&quot; -f2`<br>bmd=mysql_`date +%F`<br><br>if [ ! -d &quot;$bd/prep&quot; ]; then<br>  echo Backup ready for restore does not exist. Please use percona_prepare.sh first.<br>  exit 1<br>fi<br><br>pb=`cat $bd/prep_date 2&gt;/dev/null`<br>if [ -z &quot;$pb&quot; ]; then<br>  echo Prepared backup could not be determined. Please use percona_prepare.sh first.<br>  exit 2<br>fi<br><br>if [ -d &quot;$bd/$bmd&quot; ]; then<br>  while true; do<br>    read -p &quot;Backup directory $bd/$bmd exist and will be overwritten. <br>Do you want to continue? [y/N]&quot; yn<br>    case $yn in<br>      [Yy]* ) rm -r -f $bd/$bmd 2&gt;/dev/null; break;;<br>      [Nn]* ) exit;;<br>      * ) exit;;<br>    esac<br>  done<br>fi<br><br>hn=`uname -n`<br>bhn=`cat $bd/prep/backup_hostname 2&gt;/dev/null`<br>if [ &quot;$hn&quot; != &quot;$bhn&quot; ]; then<br>  while true; do<br>    read -p &quot;Hostname of the current machine \&quot;$hn\&quot; differ from the hostname of the machine where backup was created \&quot;$bhn\&quot;. <br>In a Cluster environment create a backup for each node separately and upon restore make sure you are restoring it on the same server. <br>Some configuration options are node specific and database contains node ID in a table ConfigurationOption. <br>If you restore database on a wrong node ST will start but will not find specific options for current node and will not work properly.<br>Do you want to continue? [y/N]&quot; yn<br>    case $yn in<br>      [Yy]* ) break;;<br>      [Nn]* ) exit;;<br>      * ) exit;;<br>    esac<br>  done<br>fi<br><br>echo Restore start... <br>echo &quot;[`date -Iseconds`]&quot; Restore start... &gt;&gt;$ld/ST_percona_restore.log<br><br>mpid=`ps -ef | grep mysql | grep -v grep | awk &#x27;&#123;print $2&#125;&#x27; | tr &quot;\n&quot; &quot; &quot;`<br>if [ ! -z &quot;$mpid&quot; ]; then<br><span class="hljs-meta prompt_">  $</span><span class="language-bash">FDH/bin/stop_all</span><br>fi<br>mpid=`ps -ef | grep mysql | grep -v grep | awk &#x27;&#123;print $2&#125;&#x27; | tr &quot;\n&quot; &quot; &quot;`<br>if [ ! -z &quot;$mpid&quot; ]; then<br>  echo kill -9 $mpid<br>fi<br><br>cp -r $mdd $bd/$bmd<br>echo Backup of $mdd to $bd/$bmd finished.<br>echo &quot;[`date -Iseconds`]&quot; Backup of $mdd to $bd/$bmd finished. &gt;&gt;$ld/ST_percona_restore.log<br><br>rm -r -f $mdd<br>mkdir -p $mdd<br><span class="hljs-meta prompt_">$</span><span class="language-bash">&#123;hd&#125;xtrabackup --defaults-file=<span class="hljs-variable">$FDH</span> --copy-back --target-dir=<span class="hljs-string">&quot;<span class="hljs-variable">$bd</span>/prep&quot;</span> &gt;&gt;<span class="hljs-variable">$ld</span>/ST_percona_restore_xtrabackup.<span class="hljs-built_in">log</span> 2&gt;&amp;1</span><br>pxe=$?<br>if [ $pxe -eq 0 ]; then<br>  echo Restore of backup from $pb finished successfully.<br>  echo &quot;[`date -Iseconds`]&quot; Restore of backup from $pb finished successfully. &gt;&gt;$ld/ST_percona_restore.log<br>else<br>  echo Error restoring backup from $pb. xtrabackup exit code: $pxe. Rollback to previous version of database from $bd/$bmd ...<br>  echo &quot;[`date -Iseconds`]&quot; Error restoring backup from $pb. xtrabackup exit code: $pxe. Rollback to previous version of database from $bd/$bmd ... &gt;&gt;$ld/ST_percona_restore.log<br>  rm -r -f $mdd<br>  mkdir -p $mdd<br>  cp -r $bd/$bmd/* $mdd<br>fi<br><br>echo Restore done.<br>echo &quot;[`date -Iseconds`]&quot; Restore done. &gt;&gt;$ld/ST_percona_restore.log<br><br>exit 0<br></code></pre>
+
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p>官方文档(支持mysql5.7及以下): <a target="_blank" rel="noopener" href="https://docs.percona.com/percona-xtrabackup/2.4/index.html">https://docs.percona.com/percona-xtrabackup/2.4/index.html</a></p>
+<p>备份脚本参考: <a target="_blank" rel="noopener" href="https://support.axway.com/kb/180269/language/en">https://support.axway.com/kb/180269/language/en</a></p>
+
+  </div>
+  <div>
+    
+      <div 
+        class="post-note note-warning copyright" 
+        style="margin-top: 42px">
+        <p>
+          <span style="font-weight: bold;">作者：</span><a 
+            target="_blank" 
+            rel="nofollow noopener noreferrer" 
+            href="/about">
+            Chun
+          </a>
+        </p>
+        <p>
+          <span style="font-weight: bold;">文章链接：</span><a 
+            target="_blank" 
+            rel="nofollow noopener noreferrer" 
+            href="http://blog.chunge666.top/xtrabackup%E5%A4%87%E4%BB%BD.html">
+            http://blog.chunge666.top/xtrabackup%E5%A4%87%E4%BB%BD.html
+          </a>
+        </p>
+        <p><span style="font-weight: bold;">版权声明：</span>本博客所有文章除特别声明外，均采用<a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="external nofollow">CC BY-NC-SA 4.0 协议</a>。转载请注明出处！</p>
+      </div>
+    
+  </div>
+</article>
+<div class="nav">
+  
+  
+    <div class="nav-item-next">
+      <a 
+        href="/springboot%E5%9B%BD%E9%99%85%E5%8C%96.html" 
+        class="nav-link">
+        <div>
+          <div class="nav-label">下一篇</div>
+          
+            <div class="nav-title">springboot国际化 </div>
+          
+        </div>
+        <i class="iconfont icon-right nav-next-icon"></i>
+      </a>
+    </div>
+  
+</div>
+
+  <div 
+    class="card card-content comment-card" 
+    style="margin-top: 16px;">
+    <div class="comment-card-title">评论</div>
+    
+  <div id="vcomments"></div>
+  
+  <script>
+    loadScript("//unpkg.com/valine/dist/Valine.min.js");
+    var oldLoadVa = window.onload;
+    window.onload = function () {
+      oldLoadVa && oldLoadVa();
+      new Valine({
+        el: '#vcomments',
+        appId: 'Fb12FgxcTGFydqPfZAOKsZkb-gzGzoHsz',
+        appKey: 'OIQyDCrjzjWbBV6vCqiXKAUJ',
+        placeholder: 'Just go go',
+        path: window.location.pathname,
+        avatar: 'mp',
+        meta: ["nick","mail","link"],
+        pageSize: '10',
+        lang: '',
+        visitor: 'false',
+        highlight: true,
+        recordIP: false,
+        
+        
+        
+        enableQQ: 'false',
+        requiredFields: [],
+      });
+    };
+  </script>
+
+  </div>
+
+<div 
+  class="card card-content toc-card" 
+  id="mobiletoc">
+  <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>目录
+</div>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E7%BD%AE%E5%87%86%E5%A4%87"><span class="toc-number">2.</span> <span class="toc-text">前置准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-number">3.</span> <span class="toc-text">安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9D%83%E9%99%90%E8%A6%81%E6%B1%82"><span class="toc-number">4.</span> <span class="toc-text">权限要求</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%87%E4%BB%BD"><span class="toc-number">5.</span> <span class="toc-text">备份</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%A8%E9%87%8F%E5%A4%87%E4%BB%BD"><span class="toc-number">5.1.</span> <span class="toc-text">全量备份</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BC%80%E5%A7%8B%E5%A4%87%E4%BB%BD"><span class="toc-number">5.1.1.</span> <span class="toc-text">开始备份</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%A8%E9%87%8F%E5%A4%87%E4%BB%BD%E9%A2%84%E5%A4%84%E7%90%86"><span class="toc-number">5.1.2.</span> <span class="toc-text">全量备份预处理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%81%A2%E5%A4%8D%E5%A4%87%E4%BB%BD"><span class="toc-number">5.1.3.</span> <span class="toc-text">恢复备份</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A2%9E%E9%87%8F%E5%A4%87%E4%BB%BD"><span class="toc-number">5.2.</span> <span class="toc-text">增量备份</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%A2%9E%E9%87%8F%E5%A4%87%E4%BB%BD"><span class="toc-number">5.2.1.</span> <span class="toc-text">创建增量备份</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A2%9E%E9%87%8F%E5%A4%87%E4%BB%BD%E9%A2%84%E5%A4%84%E7%90%86"><span class="toc-number">5.2.2.</span> <span class="toc-text">增量备份预处理</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%8B%E7%BC%A9"><span class="toc-number">5.3.</span> <span class="toc-text">压缩</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%89%8D%E7%BD%AE%E5%87%86%E5%A4%87-1"><span class="toc-number">5.3.1.</span> <span class="toc-text">前置准备</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8E%8B%E7%BC%A9%E5%A4%87%E4%BB%BD"><span class="toc-number">5.3.2.</span> <span class="toc-text">压缩备份</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A7%A3%E5%8E%8B%E7%BC%A9"><span class="toc-number">5.3.3.</span> <span class="toc-text">解压缩</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A0%E5%AF%86"><span class="toc-number">5.4.</span> <span class="toc-text">加密</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%87%E4%BB%BD%E8%84%9A%E6%9C%AC"><span class="toc-number">6.</span> <span class="toc-text">备份脚本</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ST-percona-backup-sh"><span class="toc-number">6.1.</span> <span class="toc-text">ST_percona_backup.sh</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ST-percona-prepare-sh"><span class="toc-number">6.2.</span> <span class="toc-text">ST_percona_prepare.sh</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ST-percona-restore-sh"><span class="toc-number">6.3.</span> <span class="toc-text">ST_percona_restore.sh</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-number">7.</span> <span class="toc-text">参考链接</span></a></li></ol>
+</div>
+            </main>
+            <aside class="right-column">
+              <div class="sticky-widescreen">
+  
+  
+    <article class="card card-content toc-card">
+      <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>目录
+</div>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E7%BD%AE%E5%87%86%E5%A4%87"><span class="toc-number">2.</span> <span class="toc-text">前置准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-number">3.</span> <span class="toc-text">安装</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9D%83%E9%99%90%E8%A6%81%E6%B1%82"><span class="toc-number">4.</span> <span class="toc-text">权限要求</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%87%E4%BB%BD"><span class="toc-number">5.</span> <span class="toc-text">备份</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%A8%E9%87%8F%E5%A4%87%E4%BB%BD"><span class="toc-number">5.1.</span> <span class="toc-text">全量备份</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%BC%80%E5%A7%8B%E5%A4%87%E4%BB%BD"><span class="toc-number">5.1.1.</span> <span class="toc-text">开始备份</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%A8%E9%87%8F%E5%A4%87%E4%BB%BD%E9%A2%84%E5%A4%84%E7%90%86"><span class="toc-number">5.1.2.</span> <span class="toc-text">全量备份预处理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%81%A2%E5%A4%8D%E5%A4%87%E4%BB%BD"><span class="toc-number">5.1.3.</span> <span class="toc-text">恢复备份</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A2%9E%E9%87%8F%E5%A4%87%E4%BB%BD"><span class="toc-number">5.2.</span> <span class="toc-text">增量备份</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%A2%9E%E9%87%8F%E5%A4%87%E4%BB%BD"><span class="toc-number">5.2.1.</span> <span class="toc-text">创建增量备份</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A2%9E%E9%87%8F%E5%A4%87%E4%BB%BD%E9%A2%84%E5%A4%84%E7%90%86"><span class="toc-number">5.2.2.</span> <span class="toc-text">增量备份预处理</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8E%8B%E7%BC%A9"><span class="toc-number">5.3.</span> <span class="toc-text">压缩</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%89%8D%E7%BD%AE%E5%87%86%E5%A4%87-1"><span class="toc-number">5.3.1.</span> <span class="toc-text">前置准备</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8E%8B%E7%BC%A9%E5%A4%87%E4%BB%BD"><span class="toc-number">5.3.2.</span> <span class="toc-text">压缩备份</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A7%A3%E5%8E%8B%E7%BC%A9"><span class="toc-number">5.3.3.</span> <span class="toc-text">解压缩</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A0%E5%AF%86"><span class="toc-number">5.4.</span> <span class="toc-text">加密</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%87%E4%BB%BD%E8%84%9A%E6%9C%AC"><span class="toc-number">6.</span> <span class="toc-text">备份脚本</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ST-percona-backup-sh"><span class="toc-number">6.1.</span> <span class="toc-text">ST_percona_backup.sh</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ST-percona-prepare-sh"><span class="toc-number">6.2.</span> <span class="toc-text">ST_percona_prepare.sh</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ST-percona-restore-sh"><span class="toc-number">6.3.</span> <span class="toc-text">ST_percona_restore.sh</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-number">7.</span> <span class="toc-text">参考链接</span></a></li></ol>
+    </article>
+  
+  
+  <article class="card card-content">
+    <div class="recent-posts-card">
+  <div class="recent-posts-header">
+    <i 
+      class="iconfont icon-wenzhang_huaban" 
+      style="padding-right: 2px;">
+    </i>最近文章
+  </div>
+  <div class="recent-posts-list">
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2022-10-21</div>
+        <a href="/xtrabackup%E5%A4%87%E4%BB%BD.html"><div class="recent-posts-item-content">xtrabackup备份</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2022-10-20</div>
+        <a href="/springboot%E5%9B%BD%E9%99%85%E5%8C%96.html"><div class="recent-posts-item-content">springboot国际化</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2022-10-12</div>
+        <a href="/centos%E5%AE%89%E8%A3%85docker.html"><div class="recent-posts-item-content">centos安装docker</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2022-10-10</div>
+        <a href="/nginx%E5%B9%B3%E6%BB%91%E5%8D%87%E7%BA%A7.html"><div class="recent-posts-item-content">nginx平滑升级</div></a>
+      </div>
+    
+  </div>
+</div>
+  </article>
+  
+  
+</div>
+            </aside>
+          </div>
+        </div>
+      </div>
+    </div>
+     
+    <footer class="footer">
+  <div class="footer-container">
+    <div>
+      <div class="footer-dsc">
+        <span>
+          Copyright ©
+          
+            2022
+          
+          
+        </span>
+        &nbsp;
+        <a 
+          href="/" 
+          class="footer-link">
+          Chun's Blog
+        </a>
+      </div>
+    </div>
+
+    
+      <div class="footer-dsc">
+        
+          Powered by
+          <a 
+            href="https://hexo.io/" 
+            class="footer-link" 
+            target="_blank" 
+            rel="nofollow noopener noreferrer">
+            &nbsp;Hexo
+          </a>
+        
+        
+          <span>&nbsp;|&nbsp;</span>
+        
+        
+          Theme -
+          <a 
+            href="https://github.com/theme-kaze" 
+            class="footer-link" 
+            target="_blank"
+            rel="nofollow noopener noreferrer">
+            &nbsp;Kaze
+          </a>
+        
+      </div>
+    
+    
+    
+      <div class="BbeiAn-info">
+        <a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">粤ICP备19001235号 </a>
+      </div>
+      
+    
+    
+</footer>
+ 
+    
+  <a 
+    role="button" 
+    id="scrollbutton" 
+    class="basebutton" 
+    aria-label="回到顶部">
+    <i class="iconfont icon-arrowleft button-icon"></i>
+  </a>
+
+<a 
+  role="button" 
+  id="menubutton"
+  aria-label="menu button"
+  class="basebutton">
+  <i class="iconfont icon-menu button-icon"></i>
+</a>
+<a 
+  role="button" 
+  id="popbutton" 
+  class="basebutton" 
+  aria-label="控制中心">
+  <i class="iconfont icon-expand button-icon"></i>
+</a>
+<a 
+  role="button" 
+  id="darkbutton" 
+  class="basebutton darkwidget" 
+  aria-label="夜色模式">
+  <i class="iconfont icon-weather button-icon"></i>
+</a>
+<a 
+  role="button" 
+  id="searchbutton" 
+  class="basebutton searchwidget" 
+  aria-label="搜索">
+  <i class="iconfont icon-search button-icon"></i>
+</a> 
+     
+     
+     
+      <script>
+  var addImgLayout = function () {
+    var img = document.querySelectorAll('.post-content img')
+    var i
+    for (i = 0; i < img.length; i++) {
+      var wrapper = document.createElement('a')
+      wrapper.setAttribute('href', img[i].getAttribute('data-src'))
+      wrapper.setAttribute('aria-label', 'illustration')
+      wrapper.style.cssText =
+        'width: 100%; display: flex; justify-content: center;'
+      if (img[i].alt) wrapper.dataset.caption = img[i].alt
+      wrapper.dataset.nolink = true
+      img[i].before(wrapper)
+      wrapper.append(img[i])
+      var divWrap = document.createElement('div')
+      divWrap.classList.add('gallery')
+      wrapper.before(divWrap)
+      divWrap.append(wrapper)
+    }
+    baguetteBox.run('.gallery')
+  }
+</script>
+<script>
+  loadScript(
+    "/js/lib/lightbox/baguetteBox.min.js",
+    addImgLayout
+  )
+</script>
+ 
+     
+     
+    <script src="/js/main.js"></script> 
+     
+    
+      <script>
+        var addLazyload = function () {
+          var observer = lozad('.lozad', {
+            load: function (el) {
+              el.srcset = el.getAttribute('data-src')
+            },
+            loaded: function (el) {
+              el.classList.add('loaded')
+            },
+          })
+          observer.observe()
+        }
+      </script>
+      <script>
+        loadScript('/js/lib/lozad.min.js', addLazyload)
+      </script>
+    
+    <script src="//instant.page/5.1.0" type="module"
+      integrity="sha384-by67kQnR+pyfy8yWP4kPO12fHKRLHZPfEsiSXR8u2IKcTdxD805MGUXBzVPnkLHw"></script>
+    
+      <script>
+        var googleAnalytics = function () {
+          window.dataLayer = window.dataLayer || []
+          function gtag() {
+            dataLayer.push(arguments)
+          }
+          gtag('js', new Date())
+          gtag('config', 'G-GZE49Y8JZ5')
+        }
+    </script>
+      <script>
+        loadScript(
+          'https://www.googletagmanager.com/gtag/js?id=' +
+            'G-GZE49Y8JZ5',
+          googleAnalytics
+        )
+      </script>
+    
+    
+      <script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.14.2/dist/algoliasearch.umd.js"></script>
+      <script>
+        setTimeout(() => {localAlgoliasearch(10)}, 0)
+      </script>
+    
+  </body>
+</html>
