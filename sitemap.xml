@@ -2,6 +2,24 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://blog.chunge666.top/maven%E7%89%88%E6%9C%AC%E6%89%B9%E9%87%8F%E6%9B%BF%E6%8D%A2.html</loc>
+    
+    <lastmod>2022-12-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.chunge666.top/mysql-MGR%E6%90%AD%E5%BB%BA.html</loc>
+    
+    <lastmod>2022-11-04</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://blog.chunge666.top/xtrabackup%E5%A4%87%E4%BB%BD.html</loc>
     
     <lastmod>2022-10-24</lastmod>
@@ -14,15 +32,6 @@
     <loc>http://blog.chunge666.top/springboot%E5%9B%BD%E9%99%85%E5%8C%96.html</loc>
     
     <lastmod>2022-10-20</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.chunge666.top/mysql-MGR%E6%90%AD%E5%BB%BA.html</loc>
-    
-    <lastmod>2022-10-14</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -220,7 +229,7 @@
 
   <url>
     <loc>http://blog.chunge666.top/</loc>
-    <lastmod>2022-10-25</lastmod>
+    <lastmod>2022-12-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -228,98 +237,105 @@
   
   <url>
     <loc>http://blog.chunge666.top/tags/mysql/</loc>
-    <lastmod>2022-10-25</lastmod>
+    <lastmod>2022-12-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://blog.chunge666.top/tags/proxysql/</loc>
-    <lastmod>2022-10-25</lastmod>
+    <lastmod>2022-12-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://blog.chunge666.top/tags/keepalived/</loc>
-    <lastmod>2022-10-25</lastmod>
+    <lastmod>2022-12-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://blog.chunge666.top/tags/centos/</loc>
-    <lastmod>2022-10-25</lastmod>
+    <lastmod>2022-12-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://blog.chunge666.top/tags/docker/</loc>
-    <lastmod>2022-10-25</lastmod>
+    <lastmod>2022-12-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://blog.chunge666.top/tags/yum/</loc>
-    <lastmod>2022-10-25</lastmod>
+    <lastmod>2022-12-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://blog.chunge666.top/tags/idea/</loc>
-    <lastmod>2022-10-25</lastmod>
+    <lastmod>2022-12-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://blog.chunge666.top/tags/jar/</loc>
-    <lastmod>2022-10-25</lastmod>
+    <lastmod>2022-12-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://blog.chunge666.top/tags/jdk/</loc>
-    <lastmod>2022-10-25</lastmod>
+    <lastmod>2022-12-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://blog.chunge666.top/tags/nginx/</loc>
-    <lastmod>2022-10-25</lastmod>
+    <lastmod>2022-12-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://blog.chunge666.top/tags/node/</loc>
-    <lastmod>2022-10-25</lastmod>
+    <lastmod>2022-12-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://blog.chunge666.top/tags/redis/</loc>
-    <lastmod>2022-10-25</lastmod>
+    <lastmod>2022-12-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://blog.chunge666.top/tags/xml/</loc>
-    <lastmod>2022-10-25</lastmod>
+    <lastmod>2022-12-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://blog.chunge666.top/tags/springboot/</loc>
-    <lastmod>2022-10-25</lastmod>
+    <lastmod>2022-12-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.chunge666.top/tags/maven/</loc>
+    <lastmod>2022-12-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
@@ -328,42 +344,42 @@
   
   <url>
     <loc>http://blog.chunge666.top/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
-    <lastmod>2022-10-25</lastmod>
+    <lastmod>2022-12-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://blog.chunge666.top/categories/linux/</loc>
-    <lastmod>2022-10-25</lastmod>
+    <lastmod>2022-12-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://blog.chunge666.top/categories/%E7%BC%96%E8%BE%91%E5%99%A8/</loc>
-    <lastmod>2022-10-25</lastmod>
+    <lastmod>2022-12-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://blog.chunge666.top/categories/java/</loc>
-    <lastmod>2022-10-25</lastmod>
+    <lastmod>2022-12-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://blog.chunge666.top/categories/%E5%89%8D%E7%AB%AF/</loc>
-    <lastmod>2022-10-25</lastmod>
+    <lastmod>2022-12-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://blog.chunge666.top/categories/%E5%85%B6%E4%BB%96/</loc>
-    <lastmod>2022-10-25</lastmod>
+    <lastmod>2022-12-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>

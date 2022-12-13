@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://blog.chunge666.top/maven%E7%89%88%E6%9C%AC%E6%89%B9%E9%87%8F%E6%9B%BF%E6%8D%A2.html</loc>
+    <lastmod>2022-12-13</lastmod>
+  </url>
+  <url>
+    <loc>http://blog.chunge666.top/mysql-MGR%E6%90%AD%E5%BB%BA.html</loc>
+    <lastmod>2022-11-04</lastmod>
+  </url>
+  <url>
     <loc>http://blog.chunge666.top/xtrabackup%E5%A4%87%E4%BB%BD.html</loc>
     <lastmod>2022-10-24</lastmod>
   </url>
   <url>
     <loc>http://blog.chunge666.top/springboot%E5%9B%BD%E9%99%85%E5%8C%96.html</loc>
     <lastmod>2022-10-20</lastmod>
-  </url>
-  <url>
-    <loc>http://blog.chunge666.top/mysql-MGR%E6%90%AD%E5%BB%BA.html</loc>
-    <lastmod>2022-10-14</lastmod>
   </url>
   <url>
     <loc>http://blog.chunge666.top/centos%E5%AE%89%E8%A3%85docker.html</loc>
