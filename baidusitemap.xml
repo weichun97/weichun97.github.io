@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://blog.chunge666.top/springboot%E9%9B%86%E6%88%90cxf.html</loc>
+    <lastmod>2023-11-10</lastmod>
+  </url>
+  <url>
     <loc>http://blog.chunge666.top/windows%E7%8E%AF%E5%A2%83rabbitmq%E5%AE%89%E8%A3%85.html</loc>
     <lastmod>2023-08-04</lastmod>
   </url>

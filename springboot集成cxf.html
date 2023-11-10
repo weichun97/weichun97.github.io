@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+  <meta charset="UTF-8">
+  <meta 
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <meta 
+    http-equiv="X-UA-Compatible" 
+    content="ie=edge">
+  <meta 
+    name="theme-color" 
+    content="#fff" 
+    id="theme-color">
+  <meta 
+    name="description" 
+    content="chunge&#39;s blog">
+  
+    <meta property="algolia:search" 
+      data-application-id="OBXVQ9OU0H" 
+      data-api-key="d858255d29c33cd3b57e6d8a56d94535" 
+      data-index-name="hexo">
+  
+  <link 
+    rel="icon" 
+    href="/">
+  <title>springboot集成cxf</title>
+  
+    
+      <meta 
+        property="og:title" 
+        content="springboot集成cxf">
+    
+    
+      <meta 
+        property="og:url" 
+        content="http://blog.chunge666.top/springboot%E9%9B%86%E6%88%90cxf.html">
+    
+    
+      <meta 
+        property="og:img" 
+        content="http://img.chunge666.top/8e374d175683629.64b7d12338856.jpg">
+    
+    
+    
+      <meta 
+        property="og:type" 
+        content="article">
+      <meta 
+        property="og:article:published_time" 
+        content="2023-11-10">
+      <meta 
+        property="og:article:modified_time" 
+        content="2023-11-10">
+      <meta 
+        property="og:article:author" 
+        content="Chun">
+      
+        
+          <meta 
+            property="og:article:tag" 
+            content="springboot">
+        
+          <meta 
+            property="og:article:tag" 
+            content="webservice">
+        
+          <meta 
+            property="og:article:tag" 
+            content="cxf">
+        
+      
+    
+  
+  
+  <link rel="preload" href="//at.alicdn.com/t/font_1946621_i1kgafibvw.css" as="style" >
+  <link rel="preload" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css" as="style" >
+  <link rel="preload" href="/css/main.css" as="style" >
+  
+  <link rel="modulepreload" href="//instant.page/5.1.0">
+  
+  <link rel="stylesheet" href="/css/main.css">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1946621_i1kgafibvw.css">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css">
+  
+  
+  
+    <link rel="stylesheet" href="/js/lib/lightbox/baguetteBox.min.css">
+  
+  <script>
+    function loadScript(url, cb) {
+      var script = document.createElement('script');
+      script.src = url;
+      if (cb) script.onload = cb;
+      script.async = true;
+      document.body.appendChild(script);
+    }
+    function loadCSS(href, data, attr) {
+      var sheet = document.createElement('link');
+      sheet.ref = 'stylesheet';
+      sheet.href = href;
+      sheet.dataset[data] = attr;
+      document.head.appendChild(sheet);
+    }
+    function changeCSS(cssFile, data, attr) {
+      var oldlink = document.querySelector(data);
+      var newlink = document.createElement("link");
+      newlink.setAttribute("rel", "stylesheet");
+      newlink.setAttribute("href", cssFile);
+      newlink.dataset.prism = attr;
+      document.head.replaceChild(newlink, oldlink);
+    }
+  </script>
+  
+    
+  
+  <script>
+    // control reverse button
+    var reverseDarkList = {
+      dark: 'light',
+      light: 'dark'
+    };
+    var themeColor = {
+      dark: '#1c1c1e',
+      light: '#fff'
+    }
+    // get the data of css prefers-color-scheme
+    var getCssMediaQuery = function() {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    };
+    // reverse current darkmode setting function
+    var reverseDarkModeSetting = function() {
+      var setting = localStorage.getItem('user-color-scheme');
+      if(reverseDarkList[setting]) {
+        setting = reverseDarkList[setting];
+      } else if(setting === null) {
+        setting = reverseDarkList[getCssMediaQuery()];
+      } else {
+        return;
+      }
+      localStorage.setItem('user-color-scheme', setting);
+      return setting;
+    };
+    // apply current darkmode setting
+  </script>
+  
+    <script>
+      var setDarkmode = function(mode) {
+      var setting = mode || localStorage.getItem('user-color-scheme');
+      if(setting === getCssMediaQuery()) {
+        document.documentElement.removeAttribute('data-user-color-scheme');
+        localStorage.removeItem('user-color-scheme');
+        document.getElementById('theme-color').content = themeColor[setting];
+        document.getElementById('theme-color').dataset.mode = setting;
+      } else if(reverseDarkList[setting]) {
+        document.documentElement.setAttribute('data-user-color-scheme', setting);
+        document.getElementById('theme-color').content = themeColor[setting];
+        document.getElementById('theme-color').dataset.mode = setting;
+      } else {
+        document.documentElement.removeAttribute('data-user-color-scheme');
+        localStorage.removeItem('user-color-scheme');
+        document.getElementById('theme-color').content = themeColor[getCssMediaQuery()];
+        document.getElementById('theme-color').dataset.mode = getCssMediaQuery();
+      }
+    };
+    setDarkmode();
+    </script>
+  
+  
+  
+    <link rel="preload" href="/js/lib/lightbox/baguetteBox.min.js" as="script">
+    <link rel="preload" href="/js/lib/lightbox/baguetteBox.min.css" as="style" >
+  
+  
+    <link rel="preload" href="/js/lib/lozad.min.js" as="script">
+  
+  
+  
+  
+  
+    
+    <link rel="prefetch" href="//unpkg.com/valine/dist/Valine.min.js" as="script">
+  
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+  <body>
+    <div class="wrapper">
+       
+      <nav class="navbar">
+  <div class="navbar-logo">
+    <a class="navbar-logo-main" href="/">
+      
+      <span class="navbar-logo-dsc">Chun's Blog</span>
+      </a>
+  </div>
+  <div class="navbar-menu">
+    
+      <a 
+        href="/" 
+        class="navbar-menu-item">
+        
+          首页
+        
+      </a>
+    
+      <a 
+        href="/archives" 
+        class="navbar-menu-item">
+        
+          归档
+        
+      </a>
+    
+      <a 
+        href="/tags" 
+        class="navbar-menu-item">
+        
+          标签
+        
+      </a>
+    
+      <a 
+        href="/categories" 
+        class="navbar-menu-item">
+        
+          分类
+        
+      </a>
+    
+      <a 
+        href="/about" 
+        class="navbar-menu-item">
+        
+          关于
+        
+      </a>
+    
+      <a 
+        href="/links" 
+        class="navbar-menu-item">
+        
+          友链
+        
+      </a>
+    
+    <button 
+      class="navbar-menu-item darknavbar navbar-menu-btn" 
+      aria-label="Toggle dark mode"
+      id="dark">
+      <i class="iconfont icon-weather"></i>
+    </button>
+    <button 
+      class="navbar-menu-item searchnavbar navbar-menu-btn" 
+      aria-label="Toggle search"
+      id="search">
+      <!-- <i 
+        class="iconfont icon-search" 
+        style="font-size: 1.2rem; font-weight: 400;">
+      </i> -->
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img"
+        class="iconify iconify--ion" width="28" height="28" preserveAspectRatio="xMidYMid meet" viewBox="0 0 512 512">
+        <path fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="28"
+          d="M256 80a176 176 0 1 0 176 176A176 176 0 0 0 256 80Z"></path>
+        <path fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="28"
+          d="M232 160a72 72 0 1 0 72 72a72 72 0 0 0-72-72Z"></path>
+        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-miterlimit="10" stroke-width="28"
+          d="M283.64 283.64L336 336"></path>
+      </svg>
+    </button>
+  </div>
+</nav> 
+      
+      <div 
+        id="local-search" 
+        style="display: none">
+        <input
+          class="navbar-menu-item"
+          id="search-input"
+          placeholder="请输入搜索内容..." />
+        <div id="search-content"></div>
+      </div>
+      
+      <div class="section-wrap">
+        <div class="container">
+          <div class="columns">
+            <aside class="left-column">
+              
+              <div class="card card-author">
+                
+  <img 
+    src="http://img.chunge666.top/202210251519823.jpg" 
+    class="author-img"
+    width="88"
+    height="88"
+    alt="author avatar">
+
+<p class="author-name">Chun</p>
+<p class="author-description"></p>
+<div class="author-message">
+  <a 
+    class="author-posts-count" 
+    href="/archives">
+    <span>27</span>
+    <span>文章</span>
+  </a>
+  <a 
+    class="author-categories-count" 
+    href="/categories">
+    <span>7</span>
+    <span>分类</span>
+  </a>
+  <a 
+    class="author-tags-count" 
+    href="/tags">
+    <span>18</span>
+    <span>标签</span>
+  </a>
+</div>
+
+              </div>
+               <div class="sticky-tablet">
+  
+  
+    <article class="display-when-two-columns spacer">
+      <div class="card card-content toc-card">
+        <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>目录
+</div>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E7%BD%AE%E5%87%86%E5%A4%87"><span class="toc-number">1.</span> <span class="toc-text">前置准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD"><span class="toc-number">2.</span> <span class="toc-text">下载</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90"><span class="toc-number">3.</span> <span class="toc-text">代码生成</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%96%E5%86%99wsdl%E6%96%87%E4%BB%B6"><span class="toc-number">3.1.</span> <span class="toc-text">编写wsdl文件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9B%86%E6%88%90%E5%88%B0springboot"><span class="toc-number">4.</span> <span class="toc-text">集成到springboot</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%95%E5%85%A5%E4%BE%9D%E8%B5%96"><span class="toc-number">4.1.</span> <span class="toc-text">引入依赖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%96%E5%86%99wsdl%E6%96%87%E4%BB%B6-1"><span class="toc-number">4.2.</span> <span class="toc-text">编写wsdl文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E4%BB%A3%E7%A0%81"><span class="toc-number">4.3.</span> <span class="toc-text">生成代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%96%E5%86%99%E6%9C%8D%E5%8A%A1%E7%AB%AF"><span class="toc-number">4.4.</span> <span class="toc-text">编写服务端</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%96%E5%86%99%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="toc-number">4.5.</span> <span class="toc-text">编写客户端</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%AF%E8%83%BD%E5%87%BA%E7%8E%B0%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">5.</span> <span class="toc-text">可能出现的问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">6.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-number">7.</span> <span class="toc-text">参考链接</span></a></li></ol>
+      </div>
+    </article>
+  
+  
+  <article class="card card-content categories-widget">
+    <div class="categories-card">
+  <div class="categories-header">
+    <i 
+      class="iconfont icon-fenlei" 
+      style="padding-right: 2px;">
+    </i>分类
+  </div>
+  <div class="categories-list">
+    
+      <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/">
+        <div class="categories-list-item">
+          数据库
+          <span class="categories-list-item-badge">5</span>
+        </div>
+      </a>
+    
+      <a href="/categories/linux/">
+        <div class="categories-list-item">
+          linux
+          <span class="categories-list-item-badge">10</span>
+        </div>
+      </a>
+    
+      <a href="/categories/%E7%BC%96%E8%BE%91%E5%99%A8/">
+        <div class="categories-list-item">
+          编辑器
+          <span class="categories-list-item-badge">3</span>
+        </div>
+      </a>
+    
+      <a href="/categories/java/">
+        <div class="categories-list-item">
+          java
+          <span class="categories-list-item-badge">6</span>
+        </div>
+      </a>
+    
+      <a href="/categories/%E5%89%8D%E7%AB%AF/">
+        <div class="categories-list-item">
+          前端
+          <span class="categories-list-item-badge">1</span>
+        </div>
+      </a>
+    
+      <a href="/categories/%E5%85%B6%E4%BB%96/">
+        <div class="categories-list-item">
+          其他
+          <span class="categories-list-item-badge">1</span>
+        </div>
+      </a>
+    
+      <a href="/categories/windows/">
+        <div class="categories-list-item">
+          windows
+          <span class="categories-list-item-badge">1</span>
+        </div>
+      </a>
+    
+  </div>
+</div>
+  </article>
+  
+  <article class="card card-content tags-widget">
+    <div class="tags-card">
+  <div class="tags-header">
+    <i 
+      class="iconfont icon-biaoqian" 
+      style="padding-right: 2px;">
+    </i>热门标签
+  </div>
+  <div class="tags-list">
+    
+      <a 
+        href="/tags/centos/" 
+        title="centos">
+        <div class="tags-list-item">centos</div>
+      </a>
+    
+      <a 
+        href="/tags/mysql/" 
+        title="mysql">
+        <div class="tags-list-item">mysql</div>
+      </a>
+    
+      <a 
+        href="/tags/nginx/" 
+        title="nginx">
+        <div class="tags-list-item">nginx</div>
+      </a>
+    
+      <a 
+        href="/tags/springboot/" 
+        title="springboot">
+        <div class="tags-list-item">springboot</div>
+      </a>
+    
+      <a 
+        href="/tags/idea/" 
+        title="idea">
+        <div class="tags-list-item">idea</div>
+      </a>
+    
+      <a 
+        href="/tags/yum/" 
+        title="yum">
+        <div class="tags-list-item">yum</div>
+      </a>
+    
+      <a 
+        href="/tags/docker/" 
+        title="docker">
+        <div class="tags-list-item">docker</div>
+      </a>
+    
+      <a 
+        href="/tags/keepalived/" 
+        title="keepalived">
+        <div class="tags-list-item">keepalived</div>
+      </a>
+    
+      <a 
+        href="/tags/cxf/" 
+        title="cxf">
+        <div class="tags-list-item">cxf</div>
+      </a>
+    
+      <a 
+        href="/tags/webservice/" 
+        title="webservice">
+        <div class="tags-list-item">webservice</div>
+      </a>
+    
+      <a 
+        href="/tags/rabbitmq/" 
+        title="rabbitmq">
+        <div class="tags-list-item">rabbitmq</div>
+      </a>
+    
+      <a 
+        href="/tags/maven/" 
+        title="maven">
+        <div class="tags-list-item">maven</div>
+      </a>
+    
+      <a 
+        href="/tags/xml/" 
+        title="xml">
+        <div class="tags-list-item">xml</div>
+      </a>
+    
+      <a 
+        href="/tags/redis/" 
+        title="redis">
+        <div class="tags-list-item">redis</div>
+      </a>
+    
+      <a 
+        href="/tags/node/" 
+        title="node">
+        <div class="tags-list-item">node</div>
+      </a>
+    
+      <a 
+        href="/tags/jdk/" 
+        title="jdk">
+        <div class="tags-list-item">jdk</div>
+      </a>
+    
+  </div>
+</div>
+  </article>
+  
+  
+</div>
+            </aside>
+            <main class="main-column">
+              
+  <div class="image-wrapper">
+    <img 
+      src="http://img.chunge666.top/8e374d175683629.64b7d12338856.jpg" 
+      data-src="http://img.chunge666.top/8e374d175683629.64b7d12338856.jpg"
+      srcset="data:image/svg+xml,%3Csvg%20xmlns=&#39;http://www.w3.org/2000/svg&#39;%20viewBox=&#39;0%200%20300%20300&#39;%3E%3C/svg%3E"
+      class="image lozad"
+      alt="springboot集成cxf thumbnail">
+  </div>
+
+<article class="card card-content">
+  <header>
+    <h1 class="post-title">
+      springboot集成cxf
+    </h1>
+  </header>
+  <div class="post-meta post-show-meta">
+    <time datetime="2023-11-10T07:14:03.000Z">
+      <i 
+        class="iconfont icon-calendar" 
+        style="margin-right: 2px;">
+      </i>
+      <span>2023-11-10</span>
+    </time>
+    
+      <span class="dot"></span>
+      
+        <a 
+          href="/categories/java/" 
+          class="post-meta-link">
+          java
+        </a>
+      
+    
+    
+      <span class="dot"></span>
+      <span>2.8k 字</span>
+    
+  </div>
+  
+    <div 
+      class="post-meta post-show-meta" 
+      style="margin-top: -10px;">
+      <div style="display: flex; align-items: center;">
+        <i 
+          class="iconfont icon-biaoqian" 
+          style="margin-right: 2px; font-size: 1.15rem;">
+        </i>
+        
+          
+          <a 
+            href="/tags/springboot/" 
+            class="post-meta-link">
+            springboot
+          </a>
+        
+          
+            <span class="dot"></span>
+          
+          <a 
+            href="/tags/webservice/" 
+            class="post-meta-link">
+            webservice
+          </a>
+        
+          
+            <span class="dot"></span>
+          
+          <a 
+            href="/tags/cxf/" 
+            class="post-meta-link">
+            cxf
+          </a>
+        
+      </div>
+    </div>
+  
+  </header>
+  <div 
+    id="section" 
+    class="post-content">
+    <h2 id="前置准备"><a href="#前置准备" class="headerlink" title="前置准备"></a>前置准备</h2><p>jdk: 1.8</p>
+<p>springboot: 2.3.2.RELEASE</p>
+<p>cxf: 3.5.7</p>
+<h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><p>选择3.5版本，3.6及以上的版本不支持jdk8</p>
+<p>下载地址: <a target="_blank" rel="noopener" href="https://cxf.apache.org/download.html">https://cxf.apache.org/download.html</a></p>
+<h2 id="代码生成"><a href="#代码生成" class="headerlink" title="代码生成"></a>代码生成</h2><p>先将 <code>cxf</code> 的 <code>bin</code> 目录保存到环境变量，否则 <code>wsdl2java</code> 命令需要使用全路径。</p>
+<h3 id="编写wsdl文件"><a href="#编写wsdl文件" class="headerlink" title="编写wsdl文件"></a>编写wsdl文件</h3><p>下面是 wsdl 文件示例</p>
+<pre class="highlight"><code class="hljs xml"><span class="hljs-meta">&lt;?xml version=&#x27;1.0&#x27; encoding=&#x27;UTF-8&#x27;?&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">wsdl:definitions</span> <span class="hljs-attr">xmlns:xsd</span>=<span class="hljs-string">&quot;http://www.w3.org/2001/XMLSchema&quot;</span> <span class="hljs-attr">xmlns:wsdl</span>=<span class="hljs-string">&quot;http://schemas.xmlsoap.org/wsdl/&quot;</span> <span class="hljs-attr">xmlns:tns</span>=<span class="hljs-string">&quot;http://cxf.tg.com/&quot;</span> <span class="hljs-attr">xmlns:soap</span>=<span class="hljs-string">&quot;http://schemas.xmlsoap.org/wsdl/soap/&quot;</span> <span class="hljs-attr">xmlns:ns1</span>=<span class="hljs-string">&quot;http://schemas.xmlsoap.org/soap/http&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;MyHelloWorldService&quot;</span> <span class="hljs-attr">targetNamespace</span>=<span class="hljs-string">&quot;http://cxf.tg.com/&quot;</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">wsdl:types</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">xs:schema</span> <span class="hljs-attr">xmlns:xs</span>=<span class="hljs-string">&quot;http://www.w3.org/2001/XMLSchema&quot;</span> <span class="hljs-attr">xmlns:tns</span>=<span class="hljs-string">&quot;http://cxf.tg.com/&quot;</span> <span class="hljs-attr">elementFormDefault</span>=<span class="hljs-string">&quot;unqualified&quot;</span> <span class="hljs-attr">targetNamespace</span>=<span class="hljs-string">&quot;http://cxf.tg.com/&quot;</span> <span class="hljs-attr">version</span>=<span class="hljs-string">&quot;1.0&quot;</span>&gt;</span><br><br>  <span class="hljs-tag">&lt;<span class="hljs-name">xs:element</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;getPerson&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;tns:getPerson&quot;</span>/&gt;</span><br><br>  <span class="hljs-tag">&lt;<span class="hljs-name">xs:element</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;getPersonResponse&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;tns:getPersonResponse&quot;</span>/&gt;</span><br><br>  <span class="hljs-tag">&lt;<span class="hljs-name">xs:element</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;sayHello&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;tns:sayHello&quot;</span>/&gt;</span><br><br>  <span class="hljs-tag">&lt;<span class="hljs-name">xs:element</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;sayHelloResponse&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;tns:sayHelloResponse&quot;</span>/&gt;</span><br><br>  <span class="hljs-tag">&lt;<span class="hljs-name">xs:complexType</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;sayHello&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">xs:sequence</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">xs:element</span> <span class="hljs-attr">minOccurs</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;name&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;xs:string&quot;</span>/&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">xs:sequence</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">xs:complexType</span>&gt;</span><br><br>  <span class="hljs-tag">&lt;<span class="hljs-name">xs:complexType</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;sayHelloResponse&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">xs:sequence</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">xs:element</span> <span class="hljs-attr">minOccurs</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;returnHello&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;xs:string&quot;</span>/&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">xs:sequence</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">xs:complexType</span>&gt;</span><br><br>  <span class="hljs-tag">&lt;<span class="hljs-name">xs:complexType</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;getPerson&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">xs:sequence</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">xs:element</span> <span class="hljs-attr">minOccurs</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;name&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;xs:string&quot;</span>/&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">xs:sequence</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">xs:complexType</span>&gt;</span><br><br>  <span class="hljs-tag">&lt;<span class="hljs-name">xs:complexType</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;getPersonResponse&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">xs:sequence</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">xs:element</span> <span class="hljs-attr">minOccurs</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;returnPerson&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;tns:person&quot;</span>/&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">xs:sequence</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">xs:complexType</span>&gt;</span><br><br>  <span class="hljs-tag">&lt;<span class="hljs-name">xs:complexType</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;person&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">xs:sequence</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">xs:element</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;age&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;xs:int&quot;</span>/&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">xs:element</span> <span class="hljs-attr">minOccurs</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;name&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;xs:string&quot;</span>/&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">xs:sequence</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">xs:complexType</span>&gt;</span><br><br><span class="hljs-tag">&lt;/<span class="hljs-name">xs:schema</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">wsdl:types</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">wsdl:message</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;sayHelloResponse&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">wsdl:part</span> <span class="hljs-attr">element</span>=<span class="hljs-string">&quot;tns:sayHelloResponse&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;parameters&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">wsdl:part</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">wsdl:message</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">wsdl:message</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;getPersonResponse&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">wsdl:part</span> <span class="hljs-attr">element</span>=<span class="hljs-string">&quot;tns:getPersonResponse&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;parameters&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">wsdl:part</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">wsdl:message</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">wsdl:message</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;sayHello&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">wsdl:part</span> <span class="hljs-attr">element</span>=<span class="hljs-string">&quot;tns:sayHello&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;parameters&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">wsdl:part</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">wsdl:message</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">wsdl:message</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;getPerson&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">wsdl:part</span> <span class="hljs-attr">element</span>=<span class="hljs-string">&quot;tns:getPerson&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;parameters&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">wsdl:part</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">wsdl:message</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">wsdl:portType</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;HelloWorldService&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">wsdl:operation</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;sayHello&quot;</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">wsdl:input</span> <span class="hljs-attr">message</span>=<span class="hljs-string">&quot;tns:sayHello&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;sayHello&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">wsdl:input</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">wsdl:output</span> <span class="hljs-attr">message</span>=<span class="hljs-string">&quot;tns:sayHelloResponse&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;sayHelloResponse&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">wsdl:output</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">wsdl:operation</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">wsdl:operation</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;getPerson&quot;</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">wsdl:input</span> <span class="hljs-attr">message</span>=<span class="hljs-string">&quot;tns:getPerson&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;getPerson&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">wsdl:input</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">wsdl:output</span> <span class="hljs-attr">message</span>=<span class="hljs-string">&quot;tns:getPersonResponse&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;getPersonResponse&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">wsdl:output</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">wsdl:operation</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">wsdl:portType</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">wsdl:binding</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;MyHelloWorldServiceSoapBinding&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;tns:HelloWorldService&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">soap:binding</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;document&quot;</span> <span class="hljs-attr">transport</span>=<span class="hljs-string">&quot;http://schemas.xmlsoap.org/soap/http&quot;</span>/&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">wsdl:operation</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;sayHello&quot;</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">soap:operation</span> <span class="hljs-attr">soapAction</span>=<span class="hljs-string">&quot;&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;document&quot;</span>/&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">wsdl:input</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;sayHello&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">soap:body</span> <span class="hljs-attr">use</span>=<span class="hljs-string">&quot;literal&quot;</span>/&gt;</span><br>      <span class="hljs-tag">&lt;/<span class="hljs-name">wsdl:input</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">wsdl:output</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;sayHelloResponse&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">soap:body</span> <span class="hljs-attr">use</span>=<span class="hljs-string">&quot;literal&quot;</span>/&gt;</span><br>      <span class="hljs-tag">&lt;/<span class="hljs-name">wsdl:output</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">wsdl:operation</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">wsdl:operation</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;getPerson&quot;</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">soap:operation</span> <span class="hljs-attr">soapAction</span>=<span class="hljs-string">&quot;&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;document&quot;</span>/&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">wsdl:input</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;getPerson&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">soap:body</span> <span class="hljs-attr">use</span>=<span class="hljs-string">&quot;literal&quot;</span>/&gt;</span><br>      <span class="hljs-tag">&lt;/<span class="hljs-name">wsdl:input</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">wsdl:output</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;getPersonResponse&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">soap:body</span> <span class="hljs-attr">use</span>=<span class="hljs-string">&quot;literal&quot;</span>/&gt;</span><br>      <span class="hljs-tag">&lt;/<span class="hljs-name">wsdl:output</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">wsdl:operation</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">wsdl:binding</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">wsdl:service</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;MyHelloWorldService&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">wsdl:port</span> <span class="hljs-attr">binding</span>=<span class="hljs-string">&quot;tns:MyHelloWorldServiceSoapBinding&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;HelloWorldServicePort&quot;</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">soap:address</span> <span class="hljs-attr">location</span>=<span class="hljs-string">&quot;http://localhost/helloWorld&quot;</span>/&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">wsdl:port</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">wsdl:service</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">wsdl:definitions</span>&gt;</span><br></code></pre>
+
+<h2 id="集成到springboot"><a href="#集成到springboot" class="headerlink" title="集成到springboot"></a>集成到springboot</h2><h3 id="引入依赖"><a href="#引入依赖" class="headerlink" title="引入依赖"></a>引入依赖</h3><pre class="highlight"><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.apache.cxf<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>cxf-spring-boot-starter-jaxws<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>3.5.7<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre>
+
+<h3 id="编写wsdl文件-1"><a href="#编写wsdl文件-1" class="headerlink" title="编写wsdl文件"></a>编写wsdl文件</h3><p>下面是一个简单的示例文件</p>
+<pre class="highlight"><code class="hljs xml"><span class="hljs-meta">&lt;?xml version=&#x27;1.0&#x27; encoding=&#x27;UTF-8&#x27;?&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">wsdl:definitions</span> <span class="hljs-attr">xmlns:xsd</span>=<span class="hljs-string">&quot;http://www.w3.org/2001/XMLSchema&quot;</span> <span class="hljs-attr">xmlns:wsdl</span>=<span class="hljs-string">&quot;http://schemas.xmlsoap.org/wsdl/&quot;</span> <span class="hljs-attr">xmlns:tns</span>=<span class="hljs-string">&quot;http://cxf.tg.com/&quot;</span> <span class="hljs-attr">xmlns:soap</span>=<span class="hljs-string">&quot;http://schemas.xmlsoap.org/wsdl/soap/&quot;</span> <span class="hljs-attr">xmlns:ns1</span>=<span class="hljs-string">&quot;http://schemas.xmlsoap.org/soap/http&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;MyHelloWorldService&quot;</span> <span class="hljs-attr">targetNamespace</span>=<span class="hljs-string">&quot;http://cxf.tg.com/&quot;</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">wsdl:types</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">xs:schema</span> <span class="hljs-attr">xmlns:xs</span>=<span class="hljs-string">&quot;http://www.w3.org/2001/XMLSchema&quot;</span> <span class="hljs-attr">xmlns:tns</span>=<span class="hljs-string">&quot;http://cxf.tg.com/&quot;</span> <span class="hljs-attr">elementFormDefault</span>=<span class="hljs-string">&quot;unqualified&quot;</span> <span class="hljs-attr">targetNamespace</span>=<span class="hljs-string">&quot;http://cxf.tg.com/&quot;</span> <span class="hljs-attr">version</span>=<span class="hljs-string">&quot;1.0&quot;</span>&gt;</span><br><br>  <span class="hljs-tag">&lt;<span class="hljs-name">xs:element</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;getPerson&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;tns:getPerson&quot;</span>/&gt;</span><br><br>  <span class="hljs-tag">&lt;<span class="hljs-name">xs:element</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;getPersonResponse&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;tns:getPersonResponse&quot;</span>/&gt;</span><br><br>  <span class="hljs-tag">&lt;<span class="hljs-name">xs:element</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;sayHello&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;tns:sayHello&quot;</span>/&gt;</span><br><br>  <span class="hljs-tag">&lt;<span class="hljs-name">xs:element</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;sayHelloResponse&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;tns:sayHelloResponse&quot;</span>/&gt;</span><br><br>  <span class="hljs-tag">&lt;<span class="hljs-name">xs:complexType</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;sayHello&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">xs:sequence</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">xs:element</span> <span class="hljs-attr">minOccurs</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;name&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;xs:string&quot;</span>/&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">xs:sequence</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">xs:complexType</span>&gt;</span><br><br>  <span class="hljs-tag">&lt;<span class="hljs-name">xs:complexType</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;sayHelloResponse&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">xs:sequence</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">xs:element</span> <span class="hljs-attr">minOccurs</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;returnHello&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;xs:string&quot;</span>/&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">xs:sequence</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">xs:complexType</span>&gt;</span><br><br>  <span class="hljs-tag">&lt;<span class="hljs-name">xs:complexType</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;getPerson&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">xs:sequence</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">xs:element</span> <span class="hljs-attr">minOccurs</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;name&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;xs:string&quot;</span>/&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">xs:sequence</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">xs:complexType</span>&gt;</span><br><br>  <span class="hljs-tag">&lt;<span class="hljs-name">xs:complexType</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;getPersonResponse&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">xs:sequence</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">xs:element</span> <span class="hljs-attr">minOccurs</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;returnPerson&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;tns:person&quot;</span>/&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">xs:sequence</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">xs:complexType</span>&gt;</span><br><br>  <span class="hljs-tag">&lt;<span class="hljs-name">xs:complexType</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;person&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">xs:sequence</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">xs:element</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;age&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;xs:int&quot;</span>/&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">xs:element</span> <span class="hljs-attr">minOccurs</span>=<span class="hljs-string">&quot;0&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;name&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;xs:string&quot;</span>/&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">xs:sequence</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">xs:complexType</span>&gt;</span><br><br><span class="hljs-tag">&lt;/<span class="hljs-name">xs:schema</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">wsdl:types</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">wsdl:message</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;sayHelloResponse&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">wsdl:part</span> <span class="hljs-attr">element</span>=<span class="hljs-string">&quot;tns:sayHelloResponse&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;parameters&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">wsdl:part</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">wsdl:message</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">wsdl:message</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;getPersonResponse&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">wsdl:part</span> <span class="hljs-attr">element</span>=<span class="hljs-string">&quot;tns:getPersonResponse&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;parameters&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">wsdl:part</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">wsdl:message</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">wsdl:message</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;sayHello&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">wsdl:part</span> <span class="hljs-attr">element</span>=<span class="hljs-string">&quot;tns:sayHello&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;parameters&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">wsdl:part</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">wsdl:message</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">wsdl:message</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;getPerson&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">wsdl:part</span> <span class="hljs-attr">element</span>=<span class="hljs-string">&quot;tns:getPerson&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;parameters&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">wsdl:part</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">wsdl:message</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">wsdl:portType</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;HelloWorldService&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">wsdl:operation</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;sayHello&quot;</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">wsdl:input</span> <span class="hljs-attr">message</span>=<span class="hljs-string">&quot;tns:sayHello&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;sayHello&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">wsdl:input</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">wsdl:output</span> <span class="hljs-attr">message</span>=<span class="hljs-string">&quot;tns:sayHelloResponse&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;sayHelloResponse&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">wsdl:output</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">wsdl:operation</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">wsdl:operation</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;getPerson&quot;</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">wsdl:input</span> <span class="hljs-attr">message</span>=<span class="hljs-string">&quot;tns:getPerson&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;getPerson&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">wsdl:input</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">wsdl:output</span> <span class="hljs-attr">message</span>=<span class="hljs-string">&quot;tns:getPersonResponse&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;getPersonResponse&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">wsdl:output</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">wsdl:operation</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">wsdl:portType</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">wsdl:binding</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;MyHelloWorldServiceSoapBinding&quot;</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;tns:HelloWorldService&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">soap:binding</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;document&quot;</span> <span class="hljs-attr">transport</span>=<span class="hljs-string">&quot;http://schemas.xmlsoap.org/soap/http&quot;</span>/&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">wsdl:operation</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;sayHello&quot;</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">soap:operation</span> <span class="hljs-attr">soapAction</span>=<span class="hljs-string">&quot;&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;document&quot;</span>/&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">wsdl:input</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;sayHello&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">soap:body</span> <span class="hljs-attr">use</span>=<span class="hljs-string">&quot;literal&quot;</span>/&gt;</span><br>      <span class="hljs-tag">&lt;/<span class="hljs-name">wsdl:input</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">wsdl:output</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;sayHelloResponse&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">soap:body</span> <span class="hljs-attr">use</span>=<span class="hljs-string">&quot;literal&quot;</span>/&gt;</span><br>      <span class="hljs-tag">&lt;/<span class="hljs-name">wsdl:output</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">wsdl:operation</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">wsdl:operation</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;getPerson&quot;</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">soap:operation</span> <span class="hljs-attr">soapAction</span>=<span class="hljs-string">&quot;&quot;</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&quot;document&quot;</span>/&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">wsdl:input</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;getPerson&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">soap:body</span> <span class="hljs-attr">use</span>=<span class="hljs-string">&quot;literal&quot;</span>/&gt;</span><br>      <span class="hljs-tag">&lt;/<span class="hljs-name">wsdl:input</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">wsdl:output</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;getPersonResponse&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">soap:body</span> <span class="hljs-attr">use</span>=<span class="hljs-string">&quot;literal&quot;</span>/&gt;</span><br>      <span class="hljs-tag">&lt;/<span class="hljs-name">wsdl:output</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">wsdl:operation</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">wsdl:binding</span>&gt;</span><br>  <span class="hljs-tag">&lt;<span class="hljs-name">wsdl:service</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;MyHelloWorldService&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">wsdl:port</span> <span class="hljs-attr">binding</span>=<span class="hljs-string">&quot;tns:MyHelloWorldServiceSoapBinding&quot;</span> <span class="hljs-attr">name</span>=<span class="hljs-string">&quot;HelloWorldServicePort&quot;</span>&gt;</span><br>      <span class="hljs-tag">&lt;<span class="hljs-name">soap:address</span> <span class="hljs-attr">location</span>=<span class="hljs-string">&quot;http://localhost/helloWorld&quot;</span>/&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">wsdl:port</span>&gt;</span><br>  <span class="hljs-tag">&lt;/<span class="hljs-name">wsdl:service</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">wsdl:definitions</span>&gt;</span><br></code></pre>
+
+<h3 id="生成代码"><a href="#生成代码" class="headerlink" title="生成代码"></a>生成代码</h3><pre class="highlight"><code class="hljs bash">wsdl2java -encoding utf-8 -p com.github.weichun97.cxf -d D:\work\study\java\test2\webservice-test\src\main\java -impl D:\work\study\java\test2\webservice-test\src\main\resources\HelloWorldService.wsdl<br></code></pre>
+
+<ul>
+<li><code>-encoding</code>: 代码编码集</li>
+<li><code>-p</code>: 指定其wsdl的命名空间，也就是要生成代码的包名:</li>
+<li><code>-d</code>: 指定要产生代码所在目录</li>
+<li><code>-impl</code>: 生成服务端代码</li>
+</ul>
+<h3 id="编写服务端"><a href="#编写服务端" class="headerlink" title="编写服务端"></a>编写服务端</h3><p><strong>编写服务端配置文件</strong></p>
+<p>创建 <code>CxfServerConfig</code> 配置类</p>
+<pre class="highlight"><code class="hljs java"><span class="hljs-keyword">import</span> com.github.weichun97.cxf.HelloWorldService;<br><span class="hljs-keyword">import</span> org.apache.cxf.Bus;<br><span class="hljs-keyword">import</span> org.apache.cxf.bus.spring.SpringBus;<br><span class="hljs-keyword">import</span> org.springframework.context.annotation.Bean;<br><span class="hljs-keyword">import</span> org.springframework.context.annotation.Configuration;<br><br><span class="hljs-keyword">import</span> javax.annotation.Resource;<br><span class="hljs-keyword">import</span> javax.xml.ws.Endpoint;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@author</span> chun</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@date</span> 2023/11/9 16:08</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@Configuration</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">CxfServerConfig</span> &#123;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 指定beanName,防止和客户端注入的bean冲突</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@Resource(name = &quot;serverHelloWorldService&quot;)</span><br>    <span class="hljs-keyword">private</span> HelloWorldService helloWorldService;<br><br>    <span class="hljs-meta">@Bean(name = Bus.DEFAULT_BUS_ID)</span><br>    <span class="hljs-keyword">public</span> SpringBus <span class="hljs-title function_">springBus</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SpringBus</span>();<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 服务发布</span><br><span class="hljs-comment">     * <span class="hljs-doctag">@return</span></span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-keyword">public</span> Endpoint <span class="hljs-title function_">helloWorldServiceEndpoint</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-type">Endpoint</span> <span class="hljs-variable">endpoint</span> <span class="hljs-operator">=</span> Endpoint.create(helloWorldService);<br>        endpoint.publish(<span class="hljs-string">&quot;/helloWorld&quot;</span>);<span class="hljs-comment">//发布地址</span><br>        <span class="hljs-keyword">return</span> endpoint;<br>    &#125;<br>&#125;<br></code></pre>
+
+<p><strong>修改 webservice 实现类</strong></p>
+<p>添加 <code>@Service</code> 注解， 并实现对应的方法</p>
+<pre class="highlight"><code class="hljs java"><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * Please modify this class to meet your needs</span><br><span class="hljs-comment"> * This class is not complete</span><br><span class="hljs-comment"> */</span><br><br><span class="hljs-keyword">package</span> com.github.weichun97.cxf;<br><br><span class="hljs-keyword">import</span> org.springframework.stereotype.Service;<br><br><span class="hljs-keyword">import</span> java.util.logging.Logger;<br><span class="hljs-keyword">import</span> javax.jws.WebMethod;<br><span class="hljs-keyword">import</span> javax.jws.WebParam;<br><span class="hljs-keyword">import</span> javax.jws.WebResult;<br><span class="hljs-keyword">import</span> javax.jws.WebService;<br><span class="hljs-keyword">import</span> javax.xml.bind.annotation.XmlSeeAlso;<br><span class="hljs-keyword">import</span> javax.xml.ws.RequestWrapper;<br><span class="hljs-keyword">import</span> javax.xml.ws.ResponseWrapper;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * This class was generated by Apache CXF 3.5.6</span><br><span class="hljs-comment"> * 2023-11-10T10:26:20.574+08:00</span><br><span class="hljs-comment"> * Generated source version: 3.5.6</span><br><span class="hljs-comment"> *</span><br><span class="hljs-comment"> * 指定beanName,防止和客户端的bean冲突</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@Service(&quot;serverHelloWorldService&quot;)</span><br><span class="hljs-meta">@javax</span>.jws.WebService(<br>        serviceName = <span class="hljs-string">&quot;MyHelloWorldService&quot;</span>,<br>        portName = <span class="hljs-string">&quot;HelloWorldServicePort&quot;</span>,<br>        targetNamespace = <span class="hljs-string">&quot;http://cxf.tg.com/&quot;</span>,<br>        wsdlLocation = <span class="hljs-string">&quot;file:/D:/work/study/java/test2/webservice-test/src/main/resources/HelloWorldService.wsdl&quot;</span>,<br>        endpointInterface = <span class="hljs-string">&quot;com.github.weichun97.cxf.HelloWorldService&quot;</span>)<br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">HelloWorldServicePortImpl</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">HelloWorldService</span> &#123;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">final</span> <span class="hljs-type">Logger</span> <span class="hljs-variable">LOG</span> <span class="hljs-operator">=</span> Logger.getLogger(HelloWorldServicePortImpl.class.getName());<br><br>    <span class="hljs-comment">/* (non-Javadoc)</span><br><span class="hljs-comment">     * @see com.github.weichun97.cxf.HelloWorldService#sayHello(java.lang.String name)*</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> java.lang.String <span class="hljs-title function_">sayHello</span><span class="hljs-params">(java.lang.String name)</span> &#123;<br>        LOG.info(<span class="hljs-string">&quot;Executing operation sayHello&quot;</span>);<br>        System.out.println(name);<br>        java.lang.<span class="hljs-type">String</span> <span class="hljs-variable">_return</span> <span class="hljs-operator">=</span> <span class="hljs-string">&quot;你好,&quot;</span> + name;<br>        <span class="hljs-keyword">return</span> _return;<br>    &#125;<br><br>    <span class="hljs-comment">/* (non-Javadoc)</span><br><span class="hljs-comment">     * @see com.github.weichun97.cxf.HelloWorldService#getPerson(java.lang.String name)*</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-keyword">public</span> com.github.weichun97.cxf.Person <span class="hljs-title function_">getPerson</span><span class="hljs-params">(java.lang.String name)</span> &#123;<br>        LOG.info(<span class="hljs-string">&quot;Executing operation getPerson&quot;</span>);<br>        System.out.println(name);<br>        com.github.weichun97.cxf.<span class="hljs-type">Person</span> <span class="hljs-variable">_return</span> <span class="hljs-operator">=</span> <span class="hljs-literal">null</span>;<br>        <span class="hljs-keyword">return</span> _return;<br>    &#125;<br><br>&#125;<br></code></pre>
+
+<p><strong>配置 webservice url 访问前缀</strong></p>
+<p>cxf默认的访问前缀是 <code>/services/</code>，如果想要自定义，修改 <code>springboot</code> 的 <code>application.yml</code> 文件, 添加 <code>cxf.path</code> 配置</p>
+<pre class="highlight"><code class="hljs yml"><span class="hljs-attr">server:</span><br>  <span class="hljs-attr">port:</span> <span class="hljs-number">8080</span><br><span class="hljs-attr">cxf:</span><br>  <span class="hljs-attr">path:</span> <span class="hljs-string">/ws/</span><br></code></pre>
+
+<p><strong>验证</strong></p>
+<p>访问 <a target="_blank" rel="noopener" href="http://localhost:8080/services/helloWorld?WSDL">http://localhost:8080/ws/helloWorld?WSDL</a> 查看是否能有正常访问</p>
+<h3 id="编写客户端"><a href="#编写客户端" class="headerlink" title="编写客户端"></a>编写客户端</h3><p><strong>配置</strong></p>
+<p>在 <code>application.yml</code> 自定义要访问的 wsdl 服务 url</p>
+<pre class="highlight"><code class="hljs yml"><span class="hljs-attr">itran:</span><br>  <span class="hljs-comment"># 配置客户端要访问的wsdl服务端</span><br>  <span class="hljs-attr">webservice:</span><br>    <span class="hljs-attr">helloWorld:</span> <span class="hljs-string">http://localhost:8080/ws/helloWorld</span><br></code></pre>
+
+<p>**创建 **<code>CxfClientConfig</code> <strong>配置类</strong></p>
+<pre class="highlight"><code class="hljs java"><span class="hljs-keyword">import</span> com.github.weichun97.cxf.HelloWorldService;<br><span class="hljs-keyword">import</span> org.apache.cxf.bus.spring.SpringBus;<br><span class="hljs-keyword">import</span> org.apache.cxf.jaxws.JaxWsProxyFactoryBean;<br><span class="hljs-keyword">import</span> org.springframework.beans.factory.annotation.Value;<br><span class="hljs-keyword">import</span> org.springframework.context.annotation.Bean;<br><span class="hljs-keyword">import</span> org.springframework.context.annotation.Configuration;<br><br><span class="hljs-keyword">import</span> javax.annotation.Resource;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@author</span> chun</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@date</span> 2023/11/9 16:08</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@Configuration</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">CxfClientConfig</span> &#123;<br><br>    <span class="hljs-meta">@Value(&quot;$&#123;itran.webservice.helloWorld&#125;&quot;)</span><br>    <span class="hljs-keyword">private</span> String helloWorldServiceUrl;<br><br>    <span class="hljs-meta">@Resource</span><br>    <span class="hljs-keyword">private</span> SpringBus bus;<br><br>    <span class="hljs-meta">@Bean(&quot;clientHelloWorldService&quot;)</span><br>    <span class="hljs-keyword">public</span> HelloWorldService <span class="hljs-title function_">helloWorldService</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-type">JaxWsProxyFactoryBean</span> <span class="hljs-variable">jaxWsProxyFactoryBean</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">JaxWsProxyFactoryBean</span>();<br>        <span class="hljs-comment">// 设置 UserService 接口</span><br>        jaxWsProxyFactoryBean.setServiceClass(HelloWorldService.class);<br>        <span class="hljs-comment">// 设置 Web Services 地址</span><br>        jaxWsProxyFactoryBean.setAddress(helloWorldServiceUrl);<br>        <span class="hljs-comment">// 使用已有的bus, 防止覆盖服务端的bus</span><br>        jaxWsProxyFactoryBean.setBus(bus);<br>        <span class="hljs-comment">// 创建</span><br>        <span class="hljs-keyword">return</span> (HelloWorldService) jaxWsProxyFactoryBean.create();<br>    &#125;<br>&#125;<br></code></pre>
+
+<p><strong>编写测试类</strong></p>
+<pre class="highlight"><code class="hljs java"><span class="hljs-keyword">import</span> com.github.weichun97.cxf.HelloWorldService;<br><span class="hljs-keyword">import</span> org.springframework.web.bind.annotation.GetMapping;<br><span class="hljs-keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;<br><span class="hljs-keyword">import</span> org.springframework.web.bind.annotation.RestController;<br><br><span class="hljs-keyword">import</span> javax.annotation.Resource;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@author</span> chun</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@date</span> 2023/11/7 11:32</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@RestController</span><br><span class="hljs-meta">@RequestMapping</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">TestController</span> &#123;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 指定客户端bean，防止和服务端的冲突</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@Resource(name = &quot;clientHelloWorldService&quot;)</span><br>    <span class="hljs-keyword">private</span> HelloWorldService helloWorldService;<br><br>    <span class="hljs-meta">@GetMapping(&quot;test&quot;)</span><br>    <span class="hljs-keyword">public</span> String <span class="hljs-title function_">test</span><span class="hljs-params">()</span>&#123;<br>        <span class="hljs-keyword">return</span> helloWorldService.sayHello(<span class="hljs-string">&quot;张三&quot;</span>);<br>    &#125;<br>&#125;<br></code></pre>
+
+<p><strong>测试</strong></p>
+<p>访问 <a target="_blank" rel="noopener" href="http://localhost:8080/test%EF%BC%8C%E6%B5%8F%E8%A7%88%E5%99%A8%E6%98%BE%E7%A4%BA%E5%A6%82%E4%B8%8B%E5%86%85%E5%AE%B9">http://localhost:8080/test，浏览器显示如下内容</a></p>
+<pre class="highlight"><code class="hljs plaintext">你好,张三<br></code></pre>
+
+<h2 id="可能出现的问题"><a href="#可能出现的问题" class="headerlink" title="可能出现的问题"></a>可能出现的问题</h2><ol>
+<li>springboot注入客户端service后，wsdl链接无法访问，日志提示如下错误：</li>
+</ol>
+<pre class="highlight"><code class="hljs plaintext">Can&#x27;t find the request for http://localhost:8080/ws/ucms&#x27;s Observer<br></code></pre>
+
+<p>原因：当cxf服务端和客户端同时部署在一个项目时，客户端会生成新的 <code>SpringBus</code> 覆盖掉服务端的。导致服务端错误。</p>
+<p>解决方案：在客户端直接注入服务端的SpringBus并使用。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本文介绍了怎么使用cxf自动生成代码，并集成springboot项目。示例代码请访问 <a target="_blank" rel="noopener" href="https://github.com/weichun97/test2/tree/master/webservice-test">https://github.com/weichun97/test2/tree/master/webservice-test</a></p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p>cxf生成代码：<a target="_blank" rel="noopener" href="https://tanggao1314.github.io/2019/11/02/WebService%E5%AD%A6%E4%B9%A0%E7%B3%BB%E5%88%97%E4%B9%8BCXF%E5%BC%80%E5%8F%91WebService/">https://tanggao1314.github.io/2019/11/02/WebService%E5%AD%A6%E4%B9%A0%E7%B3%BB%E5%88%97%E4%B9%8BCXF%E5%BC%80%E5%8F%91WebService/</a></p>
+<p>cxf集成springboot：</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/YunaiV/SpringBoot-Labs/tree/master/lab-65/lab-65-cxf-ws-demo">https://github.com/YunaiV/SpringBoot-Labs/tree/master/lab-65/lab-65-cxf-ws-demo</a></p>
+
+  </div>
+  <div>
+    
+      <div 
+        class="post-note note-warning copyright" 
+        style="margin-top: 42px">
+        <p>
+          <span style="font-weight: bold;">作者：</span><a 
+            target="_blank" 
+            rel="nofollow noopener noreferrer" 
+            href="/about">
+            Chun
+          </a>
+        </p>
+        <p>
+          <span style="font-weight: bold;">文章链接：</span><a 
+            target="_blank" 
+            rel="nofollow noopener noreferrer" 
+            href="http://blog.chunge666.top/springboot%E9%9B%86%E6%88%90cxf.html">
+            http://blog.chunge666.top/springboot%E9%9B%86%E6%88%90cxf.html
+          </a>
+        </p>
+        <p><span style="font-weight: bold;">版权声明：</span>本博客所有文章除特别声明外，均采用<a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" rel="external nofollow">CC BY-NC-SA 4.0 协议</a>。转载请注明出处！</p>
+      </div>
+    
+  </div>
+</article>
+<div class="nav">
+  
+  
+    <div class="nav-item-next">
+      <a 
+        href="/windows%E7%8E%AF%E5%A2%83rabbitmq%E5%AE%89%E8%A3%85.html" 
+        class="nav-link">
+        <div>
+          <div class="nav-label">下一篇</div>
+          
+            <div class="nav-title">windows环境rabbitmq安装 </div>
+          
+        </div>
+        <i class="iconfont icon-right nav-next-icon"></i>
+      </a>
+    </div>
+  
+</div>
+
+  <div 
+    class="card card-content comment-card" 
+    style="margin-top: 16px;">
+    <div class="comment-card-title">评论</div>
+    
+  <div id="vcomments"></div>
+  
+  <script>
+    loadScript("//unpkg.com/valine/dist/Valine.min.js");
+    var oldLoadVa = window.onload;
+    window.onload = function () {
+      oldLoadVa && oldLoadVa();
+      new Valine({
+        el: '#vcomments',
+        appId: 'Fb12FgxcTGFydqPfZAOKsZkb-gzGzoHsz',
+        appKey: 'OIQyDCrjzjWbBV6vCqiXKAUJ',
+        placeholder: 'Just go go',
+        path: window.location.pathname,
+        avatar: 'mp',
+        meta: ["nick","mail","link"],
+        pageSize: '10',
+        lang: '',
+        visitor: 'false',
+        highlight: true,
+        recordIP: false,
+        
+        
+        
+        enableQQ: 'false',
+        requiredFields: [],
+      });
+    };
+  </script>
+
+  </div>
+
+<div 
+  class="card card-content toc-card" 
+  id="mobiletoc">
+  <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>目录
+</div>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E7%BD%AE%E5%87%86%E5%A4%87"><span class="toc-number">1.</span> <span class="toc-text">前置准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD"><span class="toc-number">2.</span> <span class="toc-text">下载</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90"><span class="toc-number">3.</span> <span class="toc-text">代码生成</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%96%E5%86%99wsdl%E6%96%87%E4%BB%B6"><span class="toc-number">3.1.</span> <span class="toc-text">编写wsdl文件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9B%86%E6%88%90%E5%88%B0springboot"><span class="toc-number">4.</span> <span class="toc-text">集成到springboot</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%95%E5%85%A5%E4%BE%9D%E8%B5%96"><span class="toc-number">4.1.</span> <span class="toc-text">引入依赖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%96%E5%86%99wsdl%E6%96%87%E4%BB%B6-1"><span class="toc-number">4.2.</span> <span class="toc-text">编写wsdl文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E4%BB%A3%E7%A0%81"><span class="toc-number">4.3.</span> <span class="toc-text">生成代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%96%E5%86%99%E6%9C%8D%E5%8A%A1%E7%AB%AF"><span class="toc-number">4.4.</span> <span class="toc-text">编写服务端</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%96%E5%86%99%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="toc-number">4.5.</span> <span class="toc-text">编写客户端</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%AF%E8%83%BD%E5%87%BA%E7%8E%B0%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">5.</span> <span class="toc-text">可能出现的问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">6.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-number">7.</span> <span class="toc-text">参考链接</span></a></li></ol>
+</div>
+            </main>
+            <aside class="right-column">
+              <div class="sticky-widescreen">
+  
+  
+    <article class="card card-content toc-card">
+      <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>目录
+</div>
+<ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E7%BD%AE%E5%87%86%E5%A4%87"><span class="toc-number">1.</span> <span class="toc-text">前置准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD"><span class="toc-number">2.</span> <span class="toc-text">下载</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E7%94%9F%E6%88%90"><span class="toc-number">3.</span> <span class="toc-text">代码生成</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%96%E5%86%99wsdl%E6%96%87%E4%BB%B6"><span class="toc-number">3.1.</span> <span class="toc-text">编写wsdl文件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9B%86%E6%88%90%E5%88%B0springboot"><span class="toc-number">4.</span> <span class="toc-text">集成到springboot</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%95%E5%85%A5%E4%BE%9D%E8%B5%96"><span class="toc-number">4.1.</span> <span class="toc-text">引入依赖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%96%E5%86%99wsdl%E6%96%87%E4%BB%B6-1"><span class="toc-number">4.2.</span> <span class="toc-text">编写wsdl文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E4%BB%A3%E7%A0%81"><span class="toc-number">4.3.</span> <span class="toc-text">生成代码</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%96%E5%86%99%E6%9C%8D%E5%8A%A1%E7%AB%AF"><span class="toc-number">4.4.</span> <span class="toc-text">编写服务端</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%96%E5%86%99%E5%AE%A2%E6%88%B7%E7%AB%AF"><span class="toc-number">4.5.</span> <span class="toc-text">编写客户端</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%AF%E8%83%BD%E5%87%BA%E7%8E%B0%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-number">5.</span> <span class="toc-text">可能出现的问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">6.</span> <span class="toc-text">总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-number">7.</span> <span class="toc-text">参考链接</span></a></li></ol>
+    </article>
+  
+  
+  <article class="card card-content">
+    <div class="recent-posts-card">
+  <div class="recent-posts-header">
+    <i 
+      class="iconfont icon-wenzhang_huaban" 
+      style="padding-right: 2px;">
+    </i>最近文章
+  </div>
+  <div class="recent-posts-list">
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2023-11-10</div>
+        <a href="/springboot%E9%9B%86%E6%88%90cxf.html"><div class="recent-posts-item-content">springboot集成cxf</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2023-07-26</div>
+        <a href="/windows%E7%8E%AF%E5%A2%83rabbitmq%E5%AE%89%E8%A3%85.html"><div class="recent-posts-item-content">windows环境rabbitmq安装</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2023-07-25</div>
+        <a href="/windows%E7%89%88MySQL%E5%AE%89%E8%A3%85.html"><div class="recent-posts-item-content">Windows版MySQL安装</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2022-12-13</div>
+        <a href="/maven%E7%89%88%E6%9C%AC%E6%89%B9%E9%87%8F%E6%9B%BF%E6%8D%A2.html"><div class="recent-posts-item-content">maven版本批量替换</div></a>
+      </div>
+    
+  </div>
+</div>
+  </article>
+  
+  
+</div>
+            </aside>
+          </div>
+        </div>
+      </div>
+    </div>
+     
+    <footer class="footer">
+  <div class="footer-container">
+    <div>
+      <div class="footer-dsc">
+        <span>
+          Copyright ©
+          
+            2022
+          
+          
+                - 
+                2023
+          
+        </span>
+        &nbsp;
+        <a 
+          href="/" 
+          class="footer-link">
+          Chun's Blog
+        </a>
+      </div>
+    </div>
+
+    
+      <div class="footer-dsc">
+        
+          Powered by
+          <a 
+            href="https://hexo.io/" 
+            class="footer-link" 
+            target="_blank" 
+            rel="nofollow noopener noreferrer">
+            &nbsp;Hexo
+          </a>
+        
+        
+          <span>&nbsp;|&nbsp;</span>
+        
+        
+          Theme -
+          <a 
+            href="https://github.com/theme-kaze" 
+            class="footer-link" 
+            target="_blank"
+            rel="nofollow noopener noreferrer">
+            &nbsp;Kaze
+          </a>
+        
+      </div>
+    
+    
+    
+      <div class="BbeiAn-info">
+        <a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">粤ICP备19001235号 </a>
+      </div>
+      
+    
+    
+</footer>
+ 
+    
+  <a 
+    role="button" 
+    id="scrollbutton" 
+    class="basebutton" 
+    aria-label="回到顶部">
+    <i class="iconfont icon-arrowleft button-icon"></i>
+  </a>
+
+<a 
+  role="button" 
+  id="menubutton"
+  aria-label="menu button"
+  class="basebutton">
+  <i class="iconfont icon-menu button-icon"></i>
+</a>
+<a 
+  role="button" 
+  id="popbutton" 
+  class="basebutton" 
+  aria-label="控制中心">
+  <i class="iconfont icon-expand button-icon"></i>
+</a>
+<a 
+  role="button" 
+  id="darkbutton" 
+  class="basebutton darkwidget" 
+  aria-label="夜色模式">
+  <i class="iconfont icon-weather button-icon"></i>
+</a>
+<a 
+  role="button" 
+  id="searchbutton" 
+  class="basebutton searchwidget" 
+  aria-label="搜索">
+  <i class="iconfont icon-search button-icon"></i>
+</a> 
+     
+     
+     
+      <script>
+  var addImgLayout = function () {
+    var img = document.querySelectorAll('.post-content img')
+    var i
+    for (i = 0; i < img.length; i++) {
+      var wrapper = document.createElement('a')
+      wrapper.setAttribute('href', img[i].getAttribute('data-src'))
+      wrapper.setAttribute('aria-label', 'illustration')
+      wrapper.style.cssText =
+        'width: 100%; display: flex; justify-content: center;'
+      if (img[i].alt) wrapper.dataset.caption = img[i].alt
+      wrapper.dataset.nolink = true
+      img[i].before(wrapper)
+      wrapper.append(img[i])
+      var divWrap = document.createElement('div')
+      divWrap.classList.add('gallery')
+      wrapper.before(divWrap)
+      divWrap.append(wrapper)
+    }
+    baguetteBox.run('.gallery')
+  }
+</script>
+<script>
+  loadScript(
+    "/js/lib/lightbox/baguetteBox.min.js",
+    addImgLayout
+  )
+</script>
+ 
+     
+     
+    <script src="/js/main.js"></script> 
+     
+    
+      <script>
+        var addLazyload = function () {
+          var observer = lozad('.lozad', {
+            load: function (el) {
+              el.srcset = el.getAttribute('data-src')
+            },
+            loaded: function (el) {
+              el.classList.add('loaded')
+            },
+          })
+          observer.observe()
+        }
+      </script>
+      <script>
+        loadScript('/js/lib/lozad.min.js', addLazyload)
+      </script>
+    
+    <script src="//instant.page/5.1.0" type="module"
+      integrity="sha384-by67kQnR+pyfy8yWP4kPO12fHKRLHZPfEsiSXR8u2IKcTdxD805MGUXBzVPnkLHw"></script>
+    
+      <script>
+        var googleAnalytics = function () {
+          window.dataLayer = window.dataLayer || []
+          function gtag() {
+            dataLayer.push(arguments)
+          }
+          gtag('js', new Date())
+          gtag('config', 'G-GZE49Y8JZ5')
+        }
+    </script>
+      <script>
+        loadScript(
+          'https://www.googletagmanager.com/gtag/js?id=' +
+            'G-GZE49Y8JZ5',
+          googleAnalytics
+        )
+      </script>
+    
+    
+      <script src="https://cdn.jsdelivr.net/npm/algoliasearch@4.14.2/dist/algoliasearch.umd.js"></script>
+      <script>
+        setTimeout(() => {localAlgoliasearch(10)}, 0)
+      </script>
+    
+  </body>
+</html>
